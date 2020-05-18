@@ -17,7 +17,7 @@ import javafx.stage.FileChooser;
 /**
  * FXML Controller class
  *
- * @author dmatu
+ * @author Serllet
  */
 public class FXMLCargarPDFController implements Initializable {
 

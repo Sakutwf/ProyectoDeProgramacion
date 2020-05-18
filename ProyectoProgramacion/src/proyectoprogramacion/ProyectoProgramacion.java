@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author dmatu
+ * @author Serllet
  */
 public class ProyectoProgramacion extends Application {
     

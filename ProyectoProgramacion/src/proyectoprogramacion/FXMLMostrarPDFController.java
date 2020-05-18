@@ -12,7 +12,7 @@ import javafx.fxml.Initializable;
 /**
  * FXML Controller class
  *
- * @author dmatu
+ * @author Serllet
  */
 public class FXMLMostrarPDFController implements Initializable {
 
