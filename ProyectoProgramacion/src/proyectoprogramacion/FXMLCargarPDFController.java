@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 /**
@@ -28,6 +29,8 @@ public class FXMLCargarPDFController implements Initializable {
     
     @FXML
     private Button btnCargarPDF;
+    @FXML
+    private ImageView image;
 
     @FXML
     void onActionHandle(ActionEvent event) {

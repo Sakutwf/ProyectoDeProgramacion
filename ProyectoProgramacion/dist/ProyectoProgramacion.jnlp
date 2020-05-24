@@ -8,7 +8,16 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProyectoProgramacion.jar" size="1357307" download="eager" />
+    <jar href="ProyectoProgramacion.jar" size="1359109" download="eager" />
+    <jar href="lib\OpenViewerFX-6.6.14-sources.jar" size="3495783" download="eager" />
+    <jar href="lib\OpenViewerFX-7.15.25.jar" size="5271184" download="eager" />
+    <jar href="lib\fontbox-2.0.19.jar" size="1561265" download="eager" />
+    <jar href="lib\pdfbox-2.0.19.jar" size="2715618" download="eager" />
+    <jar href="lib\pdfbox-app-2.0.19.jar" size="9893221" download="eager" />
+    <jar href="lib\pdfbox-tools-2.0.19.jar" size="81206" download="eager" />
+    <jar href="lib\preflight-2.0.19.jar" size="247912" download="eager" />
+    <jar href="lib\preflight-app-2.0.19.jar" size="9931420" download="eager" />
+    <jar href="lib\xmpbox-2.0.19.jar" size="132182" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ProyectoProgramacion" >
     <param name="requiredFXVersion" value="8.0+"/>
