@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 
 /**
@@ -28,6 +29,8 @@ public class FXMLCargarPDFController implements Initializable {
     
     @FXML
     private Button btnCargarPDF;
+    @FXML
+    private ImageView image;
 
     @FXML
     void onActionHandle(ActionEvent event) {
