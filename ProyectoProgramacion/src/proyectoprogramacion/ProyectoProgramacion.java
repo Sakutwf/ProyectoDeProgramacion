@@ -20,11 +20,11 @@ import javafx.stage.Stage;
  * @author Serllet
  */
 public class ProyectoProgramacion extends Application {
-    
+     static PDDocument document;
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FXMLCargarPDF.fxml"));
-        /*
+        
         stage.setTitle("JavaFX App");
 
         FileChooser fileChooser = new FileChooser();
@@ -32,11 +32,11 @@ public class ProyectoProgramacion extends Application {
         Button button = new Button("Select File");
         button.setOnAction(e -> {
             File selectedFile = fileChooser.showOpenDialog(stage);
+        
         });
-
+               
         VBox vBox = new VBox(button);
-        Scene scene = new Scene(vBox, 960, 600);*/
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(vBox, 960, 600);
         stage.show();
         stage.setScene(scene);
         stage.show();
