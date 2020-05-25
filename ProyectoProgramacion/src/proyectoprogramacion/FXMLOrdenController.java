@@ -90,12 +90,14 @@ public class FXMLOrdenController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       
+           PDF.setImage(pdf);
+       
     }
 
     void parametros(Image imge) {
         this.pdf= imge;
-        PDF.setImage(imge);
+        PDF.setImage(this.pdf);
     }
 
     @FXML
@@ -103,6 +105,8 @@ public class FXMLOrdenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDibujar.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
+             FXMLDibujarController controlador = (FXMLDibujarController) fxmlLoader.getController();
+            controlador.parametros(pdf);
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
@@ -116,8 +120,8 @@ public class FXMLOrdenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLMostrarPDF.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
-            FXMLDibujarController controlador = (FXMLDibujarController) fxmlLoader.getController();
-            controlador.parametros(pdf);
+            FXMLMostrarPDFController controlador = (FXMLMostrarPDFController) fxmlLoader.getController();
+            //controlador.parametros(pdf);
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
