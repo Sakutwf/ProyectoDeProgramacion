@@ -13,6 +13,29 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.scene.image.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.application.Application;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Group;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImage;
+import org.apache.pdfbox.rendering.PDFRenderer;
+import org.apache.pdfbox.tools.PDFToImage;
 
 /**
  * FXML Controller class
@@ -24,30 +47,79 @@ public class FXMLCargarPDFController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-    
+    private PDDocument document = new PDDocument();
+    private ImageView image = new ImageView();
+    private Group root2 = new Group();
+
     @FXML
     private Button btnCargarPDF;
 
     @FXML
     void onActionHandle(ActionEvent event) {
-            FileChooser escogerPDF = new FileChooser();
-            escogerPDF.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
-            File archivoPDF = escogerPDF.showOpenDialog(null);
-            if (archivoPDF != null)
-            {
-                System.out.println("File: " + archivoPDF.getAbsolutePath());
+        FileChooser escogerPDF = new FileChooser();
+        escogerPDF.getExtensionFilters().add(new FileChooser.ExtensionFilter("PDF Files", "*.pdf"));
+        File archivoPDF = escogerPDF.showOpenDialog(null);
+        if (archivoPDF != null) {
+            document.addPage(new PDPage());
+            System.out.println("File: " + archivoPDF.getAbsolutePath());
+            try {
+                System.out.println(archivoPDF.getAbsoluteFile());
+                document = PDDocument.load(archivoPDF);
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                PDFRenderer pr = new PDFRenderer(document);
+                BufferedImage img = pr.renderImage(0);
+                File outputfile = new File("saved.png");
+                ImageIO.write(img, "png", outputfile);
+                document.close();
+                Image imge = SwingFXUtils.toFXImage(img, null);
+                image.setImage(imge);
+                FXMLOrdenController controlador = (FXMLOrdenController) fxmlLoader.getController();
+                controlador.parametros(imge);
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.show();
+
+
+            } catch (IOException ex) {
+                Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+
+////        try {
+////            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLEstudiante.fxml"));
+////            Parent root1 = (Parent) fxmlLoader.load();
+////
+////            Stage stage = new Stage();
+////            stage.setScene(new Scene(root1));
+////
+////            FXMLEstudianteController estudiante = (FXMLEstudianteController) fxmlLoader.getController();
+////            estudiante.parametros(usuario1.getNombre(), "Estudiante");
+////
+////            stage.show();
+////
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//          Button button = new Button("Select File");
+//              button.setOnAction(e -> {
+//            document.addPage(new PDPage());
+//            File selectedfile = fileChooser.showOpenDialog(null);
+//            if(selectedfile !=null){
+//                
+//                
+//            }
+//        });       
+//        VBox vBox = new VBox(button);
+//        Scene scene = new Scene(vBox, 960, 600);
+//        stage.setScene(scene);
+//        stage.show();   
+//            
     }
-    
-    
-    
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }
