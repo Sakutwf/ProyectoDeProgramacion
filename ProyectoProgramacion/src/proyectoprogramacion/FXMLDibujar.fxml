@@ -28,7 +28,7 @@
                   <Image url="@../../../../../flecha.png" />
                </image>
             </ImageView>
-            <Label fx:id="CuadroTexto" layoutX="92.0" layoutY="373.0" prefHeight="87.0" prefWidth="423.0" textFill="WHITE">
+            <Label fx:id="CuadroTexto" layoutX="80.0" layoutY="373.0" prefHeight="87.0" prefWidth="423.0" textFill="WHITE">
                <font>
                   <Font name="Tahoma" size="47.0" />
                </font>
@@ -45,12 +45,11 @@
             <Image url="@images/12.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="Eliminar2" fitHeight="80.0" fitWidth="63.0" layoutX="985.0" layoutY="919.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Eliminar2" fitHeight="80.0" fitWidth="63.0" layoutX="985.0" layoutY="919.0" onMouseClicked="#eliminarCanvas" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/img_211243.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="PDFDibujo" fitHeight="872.0" fitWidth="628.0" layoutX="624.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
       <Canvas fx:id="dibujo" height="872.0" layoutX="624.0" layoutY="43.0" onMouseDragged="#handleMouse" onMousePressed="#handleMouse" onMouseReleased="#handleMouse" width="628.0" />
    </children>
 </AnchorPane>

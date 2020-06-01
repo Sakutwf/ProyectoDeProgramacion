@@ -1,48 +1,32 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyectoprogramacion;
 
-import java.awt.image.BufferedImage;
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.Initializable;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
 import javafx.scene.image.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.graphics.image.PDImage;
-import org.apache.pdfbox.rendering.PDFRenderer;
-import org.apache.pdfbox.tools.PDFToImage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 
 /**
  * FXML Controller class
@@ -91,8 +75,14 @@ public class FXMLOrdenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        PDF.setImage(pdf);
+        try {
+            BufferedImage buffer = ImageIO.read(new File("image.png"));;
+            Image imge = SwingFXUtils.toFXImage(buffer, null);
+            this.pdf = imge;
+            PDF.setImage(pdf);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -110,34 +100,33 @@ public class FXMLOrdenController implements Initializable {
 
             // colores por boton
             if (event.getSource() == NombreC) {
-                controlador.parametros(pdf, Color.PURPLE);
+                controlador.parametros(pdf, Color.PURPLE, "Nombre Cliente");
             } else if (event.getSource() == RutC) {
-                controlador.parametros(pdf, Color.PINK);
-            } else if (event.getSource() == RutC) {
-                controlador.parametros(pdf, Color.GREEN);
+                controlador.parametros(pdf, Color.GREEN, "Rut Cliente");
             } else if (event.getSource() == EmailC) {
-                controlador.parametros(pdf, Color.BLUE);
+                controlador.parametros(pdf, Color.BLUE, "Email Cliente");
             } else if (event.getSource() == NombreV) {
-                controlador.parametros(pdf, Color.RED);
+                controlador.parametros(pdf, Color.RED, "Nombre vendedor");
             } else if (event.getSource() == RutV) {
-                controlador.parametros(pdf, Color.BLACK);
-            } else if (event.getSource() == Total){
-                controlador.parametros(pdf, Color.ORANGE);
-        }
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root1));
-        stage.show();
-    }
-    catch (IOException ex
+                controlador.parametros(pdf, Color.BLACK, "Rut vendedor");
+            } else if (event.getSource() == Total) {
+                controlador.parametros(pdf, Color.ORANGE, "Total compra");
+            }
 
-    
-        ) {
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.show();
+        } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-}
 
-@FXML
+    @FXML
     void finalizarDibujo(ActionEvent event) {
+        if (event.getSource() == FinalizarO) {
+            guardarImagen();
+            System.out.println("SSSS");
+        }
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLMostrarPDF.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -146,11 +135,31 @@ public class FXMLOrdenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-        
 
-} catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class
-.getName()).log(Level.SEVERE, null, ex);
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    // Guardar Imagen en PDF
+
+    public void guardarImagen() {
+        try (PDDocument document = new PDDocument()) {
+            InputStream in = new FileInputStream("image.png");
+            BufferedImage bimg = ImageIO.read(in);
+            float width = bimg.getWidth();
+            float height = bimg.getHeight();
+            PDPage page = new PDPage(new PDRectangle(width, height));
+            document.addPage(page);
+            PDImageXObject pdImage = PDImageXObject.createFromFile("image.png", document);
+            PDPageContentStream contentStream = new PDPageContentStream(document, page);
+            contentStream.drawImage(pdImage, 0, 0);
+            contentStream.close();
+            in.close();
+
+            document.save("test.pdf");
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
