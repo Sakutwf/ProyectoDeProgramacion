@@ -62,6 +62,7 @@ public class FXMLCargarPDFController implements Initializable {
                 controlador.parametros(imge);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
+                stage.setResizable(false);
                 stage.show();
 
             } catch (IOException ex) {

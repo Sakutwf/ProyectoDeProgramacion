@@ -134,6 +134,7 @@ public class FXMLOrdenController implements Initializable {
             //controlador.parametros(pdf);
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
+            stage.setResizable(false);
             stage.show();
 
         } catch (IOException ex) {
