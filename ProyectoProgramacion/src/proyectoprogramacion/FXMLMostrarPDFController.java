@@ -27,7 +27,7 @@ public class FXMLMostrarPDFController implements Initializable {
      */
     @FXML
     private ImageView PDFmodificado;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -38,5 +38,5 @@ public class FXMLMostrarPDFController implements Initializable {
             Logger.getLogger(FXMLMostrarPDFController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

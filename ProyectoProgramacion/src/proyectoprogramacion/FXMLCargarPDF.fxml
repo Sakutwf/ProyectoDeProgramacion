@@ -21,6 +21,11 @@
                   <Font size="24.0" />
                </font>
             </Label>
+            <Label layoutX="16.0" layoutY="63.0" prefHeight="72.0" prefWidth="376.0" text="Cada color representa un elemento " textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
       <Label layoutX="67.0" layoutY="67.0" text="¡Bienvenido!" textFill="#f1b3ce">

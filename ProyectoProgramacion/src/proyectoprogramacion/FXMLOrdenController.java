@@ -157,7 +157,7 @@ public class FXMLOrdenController implements Initializable {
             contentStream.close();
             in.close();
 
-            document.save("test.pdf");
+            document.save("dibujo.pdf");
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
         }
