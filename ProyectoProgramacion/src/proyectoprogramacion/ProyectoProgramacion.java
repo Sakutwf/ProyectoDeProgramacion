@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
 /**
  *
  * @author Serllet
@@ -33,5 +34,9 @@ public class ProyectoProgramacion extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+    
+
+
+
     
 }

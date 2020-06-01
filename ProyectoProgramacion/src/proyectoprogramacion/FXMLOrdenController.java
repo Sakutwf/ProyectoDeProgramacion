@@ -34,6 +34,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -85,18 +86,18 @@ public class FXMLOrdenController implements Initializable {
 
     @FXML
     private ImageView Eliminar;
-    
+
     private Image pdf;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-           PDF.setImage(pdf);
-       
+
+        PDF.setImage(pdf);
+
     }
 
     void parametros(Image imge) {
-        this.pdf= imge;
+        this.pdf = imge;
         PDF.setImage(this.pdf);
     }
 
@@ -105,17 +106,37 @@ public class FXMLOrdenController implements Initializable {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLDibujar.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
-             FXMLDibujarController controlador = (FXMLDibujarController) fxmlLoader.getController();
-            controlador.parametros(pdf);
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+            FXMLDibujarController controlador = (FXMLDibujarController) fxmlLoader.getController();
 
-    @FXML
+            // colores por boton
+            if (event.getSource() == NombreC) {
+                controlador.parametros(pdf, Color.PURPLE);
+            } else if (event.getSource() == RutC) {
+                controlador.parametros(pdf, Color.PINK);
+            } else if (event.getSource() == RutC) {
+                controlador.parametros(pdf, Color.GREEN);
+            } else if (event.getSource() == EmailC) {
+                controlador.parametros(pdf, Color.BLUE);
+            } else if (event.getSource() == NombreV) {
+                controlador.parametros(pdf, Color.RED);
+            } else if (event.getSource() == RutV) {
+                controlador.parametros(pdf, Color.BLACK);
+            } else if (event.getSource() == Total){
+                controlador.parametros(pdf, Color.ORANGE);
+        }
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        stage.show();
+    }
+    catch (IOException ex
+
+    
+        ) {
+            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
+@FXML
     void finalizarDibujo(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLMostrarPDF.fxml"));
@@ -125,8 +146,11 @@ public class FXMLOrdenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+        
+
+} catch (IOException ex) {
+            Logger.getLogger(FXMLOrdenController.class
+.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
