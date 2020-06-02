@@ -34,6 +34,8 @@ public class FXMLMostrarPDFController implements Initializable {
             BufferedImage buffer = ImageIO.read(new File("image.png"));;
             Image imge = SwingFXUtils.toFXImage(buffer, null);
             this.PDFmodificado.setImage(imge);
+            
+            
         } catch (IOException ex) {
             Logger.getLogger(FXMLMostrarPDFController.class.getName()).log(Level.SEVERE, null, ex);
         }

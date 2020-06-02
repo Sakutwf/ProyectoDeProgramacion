@@ -27,6 +27,8 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -58,6 +60,16 @@ public class FXMLDibujarController implements Initializable {
 
     @FXML
     private Label CuadroTexto;
+    @FXML
+    private AnchorPane ap;
+    @FXML
+    private Button Finalizar;
+    @FXML
+    private ImageView Deshacer2;
+    @FXML
+    private ImageView Rehacer2;
+    @FXML
+    private ImageView Eliminar2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,6 +84,7 @@ public class FXMLDibujarController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
+            ((Stage)this.ap.getScene().getWindow()).close(); 
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,7 +92,6 @@ public class FXMLDibujarController implements Initializable {
 
     }
 
-    @FXML
     public void atras(MouseEvent event) throws IOException {
         if (event.getSource() == Atras) {
             try {
@@ -87,6 +99,8 @@ public class FXMLDibujarController implements Initializable {
                 Parent root1 = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
+                stage.setResizable(false);
+                ((Stage)this.ap.getScene().getWindow()).close();
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -98,7 +112,9 @@ public class FXMLDibujarController implements Initializable {
         imagenPDF = imge;
         CuadroTexto.setText(nombre);
         colorRectangulo = colorR;
-        gc.drawImage(imagenPDF, 0, 0);
+        gc.drawImage(imagenPDF, 0, 0, 316, 468);
+        //CUALES SON LAS DIMENSIONES DEL CANVAS?? 316 468?
+        
     }
 
     @FXML
@@ -168,6 +184,10 @@ public class FXMLDibujarController implements Initializable {
             Logger.getLogger(FXMLDibujarController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+
+    @FXML
+    private void onAction(MouseEvent event) {
     }
 
 }

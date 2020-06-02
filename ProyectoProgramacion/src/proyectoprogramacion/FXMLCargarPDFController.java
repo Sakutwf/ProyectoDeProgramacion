@@ -16,7 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -37,6 +39,10 @@ public class FXMLCargarPDFController implements Initializable {
     private PDDocument document = new PDDocument();
     private ImageView image = new ImageView();
     private Group root2 = new Group();
+    @FXML
+    private AnchorPane ap;
+    @FXML
+    private Button btnCargarPDF;
 
     @FXML
     void onActionHandle(ActionEvent event) {
@@ -63,8 +69,10 @@ public class FXMLCargarPDFController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.setResizable(false);
+                ((Stage)this.ap.getScene().getWindow()).close();    ///Para cerrar userform            
                 stage.show();
-
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }

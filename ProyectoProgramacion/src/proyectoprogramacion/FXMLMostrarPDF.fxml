@@ -11,6 +11,6 @@
             <Image url="@images/fondo.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="PDFmodificado" fitHeight="547.0" fitWidth="507.0" layoutX="295.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="PDFmodificado" fitHeight="547.0" fitWidth="507.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

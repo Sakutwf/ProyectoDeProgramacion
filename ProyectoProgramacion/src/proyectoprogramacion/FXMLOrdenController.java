@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -72,6 +73,8 @@ public class FXMLOrdenController implements Initializable {
     private ImageView Eliminar;
 
     private Image pdf;
+    @FXML
+    private AnchorPane AnchorPane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,6 +92,7 @@ public class FXMLOrdenController implements Initializable {
     void parametros(Image imge) {
         this.pdf = imge;
         PDF.setImage(this.pdf);
+        
     }
 
     @FXML
@@ -115,6 +119,7 @@ public class FXMLOrdenController implements Initializable {
 
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
+            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -135,7 +140,13 @@ public class FXMLOrdenController implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
+            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
             stage.show();
+            
+            Stage st = (Stage)this.AnchorPane.getScene().getWindow();
+            st.hide();
+            
+            stage.show(); 
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class
