@@ -118,6 +118,7 @@ public class FXMLOrdenController implements Initializable {
             }
 
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
             ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
             stage.show();

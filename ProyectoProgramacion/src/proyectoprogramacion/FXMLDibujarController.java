@@ -83,6 +83,7 @@ public class FXMLDibujarController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
             ((Stage)this.ap.getScene().getWindow()).close(); 
             stage.show();
