@@ -27,6 +27,7 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
@@ -45,6 +46,7 @@ public class FXMLDibujarController implements Initializable {
     private File destination = new File("image.png");
     private Color colorRectangulo;
     private int contadorRectangulo = 0;
+    private String nombre;
     GraphicsContext gc;
     @FXML
     Canvas dibujo;
@@ -54,7 +56,6 @@ public class FXMLDibujarController implements Initializable {
     SimpleDoubleProperty rectinitY = new SimpleDoubleProperty();
     SimpleDoubleProperty rectX = new SimpleDoubleProperty();
     SimpleDoubleProperty rectY = new SimpleDoubleProperty();
-
     @FXML
     private ImageView Atras;
 
@@ -114,12 +115,11 @@ public class FXMLDibujarController implements Initializable {
         CuadroTexto.setText(nombre);
         colorRectangulo = colorR;
         gc.drawImage(imagenPDF, 0, 0, 316, 468);
-        //CUALES SON LAS DIMENSIONES DEL CANVAS?? 316 468?
-        
+
     }
 
     @FXML
-    public void eliminarCanvas(MouseEvent event) {
+    public void eliminarCanvas(MouseEvent event) {  //no lo esta borrando de la imagen generada .png
         //Eliminar dibujo
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             GraphicsContext gc = dibujo.getGraphicsContext2D();
@@ -128,6 +128,10 @@ public class FXMLDibujarController implements Initializable {
             gc.clearRect(0, 0, dibujo.getWidth(), dibujo.getHeight());
             gc.drawImage(imagenPDF, 0, 0);
             contadorRectangulo--;
+            for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
+                //necesito forma de identificarlo
+            }
+            ListaRectangulosSingleton.getRectangulos().add(rect);
         }
     }
 
@@ -168,6 +172,14 @@ public class FXMLDibujarController implements Initializable {
                 // color rectangulo
                 gc.setStroke(colorRectangulo);
                 gc.strokeRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+                //Se le asigna una id al rectangulo
+                rect.setId(CuadroTexto.getText());
+                //Se agrega el rectangulo a la lista
+                ListaRectangulosSingleton.getRectangulos().add(rect);
+                for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
+                    System.out.println(ListaRectangulosSingleton.getRectangulos().get(i).getId());
+                }
+
                 take(gc.getCanvas());
             }
         }

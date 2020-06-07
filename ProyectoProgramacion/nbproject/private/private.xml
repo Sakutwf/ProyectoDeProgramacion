@@ -5,10 +5,13 @@
         <group>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDF.fxml</file>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLOrdenController.java</file>
+            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaUndoSingleton.java</file>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLDibujarController.java</file>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDFController.java</file>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLMostrarPDFController.java</file>
+            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaRedoSingleton.java</file>
             <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ProyectoProgramacion.java</file>
+            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaRectangulosSingleton.java</file>
         </group>
     </open-files>
 </project-private>
