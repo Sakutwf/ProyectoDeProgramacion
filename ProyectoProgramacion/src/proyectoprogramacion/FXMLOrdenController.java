@@ -19,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -69,8 +70,6 @@ public class FXMLOrdenController implements Initializable {
     @FXML
     private ImageView Rehacer;
 
-    @FXML
-    private ImageView Eliminar;
 
     private Image pdf;
     @FXML
@@ -174,5 +173,15 @@ public class FXMLOrdenController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void Undo(MouseEvent event) {
+        ListaRectangulosSingleton.deshacer();
+    }
+
+    @FXML
+    private void Redo(MouseEvent event) {
+        ListaRectangulosSingleton.rehacer();
     }
 }

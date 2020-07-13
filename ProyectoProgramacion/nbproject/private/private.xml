@@ -3,15 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDF.fxml</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLOrdenController.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaUndoSingleton.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLDibujarController.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDFController.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLMostrarPDFController.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaRedoSingleton.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ProyectoProgramacion.java</file>
-            <file>file:/C:/Users/etern/OneDrive/Escritorio/u/Proyecto%20de%20Programacion/Git/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaRectangulosSingleton.java</file>
+            <file>file:/C:/Users/Saaku/Desktop/Saaku/U/Proyecto/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLMostrarPDFController.java</file>
+            <file>file:/C:/Users/Saaku/Desktop/Saaku/U/Proyecto/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/Rectangulo.java</file>
+            <file>file:/C:/Users/Saaku/Desktop/Saaku/U/Proyecto/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/ListaRectangulosSingleton.java</file>
+            <file>file:/C:/Users/Saaku/Desktop/Saaku/U/Proyecto/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLOrdenController.java</file>
+            <file>file:/C:/Users/Saaku/Desktop/Saaku/U/Proyecto/ProyectoDeProgramacion/ProyectoProgramacion/src/proyectoprogramacion/FXMLDibujarController.java</file>
         </group>
     </open-files>
 </project-private>

@@ -6,41 +6,87 @@
 package proyectoprogramacion;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  *
  * @author Saaku
  */
 public class ListaRectangulosSingleton {
-    public static ArrayList<Rectangle> listaDeRectangulos = null;
+    public static ArrayList<Rectangulo> listaDeRectangulos = null;
     
-    public static ArrayList<Rectangle> getRectangulos(){
+    public static ArrayList<Rectangulo> getRectangulos(){
         if(ListaRectangulosSingleton.listaDeRectangulos == null){
-            ListaRectangulosSingleton.listaDeRectangulos = new ArrayList<Rectangle>();
+            ListaRectangulosSingleton.listaDeRectangulos = new ArrayList<Rectangulo>();
         }
         return ListaRectangulosSingleton.listaDeRectangulos;
     }
     
-    public static ArrayList<Rectangle> Undo = null;
+//   Aqui para Undo
     
-    public static ArrayList<Rectangle> getUndo(){
-        if(ListaRectangulosSingleton.Undo == null){
-            ListaRectangulosSingleton.Undo = new ArrayList<Rectangle>();
+    
+    public static ArrayList<ArrayList<Rectangulo>> undo = null;
+    
+    public static ArrayList<ArrayList<Rectangulo>> getUndo(){
+        if(ListaRectangulosSingleton.undo == null){
+            ListaRectangulosSingleton.undo = new ArrayList<ArrayList<Rectangulo>>();
         }
-        return ListaRectangulosSingleton.Undo;
+        return ListaRectangulosSingleton.undo;
     }
     
-    
-    public static ArrayList<Rectangle> Redo = null;
-    
-    public static ArrayList<Rectangle> getRedo(){
-        if(ListaRectangulosSingleton.Redo == null){
-            ListaRectangulosSingleton.Redo = new ArrayList<Rectangle>();
+    public static void deshacer(){
+        ArrayList<Rectangulo> listaAuxiliar = new ArrayList<Rectangulo>();
+        int ultimoElemento = ListaRectangulosSingleton.getUndo() == null? 0 : 
+                ListaRectangulosSingleton.getUndo().size()-1;
+
+        if (ListaRectangulosSingleton.getUndo() == null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("I have a great message for you!");
+            alert.showAndWait();
         }
-        return ListaRectangulosSingleton.Redo;
+        else{
+            for (int i = 0; i < (ListaRectangulosSingleton.getUndo().get(ultimoElemento).size()-1); i++) {
+            listaAuxiliar.add(ListaRectangulosSingleton.getUndo().get(ultimoElemento).get(i));
+            }
+            ListaRectangulosSingleton.getRedo().add(ListaRectangulosSingleton.getUndo().get(ultimoElemento));
+            ListaRectangulosSingleton.getUndo().remove(ListaRectangulosSingleton.getUndo().get(ultimoElemento));
+            ListaRectangulosSingleton.listaDeRectangulos = listaAuxiliar; 
+            }
+        }
+    
+    
+   //   Aqui para Redo 
+    public static ArrayList<ArrayList<Rectangulo>> redo = null;
+    
+    public static ArrayList<ArrayList<Rectangulo>> getRedo(){
+        if(ListaRectangulosSingleton.redo == null){
+            ListaRectangulosSingleton.redo = new ArrayList<ArrayList<Rectangulo>>();
+        }
+        return ListaRectangulosSingleton.redo;
     }
     
-    
-    
-    
+    public static void rehacer(){
+        ArrayList<Rectangulo> listaAuxiliar =  new ArrayList<Rectangulo>();
+        int ultimoElemento = ListaRectangulosSingleton.getUndo() == null? -1 : 
+                ListaRectangulosSingleton.getUndo().size()-1;
+        
+        if (ListaRectangulosSingleton.getRedo() == null) {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("I have a great message for you!");
+            alert.showAndWait();
+        }
+        else{
+            for (int i = 0; i < (ListaRectangulosSingleton.getUndo().get(ultimoElemento).size()-1); i++) {
+                listaAuxiliar.add(ListaRectangulosSingleton.getUndo().get(ultimoElemento).get(i));
+            }
+            ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRedo().get(ultimoElemento));
+            ListaRectangulosSingleton.getRedo().remove(ListaRectangulosSingleton.getRedo().get(ultimoElemento));
+            ListaRectangulosSingleton.listaDeRectangulos = listaAuxiliar;
+            }
+        }
 }

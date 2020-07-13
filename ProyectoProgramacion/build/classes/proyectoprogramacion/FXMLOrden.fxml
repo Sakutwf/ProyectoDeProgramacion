@@ -53,19 +53,14 @@
             <Font name="Tahoma" size="20.0" />
          </font>
       </Button>
-      <ImageView fx:id="Deshacer" fitHeight="72.0" fitWidth="60.0" layoutX="444.0" layoutY="508.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Deshacer" fitHeight="72.0" fitWidth="60.0" layoutX="580.0" layoutY="508.0" onMouseClicked="#Undo" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/11.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="Rehacer" fitHeight="82.0" fitWidth="70.0" layoutX="518.0" layoutY="503.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="Rehacer" fitHeight="82.0" fitWidth="70.0" layoutX="664.0" layoutY="503.0" onMouseClicked="#Redo" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/12.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="Eliminar" fitHeight="53.0" fitWidth="43.0" layoutX="607.0" layoutY="514.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/img_211243.png" />
          </image>
       </ImageView>
       <ImageView fx:id="PDF" fitHeight="418.0" fitWidth="353.0" layoutX="381.0" layoutY="85.0" pickOnBounds="true" />

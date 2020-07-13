@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="ap" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprogramacion.FXMLCargarPDFController">
+<AnchorPane fx:id="ap" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectoprogramacion.FXMLCargarPDFController">
    <children>
-      <ImageView fitHeight="1024.0" fitWidth="1280.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="655.0" fitWidth="816.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@images/fondo.jpg" />
          </image>
@@ -28,7 +28,7 @@
             <Font name="Tahoma" size="50.0" />
          </font>
       </Label>
-      <Button fx:id="btnCargarPDF" layoutX="545.0" layoutY="522.0" mnemonicParsing="false" onAction="#onActionHandle" prefHeight="46.0" prefWidth="222.0" style="-fx-background-color: #7d5d9e; -fx-background-radius: 10 10 10 10;" text="Cargar PDF" textFill="WHITE">
+      <Button fx:id="btnCargarPDF" layoutX="560.0" layoutY="571.0" mnemonicParsing="false" onAction="#onActionHandle" prefHeight="46.0" prefWidth="222.0" style="-fx-background-color: #7d5d9e; -fx-background-radius: 10 10 10 10;" text="Cargar PDF" textFill="WHITE">
          <font>
             <Font name="Tahoma" size="24.0" />
          </font>
