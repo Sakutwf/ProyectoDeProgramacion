@@ -1,0 +1,12 @@
+[{"puntoX":33.0,"puntoY":134.0,"ID":"Nombre Cliente"},{"puntoX":149.0,"puntoY":222.0,"ID":"Nombre vendedor"}][
+  {
+    "puntoX": 66.0,
+    "puntoY": 165.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 161.0,
+    "puntoY": 164.0,
+    "ID": "Rut Cliente"
+  }
+]

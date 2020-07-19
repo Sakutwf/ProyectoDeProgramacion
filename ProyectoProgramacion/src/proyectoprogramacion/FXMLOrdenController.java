@@ -1,5 +1,6 @@
 package proyectoprogramacion;
 
+import com.google.gson.Gson;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -152,6 +153,7 @@ public class FXMLOrdenController implements Initializable {
             Logger.getLogger(FXMLOrdenController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        ListaRectangulosSingleton.serializarListaRectangulos();
     }
     // Guardar Imagen en PDF
 

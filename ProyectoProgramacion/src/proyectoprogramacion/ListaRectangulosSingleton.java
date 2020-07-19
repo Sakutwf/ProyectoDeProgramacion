@@ -4,10 +4,18 @@
  * and open the template in the editor.
  */
 package proyectoprogramacion;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import javafx.scene.shape.Rectangle;
 import java.util.ArrayList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javax.annotation.processing.FilerException;
 
 /**
  *
@@ -22,6 +30,40 @@ public class ListaRectangulosSingleton {
         }
         return ListaRectangulosSingleton.listaDeRectangulos;
     }
+    
+    public static void serializarListaRectangulos(){
+       try {
+            ArrayList<AdapterRectangulo> listaAdaptada = new ArrayList<AdapterRectangulo>();
+           for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
+               double x = ListaRectangulosSingleton.getRectangulos().get(i).getX();
+               double y = ListaRectangulosSingleton.getRectangulos().get(i).getY();
+               String id = ListaRectangulosSingleton.getRectangulos().get(i).getDato();
+               AdapterRectangulo rectanguloAdaptado = new AdapterRectangulo(x, y, id);
+               listaAdaptada.add(rectanguloAdaptado);
+               
+           }
+        Type tipo = new TypeToken<ArrayList<AdapterRectangulo>>() {}.getType();
+            String json = new GsonBuilder().setPrettyPrinting().create().toJson(listaAdaptada,tipo);
+            FileWriter writer = new FileWriter("ListaRectangulosJson", true);
+                BufferedWriter bw = new BufferedWriter(writer); 
+
+            bw.write(json);
+            bw.flush();
+            bw.close();      //como puedo hacer salto de linea entre objetos?
+            
+//String json = new Gson().toJson(ListaRectangulosSingleton.listaDeRectangulos, tipo);
+//           Gson gs = new GsonBuilder().registerTypeAdapter(tipo,ListaRectangulosSingleton.listaDeRectangulos).setPrettyPrinting().create();
+//          String json = gs.toJson(ListaRectangulosSingleton.listaDeRectangulos, tipo);
+           System.out.println(json);
+       } catch(IOException e) {
+            System.err.format("IOException: %s%n", e);
+       }
+        
+       
+    }
+    
+    
+    
     
 //   Aqui para Undo
     

@@ -178,7 +178,7 @@ public class FXMLDibujarController implements Initializable {
                 rect.gc.setStroke(rect.getColorRectangulo());
                 rect.gc.strokeRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
                 //Se le asigna una id al rectangulo
-                rect.setId(CuadroTexto.getText());
+                rect.setDato(CuadroTexto.getText());
                 //Se agrega el rectangulo a la lista
                 ListaRectangulosSingleton.getRectangulos().add(rect);
                 ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
