@@ -27,11 +27,17 @@ import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import javafx.beans.property.DoubleProperty;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
  *
  * @author Serllet
+ * @author Escarlet
  */
 public class FXMLDibujarController implements Initializable {
 
@@ -39,119 +45,173 @@ public class FXMLDibujarController implements Initializable {
      * Initializes the controller class.
      */
     private static final String FILE_FORMAT = "png";
-
     private File destination = new File("image.png");
-    private Color colorRectangulo;
-    private int contadorRectangulo = 0;
-    GraphicsContext gc;
     @FXML
-    Canvas dibujo;
-    Image imagenPDF;
-    Rectangle rect = new Rectangle();
-    SimpleDoubleProperty rectinitX = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectinitY = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectX = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectY = new SimpleDoubleProperty();
-
+    private Canvas dibujo;
+    private Image imagenPDF;
+    private int contadorRectangulo = 0;
+    Rectangulo rect = new Rectangulo();
+    
+//    private Color colorRectangulo;
+//    private String nombre;
+//    GraphicsContext gc;
+//    Rectangle rect = new Rectangle();
+//    SimpleDoubleProperty rectinitX = new SimpleDoubleProperty();
+//    SimpleDoubleProperty rectinitY = new SimpleDoubleProperty();
+//    SimpleDoubleProperty rectX = new SimpleDoubleProperty();
+//    SimpleDoubleProperty rectY = new SimpleDoubleProperty();
     @FXML
     private ImageView Atras;
 
     @FXML
     private Label CuadroTexto;
+    @FXML
+    private AnchorPane ap;
+    @FXML
+    private Button Finalizar;
+    @FXML
+    private ImageView Deshacer2;
+    @FXML
+    private ImageView Rehacer2;
+    @FXML
+    private ImageView Eliminar2;
+    @FXML
+    private ImageView IMG_FONDO;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        this.gc = dibujo.getGraphicsContext2D();
-
+        rect.setGc(dibujo.getGraphicsContext2D());
     }
 
-    @FXML
-    void onAction(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));
-            stage.show();
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    @FXML
-    public void atras(MouseEvent event) throws IOException {
-        if (event.getSource() == Atras) {
-            try {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
-                Parent root1 = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                stage.setScene(new Scene(root1));
-                stage.show();
-            } catch (IOException ex) {
-                Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
+//    void onAction(ActionEvent event) {
+//        try {
+//            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
+//            Parent root1 = (Parent) fxmlLoader.load();
+//            Stage stage = new Stage();
+//            stage.setResizable(false);
+//            stage.setScene(new Scene(root1));
+//            ((Stage)this.ap.getScene().getWindow()).close(); 
+//            stage.show();
+//        } catch (IOException ex) {
+//            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//    }
 
     void parametros(Image imge, Color colorR, String nombre) {
-        imagenPDF = imge;
+        imagenPDF = imge; 
         CuadroTexto.setText(nombre);
-        colorRectangulo = colorR;
-        gc.drawImage(imagenPDF, 0, 0);
-    }
+        rect.setColorRectangulo(colorR);
+        rect.getGc().drawImage(imagenPDF, 0, 0, 316, 468);
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
 
     @FXML
-    public void eliminarCanvas(MouseEvent event) {
-        //Eliminar dibujo
+    public void eliminarCanvas(MouseEvent event) {  //Deberia funcionar con el actualizar del nacho 
+        int ultimoRectanguloAgregado = ListaRectangulosSingleton.getRectangulos() == null? 0:
+                ListaRectangulosSingleton.getRectangulos().size()-1;
+        
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             GraphicsContext gc = dibujo.getGraphicsContext2D();
-            System.out.println(dibujo.getHeight());
+            System.out.println(dibujo.getHeight()); 
             System.out.println(dibujo.getWidth());
-            gc.clearRect(0, 0, dibujo.getWidth(), dibujo.getHeight());
-            gc.drawImage(imagenPDF, 0, 0);
-            contadorRectangulo--;
+           
+                gc.clearRect(0, 0, 316, 468);
+             System.out.println("Ancho: "+ imagenPDF.getWidth());
+             System.out.println("Alto: "+ imagenPDF.getHeight());
+                gc.drawImage(imagenPDF, 0, 0, 316,468);
+                take(gc.getCanvas());
+            
+            /* if (ListaRectangulosSingleton.getRectangulos().size() == 0){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Information Dialog");
+            alert.setHeaderText(null);
+            alert.setContentText("I have a great message for you!");
+            alert.showAndWait();
+            
+            
+            DibujarRectangulo(event);
+        }*/
+        if (ListaRectangulosSingleton.listaDeRectangulos.size() > 0){
+            ListaRectangulosSingleton.getRectangulos().remove(ListaRectangulosSingleton.getRectangulos().size()-1);
+            DibujarRectangulo(event);
         }
+        //Agrego la lista de rectangulos con el rectangulo eliminado al undo
+        ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
+            
+             
+            contadorRectangulo--;
+//            for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
+//                //necesito forma de identificarlo
+//            }
+        }
+        //Eliminar dibujo
+       
     }
 
     @FXML
     public void handleMouse(MouseEvent event) {
-
+        DibujarRectangulo(event);
+    }
+    
+    public void DibujarRectangulo (MouseEvent event){
         if (contadorRectangulo == 0) {
             if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 rect.setX(event.getX());
                 rect.setY(event.getY());
-                rectinitX.set(event.getX());
-                rectinitY.set(event.getY());
+                rect.rectinitX.set(event.getX());
+                rect.rectinitY.set(event.getY());
             } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                Double dx = event.getX() - rectinitX.getValue();
-                Double dy = event.getY() - rectinitY.getValue();
+                Double dx = event.getX() - rect.rectinitX.getValue();
+                Double dy = event.getY() - rect.rectinitY.getValue();
                 if (dx < 0) {
-                    rectX.set(event.getX());
+                    rect.rectX.set(event.getX());
                     rect.setTranslateX(dx);
-                    rect.widthProperty().bind(rectinitX.subtract(rectX));
+                    rect.widthProperty().bind(rect.rectinitX.subtract(rect.rectX));
                 } else {
-                    rectX.set(event.getX());
+                    rect.rectX.set(event.getX());
                     rect.setTranslateX(0);
-                    rect.widthProperty().bind(rectX.subtract(rectinitX));
+                    rect.widthProperty().bind(rect.rectX.subtract(rect.rectinitX));
                 }
                 if (dy < 0) {
-                    rectY.set(event.getY());
+                    rect.rectY.set(event.getY());
                     rect.setTranslateY(dy);
-                    rect.heightProperty().bind(rectinitX.subtract(rectX));
+                    rect.heightProperty().bind(rect.rectinitX.subtract(rect.rectX));
                 } else {
-                    rectY.set(event.getY());
+                    rect.rectY.set(event.getY());
                     rect.setTranslateY(0);
-                    rect.heightProperty().bind(rectY.subtract(rectinitY));
+                   rect.heightProperty().bind(rect.rectY.subtract(rect.rectinitY));
+                    
                 }
 
             } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
                 //verificar que sea un solo rectangulo
                 contadorRectangulo++;
                 // color rectangulo
-                gc.setStroke(colorRectangulo);
-                gc.strokeRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-                take(gc.getCanvas());
+                rect.gc.setStroke(rect.getColorRectangulo());
+               System.out.println("ancho1: "+ rect.getWidth());
+                rect.gc.strokeRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+                
+                System.out.println("XRECT: "+ rect.getX());
+                System.out.println("YRECT: "+ rect.getX());
+                  System.out.println("WRECT: "+ rect.getWidth());
+                   System.out.println("WRECT: "+ rect.getHeight());
+                
+                
+                //Se le asigna una id al rectangulo
+                rect.setDato(CuadroTexto.getText());
+                rect.setAncho(rect.getWidth());
+                System.out.println("ancho2: "+ rect.getWidth());
+                 rect.setAlto(rect.getHeight());
+                //Se agrega el rectangulo a la lista
+                ListaRectangulosSingleton.getRectangulos().add(rect);
+                ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
+                for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
+                    System.out.println(ListaRectangulosSingleton.getRectangulos().get(i).getId());
+                }
+                int aux = ListaRectangulosSingleton.getRectangulos() == null? 0:
+                ListaRectangulosSingleton.getRectangulos().size()-1;
+                take(ListaRectangulosSingleton.getRectangulos().get(aux).gc.getCanvas());
+                
             }
         }
     }
@@ -168,6 +228,50 @@ public class FXMLDibujarController implements Initializable {
             Logger.getLogger(FXMLDibujarController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    public void atras(MouseEvent event) throws IOException {
+        if (event.getSource() == Atras) {
+            try {
+                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
+                Parent root1 = (Parent) fxmlLoader.load();
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root1));
+                stage.setResizable(false);
+                ((Stage)this.ap.getScene().getWindow()).close();
+                stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @FXML
+    private void onAction(MouseEvent event) {
+    }
+
+    @FXML
+    private void Undo(MouseEvent event) {
+        ListaRectangulosSingleton.deshacer();
+    }
+
+    @FXML
+    private void Redo(MouseEvent event) {
+        ListaRectangulosSingleton.rehacer();
+    }
+
+    @FXML
+    private void Finalizar(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
+            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setResizable(false);
+            stage.setScene(new Scene(root1));
+            ((Stage)this.ap.getScene().getWindow()).close(); 
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

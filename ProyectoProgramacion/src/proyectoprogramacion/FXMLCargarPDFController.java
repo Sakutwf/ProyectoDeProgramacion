@@ -16,7 +16,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -37,6 +39,11 @@ public class FXMLCargarPDFController implements Initializable {
     private PDDocument document = new PDDocument();
     private ImageView image = new ImageView();
     private Group root2 = new Group();
+    private LectorOCR lo = new LectorOCR();
+    @FXML
+    private AnchorPane ap;
+    @FXML
+    private Button btnCargarPDF;
 
     @FXML
     void onActionHandle(ActionEvent event) {
@@ -48,22 +55,30 @@ public class FXMLCargarPDFController implements Initializable {
             System.out.println("File: " + archivoPDF.getAbsolutePath());
             try {
                 System.out.println(archivoPDF.getAbsoluteFile());
+                lo.lectorPdf(archivoPDF.getAbsolutePath());
                 document = PDDocument.load(archivoPDF);
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 PDFRenderer pr = new PDFRenderer(document);
                 BufferedImage img = pr.renderImage(0);
+                System.out.println("CArgar: "+img.getHeight());
+                   System.out.println("CArgar: "+ img.getWidth());
+                
                 File outputfile = new File("saved.png");
                 ImageIO.write(img, "png", outputfile);
                 document.close();
                 Image imge = SwingFXUtils.toFXImage(img, null);
+                
                 image.setImage(imge);
                 FXMLOrdenController controlador = (FXMLOrdenController) fxmlLoader.getController();
                 controlador.parametros(imge);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
+                stage.setResizable(false);
+                ((Stage)this.ap.getScene().getWindow()).close();    ///Para cerrar userform            
                 stage.show();
-
+                
+                
             } catch (IOException ex) {
                 Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }

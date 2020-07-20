@@ -1,0 +1,47 @@
+EMPRESA ORDEN DE COMPRA
+
+[Dirección] FECHA| 19-07-2020
+
+[Ciudad, Estado CP] OC H [123456]
+
+Teléfono: (000) 000-0000
+
+Email: tuemailQgmail.com
+
+Sitio Web:
+
+PROVEEDOR DIO
+
+[Empresa] [Nombre]
+
+[Departamento] [Empresa]
+
+[Dirección] [Dirección]
+
+[Ciudad, Estado CP] [Ciudad, Estado CP]
+
+Teléfono: (000) 000-0000 Teléfono: (000) 000-0000
+
+Email: tuemailOgmail.com
+
+SOLICITANTE ENVIAR VÍA CONDICIONES DE ENVÍO
+CÓDIGO DESCRIPCIÓN CANT. PRECIO UNIT. IVA ey
+
+11230201227 Cilindro con pistón 9 42,5 mm 1 100,00 D 100,00
+
+11230209400 Válvula de descompresión 4 3,90 | x 15,600
+
+11230203034 Carcasa del motor 5 87,00 D 435,00
+
+3503500 Cabezal de aspiración 3 29,58 88,74
+SUBTOTAL 639,34
+
+Comentarios o instrucciones especiales IMPONIBLE 550,60
+% DE IMPUESTO 6,875%
+IMPUESTO 37,85
+ENVÍO -
+OTROS -
+TOTAL _
+
+Si tiene alguna pregunta sobre este pedido, póngase en contacto con
+[Nombre,* Teléfono, E-mail]

@@ -1,5 +1,6 @@
 package proyectoprogramacion;
 
+import com.google.gson.Gson;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -19,6 +20,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -68,10 +71,12 @@ public class FXMLOrdenController implements Initializable {
     @FXML
     private ImageView Rehacer;
 
-    @FXML
-    private ImageView Eliminar;
 
     private Image pdf;
+    @FXML
+    private AnchorPane AnchorPane;
+    
+    private LectorOCR lector = new LectorOCR();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -89,6 +94,7 @@ public class FXMLOrdenController implements Initializable {
     void parametros(Image imge) {
         this.pdf = imge;
         PDF.setImage(this.pdf);
+        
     }
 
     @FXML
@@ -114,7 +120,9 @@ public class FXMLOrdenController implements Initializable {
             }
 
             Stage stage = new Stage();
+            stage.setResizable(false);
             stage.setScene(new Scene(root1));
+            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -132,14 +140,25 @@ public class FXMLOrdenController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             FXMLMostrarPDFController controlador = (FXMLMostrarPDFController) fxmlLoader.getController();
             //controlador.parametros(pdf);
+            
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
+            stage.setResizable(false);
+            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
             stage.show();
+            
+            Stage st = (Stage)this.AnchorPane.getScene().getWindow();
+            st.hide();
+            
+            stage.show(); 
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        ListaRectangulosSingleton.serializarListaRectangulos();
+        
+        //lector.lector();
     }
     // Guardar Imagen en PDF
 
@@ -147,9 +166,9 @@ public class FXMLOrdenController implements Initializable {
         try (PDDocument document = new PDDocument()) {
             InputStream in = new FileInputStream("image.png");
             BufferedImage bimg = ImageIO.read(in);
-            float width = bimg.getWidth();
-            float height = bimg.getHeight();
-            PDPage page = new PDPage(new PDRectangle(width, height));
+//            float width = bimg.getWidth();
+//            float height = bimg.getHeight();
+            PDPage page = new PDPage(new PDRectangle(316,468));
             document.addPage(page);
             PDImageXObject pdImage = PDImageXObject.createFromFile("image.png", document);
             PDPageContentStream contentStream = new PDPageContentStream(document, page);
@@ -157,9 +176,19 @@ public class FXMLOrdenController implements Initializable {
             contentStream.close();
             in.close();
 
-            document.save("dibujo.pdf");
+            document.save("test.pdf");
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void Undo(MouseEvent event) {
+        ListaRectangulosSingleton.deshacer();
+    }
+
+    @FXML
+    private void Redo(MouseEvent event) {
+        ListaRectangulosSingleton.rehacer();
     }
 }
