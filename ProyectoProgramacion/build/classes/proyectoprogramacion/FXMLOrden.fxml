@@ -64,5 +64,10 @@
          </image>
       </ImageView>
       <ImageView fx:id="PDF" fitHeight="418.0" fitWidth="353.0" layoutX="381.0" layoutY="85.0" pickOnBounds="true" />
+      <Button fx:id="botonCargar" layoutX="343.0" layoutY="519.0" mnemonicParsing="false" onAction="#cargarRectangulos" prefHeight="33.0" prefWidth="226.0" style="-fx-background-color: #7d5d9e; -fx-background-radius: 10 10 10 10;" text="Cargar Rectángulos" textFill="WHITE">
+         <font>
+            <Font name="Tahoma" size="20.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

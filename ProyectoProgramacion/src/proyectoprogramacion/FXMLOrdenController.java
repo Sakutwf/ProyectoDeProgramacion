@@ -75,6 +75,8 @@ public class FXMLOrdenController implements Initializable {
     private Image pdf;
     @FXML
     private AnchorPane AnchorPane;
+    @FXML
+    private Button botonCargar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -185,5 +187,10 @@ public class FXMLOrdenController implements Initializable {
     @FXML
     private void Redo(MouseEvent event) {
         ListaRectangulosSingleton.rehacer();
+    }
+
+    @FXML
+    private void cargarRectangulos(ActionEvent event) {
+        Lector.LecturaJson();
     }
 }
