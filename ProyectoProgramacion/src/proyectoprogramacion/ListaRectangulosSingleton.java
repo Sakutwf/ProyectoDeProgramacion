@@ -46,7 +46,7 @@ public class ListaRectangulosSingleton {
            }
         Type tipo = new TypeToken<ArrayList<AdapterRectangulo>>() {}.getType();
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(listaAdaptada,tipo);
-            FileWriter writer = new FileWriter("ListaRectangulosJson", true);
+            FileWriter writer = new FileWriter("ListaRectangulosJson");
                 BufferedWriter bw = new BufferedWriter(writer); 
 
             bw.write(json);
