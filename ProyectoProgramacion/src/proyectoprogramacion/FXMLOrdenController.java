@@ -191,6 +191,6 @@ public class FXMLOrdenController implements Initializable {
 
     @FXML
     private void cargarRectangulos(ActionEvent event) {
-        Lector.LecturaJson();
+       // Lector.LecturaJson();
     }
 }
