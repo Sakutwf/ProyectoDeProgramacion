@@ -10,13 +10,13 @@ package proyectoprogramacion;
  * @author Saaku
  */
 public class AdapterRectangulo {
-    private String Punto1X;
-    private String punto1Y;
-    private String Punto2X;
-    private String punto2Y;
+    private double Punto1X;
+    private double punto1Y;
+    private double Punto2X;
+    private double punto2Y;
     private String ID;
 
-    public AdapterRectangulo(String Punto1X, String punto1Y, String Punto2X, String punto2Y, String ID) {
+    public AdapterRectangulo(double Punto1X, double punto1Y, double Punto2X, double punto2Y, String ID) {
         this.Punto1X = Punto1X;
         this.punto1Y = punto1Y;
         this.Punto2X = Punto2X;
@@ -24,35 +24,35 @@ public class AdapterRectangulo {
         this.ID = ID;
     }
 
-    public String getPunto1X() {
+    public double getPunto1X() {
         return Punto1X;
     }
 
-    public void setPunto1X(String Punto1X) {
+    public void setPunto1X(double Punto1X) {
         this.Punto1X = Punto1X;
     }
 
-    public String getPunto1Y() {
+    public double getPunto1Y() {
         return punto1Y;
     }
 
-    public void setPunto1Y(String punto1Y) {
+    public void setPunto1Y(double punto1Y) {
         this.punto1Y = punto1Y;
     }
 
-    public String getPunto2X() {
+    public double getPunto2X() {
         return Punto2X;
     }
 
-    public void setPunto2X(String Punto2X) {
+    public void setPunto2X(double Punto2X) {
         this.Punto2X = Punto2X;
     }
 
-    public String getPunto2Y() {
+    public double getPunto2Y() {
         return punto2Y;
     }
 
-    public void setPunto2Y(String punto2Y) {
+    public void setPunto2Y(double punto2Y) {
         this.punto2Y = punto2Y;
     }
 

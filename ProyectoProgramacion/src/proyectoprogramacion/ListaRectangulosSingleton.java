@@ -35,10 +35,10 @@ public class ListaRectangulosSingleton {
        try {
             ArrayList<AdapterRectangulo> listaAdaptada = new ArrayList<AdapterRectangulo>();
            for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
-               String  x1 = ListaRectangulosSingleton.getRectangulos().get(i).getRectinitXString();
-               String  y1 = ListaRectangulosSingleton.getRectangulos().get(i).getRectinitYString();
-               String  x2 = ListaRectangulosSingleton.getRectangulos().get(i).getRectXString();
-               String  y2 = ListaRectangulosSingleton.getRectangulos().get(i).getRectYString();
+               double  x1 = ListaRectangulosSingleton.getRectangulos().get(i).getX();
+               double  y1 = ListaRectangulosSingleton.getRectangulos().get(i).getY();
+               double  x2 = ListaRectangulosSingleton.getRectangulos().get(i).getRectXdouble();
+               double  y2 = ListaRectangulosSingleton.getRectangulos().get(i).getRectYdouble();
                String id = ListaRectangulosSingleton.getRectangulos().get(i).getDato();
                AdapterRectangulo rectanguloAdaptado = new AdapterRectangulo(x1, y2, x2, y1, id);
                listaAdaptada.add(rectanguloAdaptado);

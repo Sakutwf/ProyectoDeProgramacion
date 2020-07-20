@@ -27,17 +27,17 @@ public class Rectangulo extends Rectangle {
     public Rectangulo() {}
 
     ///para rectangulo transformado 
-    public String getRectinitXString() {
-        return rectinitX.toString();
+    public double getRectinitXdouble() {
+        return rectinitX.getValue();
     }
-    public String getRectinitYString() {
-        return rectinitY.toString();
+    public double getRectinitYdouble() {
+        return rectinitY.getValue();
     }
-    public String getRectXString() {
-        return rectX.toString();
+    public double getRectXdouble() {
+        return rectX.getValue();
     }
-    public String getRectYString() {
-        return rectY.toString();
+    public double getRectYdouble() {
+        return rectY.getValue();
     }
 
     public SimpleDoubleProperty getRectinitX() {

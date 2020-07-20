@@ -126,4 +126,70 @@
     "punto2Y": "DoubleProperty [value: 181.0]",
     "ID": "Rut Cliente"
   }
+][
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 209.0,
+    "Punto2X": 104.0,
+    "punto2Y": 142.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 211.0,
+    "Punto2X": 145.0,
+    "punto2Y": 140.0,
+    "ID": "Email Cliente"
+  }
+][
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 195.0,
+    "Punto2X": 106.0,
+    "punto2Y": 124.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 186.0,
+    "Punto2X": 129.0,
+    "punto2Y": 91.0,
+    "ID": "Rut Cliente"
+  },
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 309.0,
+    "Punto2X": 209.0,
+    "punto2Y": 219.0,
+    "ID": "Nombre vendedor"
+  },
+  {
+    "Punto1X": 0.0,
+    "punto1Y": 229.0,
+    "Punto2X": 80.0,
+    "punto2Y": 193.0,
+    "ID": "Nombre vendedor"
+  }
+][
+  {
+    "Punto1X": 55.0,
+    "punto1Y": 273.0,
+    "Punto2X": 115.0,
+    "punto2Y": 176.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "Punto1X": 128.0,
+    "punto1Y": 261.0,
+    "Punto2X": 192.0,
+    "punto2Y": 176.0,
+    "ID": "Rut Cliente"
+  },
+  {
+    "Punto1X": 55.0,
+    "punto1Y": 310.0,
+    "Punto2X": 146.0,
+    "punto2Y": 285.0,
+    "ID": "Nombre vendedor"
+  }
 ]

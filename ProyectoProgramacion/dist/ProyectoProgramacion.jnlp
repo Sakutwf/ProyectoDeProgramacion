@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProyectoProgramacion.jar" size="1371840" download="eager" />
+    <jar href="ProyectoProgramacion.jar" size="1371910" download="eager" />
     <jar href="lib\OpenViewerFX-6.6.14-sources.jar" size="3495783" download="eager" />
     <jar href="lib\OpenViewerFX-6.6.14.jar" size="2741406" download="eager" />
     <jar href="lib\OpenViewerFX-7.15.25.jar" size="5271184" download="eager" />
