@@ -111,4 +111,19 @@
     "rect2puntoY": "DoubleProperty [value: 181.0]",
     "ID": "Email Cliente"
   }
+][
+  {
+    "Punto1X": "DoubleProperty [value: 0.0]",
+    "punto1Y": "DoubleProperty [value: 160.0]",
+    "Punto2X": "DoubleProperty [value: 64.0]",
+    "punto2Y": "DoubleProperty [value: 102.0]",
+    "ID": "Nombre Cliente"
+  },
+  {
+    "Punto1X": "DoubleProperty [value: 0.0]",
+    "punto1Y": "DoubleProperty [value: 222.0]",
+    "Punto2X": "DoubleProperty [value: 65.0]",
+    "punto2Y": "DoubleProperty [value: 181.0]",
+    "ID": "Rut Cliente"
+  }
 ]
