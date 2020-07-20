@@ -147,28 +147,28 @@ public class FXMLDibujarController implements Initializable {
             if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 rect.setX(event.getX());
                 rect.setY(event.getY());
-                rect.rectinitX.set(event.getX());
-                rect.rectinitY.set(event.getY());
+                rect.getRectinitX().set(event.getX());
+                rect.getRectinitY().set(event.getY());
             } else if (event.getEventType() == MouseEvent.MOUSE_DRAGGED) {
-                Double dx = event.getX() - rect.rectinitX.getValue();
-                Double dy = event.getY() - rect.rectinitY.getValue();
+                Double dx = event.getX() - rect.getRectinitX().getValue();
+                Double dy = event.getY() - rect.getRectinitY().getValue();
                 if (dx < 0) {
-                    rect.rectX.set(event.getX());
+                    rect.getRectX().set(event.getX());
                     rect.setTranslateX(dx);
-                    rect.widthProperty().bind(rect.rectinitX.subtract(rect.rectX));
+                    rect.widthProperty().bind(rect.getRectinitX().subtract(rect.getRectX()));
                 } else {
-                    rect.rectX.set(event.getX());
+                    rect.getRectX().set(event.getX());
                     rect.setTranslateX(0);
-                    rect.widthProperty().bind(rect.rectX.subtract(rect.rectinitX));
+                    rect.widthProperty().bind(rect.getRectX().subtract(rect.getRectinitX()));
                 }
                 if (dy < 0) {
-                    rect.rectY.set(event.getY());
+                    rect.getRectY().set(event.getY());
                     rect.setTranslateY(dy);
-                    rect.heightProperty().bind(rect.rectinitX.subtract(rect.rectX));
+                    rect.heightProperty().bind(rect.getRectinitX().subtract(rect.getRectX()));
                 } else {
-                    rect.rectY.set(event.getY());
+                    rect.getRectY().set(event.getY());
                     rect.setTranslateY(0);
-                    rect.heightProperty().bind(rect.rectY.subtract(rect.rectinitY));
+                    rect.heightProperty().bind(rect.getRectY().subtract(rect.getRectinitY()));
                 }
 
             } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
@@ -188,7 +188,12 @@ public class FXMLDibujarController implements Initializable {
                 int aux = ListaRectangulosSingleton.getRectangulos() == null? 0:
                 ListaRectangulosSingleton.getRectangulos().size()-1;
                 take(ListaRectangulosSingleton.getRectangulos().get(aux).gc.getCanvas());
-                
+                System.out.println(rect.getRectX()+ " getRectX");
+                System.out.println(rect.getRectY()+"getRectY");
+                System.out.println(rect.getX()+ "getX");
+                System.out.println(rect.getY()+"getY");
+                System.out.println(rect.getRectinitX()+"getRectinitX");
+                System.out.println(rect.getRectinitY()+"getRectinitY");
             }
         }
     }

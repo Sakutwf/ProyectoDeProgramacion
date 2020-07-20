@@ -9,4 +9,106 @@
     "puntoY": 164.0,
     "ID": "Rut Cliente"
   }
+][
+  {
+    "puntoX": 84.0,
+    "puntoY": 125.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 172.0,
+    "puntoY": 101.0,
+    "ID": "Rut Cliente"
+  },
+  {
+    "puntoX": 108.0,
+    "puntoY": 294.0,
+    "ID": "Email Cliente"
+  },
+  {
+    "puntoX": 52.0,
+    "puntoY": 246.0,
+    "ID": "Rut Cliente"
+  }
+][
+  {
+    "puntoX": 77.0,
+    "puntoY": 193.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 26.0,
+    "puntoY": 107.0,
+    "ID": "Rut Cliente"
+  }
+][
+  {
+    "puntoX": 45.0,
+    "puntoY": 214.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 46.0,
+    "puntoY": 257.0,
+    "ID": "Nombre vendedor"
+  },
+  {
+    "puntoX": 87.0,
+    "puntoY": 214.0,
+    "ID": "Nombre vendedor"
+  }
+][
+  {
+    "puntoX": 67.0,
+    "puntoY": 185.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 108.0,
+    "puntoY": 186.0,
+    "ID": "Email Cliente"
+  },
+  {
+    "puntoX": 67.0,
+    "puntoY": 251.0,
+    "ID": "Nombre vendedor"
+  }
+][
+  {
+    "puntoX": 63.0,
+    "puntoY": 127.0,
+    "ID": "Nombre Cliente"
+  },
+  {
+    "puntoX": 99.0,
+    "puntoY": 127.0,
+    "ID": "Rut Cliente"
+  },
+  {
+    "puntoX": 70.0,
+    "puntoY": 205.0,
+    "ID": "Nombre vendedor"
+  }
+][
+  {
+    "rect1PuntoX": "DoubleProperty [value: 0.0]",
+    "rect1puntoY": "DoubleProperty [value: 158.0]",
+    "rect2PuntoX": "DoubleProperty [value: 104.0]",
+    "rect2puntoY": "DoubleProperty [value: 93.0]",
+    "ID": "Nombre Cliente"
+  },
+  {
+    "rect1PuntoX": "DoubleProperty [value: 0.0]",
+    "rect1puntoY": "DoubleProperty [value: 170.0]",
+    "rect2PuntoX": "DoubleProperty [value: 62.0]",
+    "rect2puntoY": "DoubleProperty [value: 170.0]",
+    "ID": "Rut Cliente"
+  },
+  {
+    "rect1PuntoX": "DoubleProperty [value: 0.0]",
+    "rect1puntoY": "DoubleProperty [value: 207.0]",
+    "rect2PuntoX": "DoubleProperty [value: 101.0]",
+    "rect2puntoY": "DoubleProperty [value: 181.0]",
+    "ID": "Email Cliente"
+  }
 ]

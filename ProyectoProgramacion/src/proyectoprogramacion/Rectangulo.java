@@ -16,20 +16,34 @@ import javafx.scene.shape.Rectangle;
  * @author Saaku
  */
 public class Rectangulo extends Rectangle {
-    SimpleDoubleProperty rectinitX = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectinitY = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectX = new SimpleDoubleProperty();
-    SimpleDoubleProperty rectY = new SimpleDoubleProperty();
+    private SimpleDoubleProperty rectinitX = new SimpleDoubleProperty();
+    private SimpleDoubleProperty rectinitY = new SimpleDoubleProperty();
+    private SimpleDoubleProperty rectX = new SimpleDoubleProperty();
+    private SimpleDoubleProperty rectY = new SimpleDoubleProperty();
     GraphicsContext gc;
     private Color colorRectangulo;
     private String dato;
 
     public Rectangulo() {}
 
-    public SimpleDoubleProperty getRectinitX() {
-        return rectinitX;
+    ///para rectangulo transformado 
+    public String getRectinitXString() {
+        return rectinitX.toString();
+    }
+    public String getRectinitYString() {
+        return rectinitY.toString();
+    }
+    public String getRectXString() {
+        return rectX.toString();
+    }
+    public String getRectYString() {
+        return rectY.toString();
     }
 
+    public SimpleDoubleProperty getRectinitX() {
+        return rectinitY;
+    }
+    
     public void setRectinitX(SimpleDoubleProperty rectinitX) {
         this.rectinitX = rectinitX;
     }
