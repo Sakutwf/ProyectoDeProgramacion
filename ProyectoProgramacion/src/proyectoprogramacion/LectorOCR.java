@@ -25,7 +25,7 @@ public class LectorOCR {
             File imagen = new File(nombreArchivo);
             Tesseract inst = new Tesseract();
             // ruta forzada
-            inst.setDatapath("C:\\Users\\fuent\\Desktop\\Repositorio\\ProyectoDeProgramacion\\ProyectoProgramacion\\tessdata");
+            inst.setDatapath("tessdata");
             //Lenguaje a traducir
             inst.setLanguage("spa");
             String resultado = inst.doOCR(imagen);
