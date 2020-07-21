@@ -13,4 +13,12 @@
     "alto": 28.0,
     "ID": "Rut Cliente"
   }
-][]
+][][
+  {
+    "puntoX": 17.0,
+    "puntoY": 24.0,
+    "ancho": 134.0,
+    "alto": 38.0,
+    "ID": "Nombre Cliente"
+  }
+]

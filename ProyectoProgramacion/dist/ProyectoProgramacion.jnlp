@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProyectoProgramacion.jar" size="1375502" download="eager" />
+    <jar href="ProyectoProgramacion.jar" size="1375573" download="eager" />
     <jar href="lib\commons-beanutils-1.9.2.jar" size="233859" download="eager" />
     <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
     <jar href="lib\commons-io-2.6.jar" size="214788" download="eager" />
@@ -30,7 +30,6 @@
     <jar href="lib\logback-classic-1.2.3.jar" size="290339" download="eager" />
     <jar href="lib\logback-core-1.2.3.jar" size="471901" download="eager" />
     <jar href="lib\pdfbox-2.0.12.jar" size="2541248" download="eager" />
-    <jar href="lib\pdfbox-app-2.0.19.jar" size="9893221" download="eager" />
     <jar href="lib\pdfbox-debugger-2.0.12.jar" size="244000" download="eager" />
     <jar href="lib\pdfbox-tools-2.0.12.jar" size="72937" download="eager" />
     <jar href="lib\slf4j-api-1.7.25.jar" size="41203" download="eager" />

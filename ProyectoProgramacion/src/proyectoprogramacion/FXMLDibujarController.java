@@ -51,7 +51,7 @@ public class FXMLDibujarController implements Initializable {
     private Image imagenPDF;
     private int contadorRectangulo = 0;
     Rectangulo rect = new Rectangulo();
-    
+
 //    private Color colorRectangulo;
 //    private String nombre;
 //    GraphicsContext gc;
@@ -97,30 +97,29 @@ public class FXMLDibujarController implements Initializable {
 //        }
 //
 //    }
-
     void parametros(Image imge, Color colorR, String nombre) {
-        imagenPDF = imge; 
+        imagenPDF = imge;
         CuadroTexto.setText(nombre);
         rect.setColorRectangulo(colorR);
         rect.getGc().drawImage(imagenPDF, 0, 0, 316, 468);
-    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+    }
 
     @FXML
     public void eliminarCanvas(MouseEvent event) {  //Deberia funcionar con el actualizar del nacho 
-        int ultimoRectanguloAgregado = ListaRectangulosSingleton.getRectangulos() == null? 0:
-                ListaRectangulosSingleton.getRectangulos().size()-1;
-        
+        int ultimoRectanguloAgregado = ListaRectangulosSingleton.getRectangulos() == null ? 0
+                : ListaRectangulosSingleton.getRectangulos().size() - 1;
+
         if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             GraphicsContext gc = dibujo.getGraphicsContext2D();
-            System.out.println(dibujo.getHeight()); 
+            System.out.println(dibujo.getHeight());
             System.out.println(dibujo.getWidth());
-           
-                gc.clearRect(0, 0, 316, 468);
-             System.out.println("Ancho: "+ imagenPDF.getWidth());
-             System.out.println("Alto: "+ imagenPDF.getHeight());
-                gc.drawImage(imagenPDF, 0, 0, 316,468);
-                take(gc.getCanvas());
-            
+
+            gc.clearRect(0, 0, 316, 468);
+            System.out.println("Ancho: " + imagenPDF.getWidth());
+            System.out.println("Alto: " + imagenPDF.getHeight());
+            gc.drawImage(imagenPDF, 0, 0, 316, 468);
+            take(gc.getCanvas());
+
             /* if (ListaRectangulosSingleton.getRectangulos().size() == 0){
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Information Dialog");
@@ -131,29 +130,28 @@ public class FXMLDibujarController implements Initializable {
             
             DibujarRectangulo(event);
         }*/
-        if (ListaRectangulosSingleton.listaDeRectangulos.size() > 0){
-            ListaRectangulosSingleton.getRectangulos().remove(ListaRectangulosSingleton.getRectangulos().size()-1);
-            DibujarRectangulo(event);
-        }
-        //Agrego la lista de rectangulos con el rectangulo eliminado al undo
-        ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
-            
-             
+            if (ListaRectangulosSingleton.listaDeRectangulos.size() > 0) {
+                ListaRectangulosSingleton.getRectangulos().remove(ListaRectangulosSingleton.getRectangulos().size() - 1);
+                DibujarRectangulo(event);
+            }
+            //Agrego la lista de rectangulos con el rectangulo eliminado al undo
+            ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
+
             contadorRectangulo--;
 //            for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
 //                //necesito forma de identificarlo
 //            }
         }
         //Eliminar dibujo
-       
+
     }
 
     @FXML
     public void handleMouse(MouseEvent event) {
         DibujarRectangulo(event);
     }
-    
-    public void DibujarRectangulo (MouseEvent event){
+
+    public void DibujarRectangulo(MouseEvent event) {
         if (contadorRectangulo == 0) {
             if (event.getEventType() == MouseEvent.MOUSE_PRESSED) {
                 rect.setX(event.getX());
@@ -179,8 +177,8 @@ public class FXMLDibujarController implements Initializable {
                 } else {
                     rect.rectY.set(event.getY());
                     rect.setTranslateY(0);
-                   rect.heightProperty().bind(rect.rectY.subtract(rect.rectinitY));
-                    
+                    rect.heightProperty().bind(rect.rectY.subtract(rect.rectinitY));
+
                 }
 
             } else if (event.getEventType() == MouseEvent.MOUSE_RELEASED) {
@@ -188,30 +186,29 @@ public class FXMLDibujarController implements Initializable {
                 contadorRectangulo++;
                 // color rectangulo
                 rect.gc.setStroke(rect.getColorRectangulo());
-               System.out.println("ancho1: "+ rect.getWidth());
+                System.out.println("ancho1: " + rect.getWidth());
                 rect.gc.strokeRect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
-                
-                System.out.println("XRECT: "+ rect.getX());
-                System.out.println("YRECT: "+ rect.getX());
-                  System.out.println("WRECT: "+ rect.getWidth());
-                   System.out.println("WRECT: "+ rect.getHeight());
-                
-                
+
+                System.out.println("XRECT: " + rect.getX());
+                System.out.println("YRECT: " + rect.getX());
+                System.out.println("WRECT: " + rect.getWidth());
+                System.out.println("WRECT: " + rect.getHeight());
+
                 //Se le asigna una id al rectangulo
                 rect.setDato(CuadroTexto.getText());
                 rect.setAncho(rect.getWidth());
-                System.out.println("ancho2: "+ rect.getWidth());
-                 rect.setAlto(rect.getHeight());
+                System.out.println("ancho2: " + rect.getWidth());
+                rect.setAlto(rect.getHeight());
                 //Se agrega el rectangulo a la lista
                 ListaRectangulosSingleton.getRectangulos().add(rect);
                 ListaRectangulosSingleton.getUndo().add(ListaRectangulosSingleton.getRectangulos());
                 for (int i = 0; i < ListaRectangulosSingleton.getRectangulos().size(); i++) {
                     System.out.println(ListaRectangulosSingleton.getRectangulos().get(i).getId());
                 }
-                int aux = ListaRectangulosSingleton.getRectangulos() == null? 0:
-                ListaRectangulosSingleton.getRectangulos().size()-1;
+                int aux = ListaRectangulosSingleton.getRectangulos() == null ? 0
+                        : ListaRectangulosSingleton.getRectangulos().size() - 1;
                 take(ListaRectangulosSingleton.getRectangulos().get(aux).gc.getCanvas());
-                
+
             }
         }
     }
@@ -229,6 +226,7 @@ public class FXMLDibujarController implements Initializable {
         }
 
     }
+
     public void atras(MouseEvent event) throws IOException {
         if (event.getSource() == Atras) {
             try {
@@ -237,7 +235,7 @@ public class FXMLDibujarController implements Initializable {
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.setResizable(false);
-                ((Stage)this.ap.getScene().getWindow()).close();
+                ((Stage) this.ap.getScene().getWindow()).close();
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,7 +265,7 @@ public class FXMLDibujarController implements Initializable {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
-            ((Stage)this.ap.getScene().getWindow()).close(); 
+            ((Stage) this.ap.getScene().getWindow()).close();
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);

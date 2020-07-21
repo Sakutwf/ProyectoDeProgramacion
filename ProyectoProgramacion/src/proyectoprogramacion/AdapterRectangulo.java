@@ -10,13 +10,14 @@ package proyectoprogramacion;
  * @author Saaku
  */
 public class AdapterRectangulo {
+
     private double puntoX;
     private double puntoY;
     private double ancho;
     private double alto;
     private String ID;
 
-    public AdapterRectangulo(double puntoX, double puntoY,double ancho, double alto, String ID) {
+    public AdapterRectangulo(double puntoX, double puntoY, double ancho, double alto, String ID) {
         this.puntoX = puntoX;
         this.puntoY = puntoY;
         this.ancho = ancho;
@@ -39,10 +40,9 @@ public class AdapterRectangulo {
     public void setAlto(double alto) {
         this.alto = alto;
     }
-    
-    
-    
-    public AdapterRectangulo() {}
+
+    public AdapterRectangulo() {
+    }
 
     public double getPuntoX() {
         return puntoX;
@@ -67,6 +67,5 @@ public class AdapterRectangulo {
     public void setID(String ID) {
         this.ID = ID;
     }
-    
-    
+
 }

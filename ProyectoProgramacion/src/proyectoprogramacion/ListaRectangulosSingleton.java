@@ -73,11 +73,11 @@ public class ListaRectangulosSingleton {
         }
 
     }
-    
+
     /**
-     * Lectura de archivo en formato Json de los rectangulos con la información seleccionada
-     * de la orden de compra.
-     * 
+     * Lectura de archivo en formato Json de los rectangulos con la información
+     * seleccionada de la orden de compra.
+     *
      * @return Listado de rectangulos con las coordenadas y dimensiones.
      */
     public static List<AdapterRectangulo> deseralizarListaRectangulos() {

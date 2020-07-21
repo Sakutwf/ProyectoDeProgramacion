@@ -71,11 +71,10 @@ public class FXMLOrdenController implements Initializable {
     @FXML
     private ImageView Rehacer;
 
-
     private Image pdf;
     @FXML
     private AnchorPane AnchorPane;
-    
+
     private LectorOCR lector = new LectorOCR();
 
     @Override
@@ -94,7 +93,7 @@ public class FXMLOrdenController implements Initializable {
     void parametros(Image imge) {
         this.pdf = imge;
         PDF.setImage(this.pdf);
-        
+
     }
 
     @FXML
@@ -122,7 +121,7 @@ public class FXMLOrdenController implements Initializable {
             Stage stage = new Stage();
             stage.setResizable(false);
             stage.setScene(new Scene(root1));
-            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
+            ((Stage) this.AnchorPane.getScene().getWindow()).close();
             stage.show();
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,24 +139,24 @@ public class FXMLOrdenController implements Initializable {
             Parent root1 = (Parent) fxmlLoader.load();
             FXMLMostrarPDFController controlador = (FXMLMostrarPDFController) fxmlLoader.getController();
             //controlador.parametros(pdf);
-            
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));
             stage.setResizable(false);
-            ((Stage)this.AnchorPane.getScene().getWindow()).close(); 
+            ((Stage) this.AnchorPane.getScene().getWindow()).close();
             stage.show();
-            
-            Stage st = (Stage)this.AnchorPane.getScene().getWindow();
+
+            Stage st = (Stage) this.AnchorPane.getScene().getWindow();
             st.hide();
-            
-            stage.show(); 
+
+            stage.show();
 
         } catch (IOException ex) {
             Logger.getLogger(FXMLOrdenController.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
         ListaRectangulosSingleton.serializarListaRectangulos();
-        
+
         //lector.lector();
     }
     // Guardar Imagen en PDF
@@ -168,7 +167,7 @@ public class FXMLOrdenController implements Initializable {
             BufferedImage bimg = ImageIO.read(in);
 //            float width = bimg.getWidth();
 //            float height = bimg.getHeight();
-            PDPage page = new PDPage(new PDRectangle(316,468));
+            PDPage page = new PDPage(new PDRectangle(316, 468));
             document.addPage(page);
             PDImageXObject pdImage = PDImageXObject.createFromFile("image.png", document);
             PDPageContentStream contentStream = new PDPageContentStream(document, page);

@@ -1,47 +1,50 @@
-EMPRESA ORDEN DE COMPRA
+[ u Orden de Compra
+IANSA —
+I¡ANSAGRO S.A.
+RUT:96.772.810-1 Fecha 14.07.2016
+Rosario Norte 615 Piso 23 Las Condes, Santiago. NSProveedor 4023421
+Giro : Fábrica de azúcar y edulcorantes RUT 96670840-9
+Fono 223855000
+Dreccón del He Moneda CLP
+DIMERC S.A. Cond.Pago a 60 días de la fecha de recep
+ALBERTO PEPPER 1784 . Comprador PLANT AZUC LINARES
+| Santiago-SANTIAGO , Fecha entrega 12.07.2016
+: FAX:
+|
+, .. . ENVIAR FACTURA A ROSARIO NORTE 615, Piso 23,
+Dirección Linares LAS CONDES, SANTIAGO, INDICANDO NUMERO DE
+de entrega: Qam¡no a'Yerbas Buenas s/n ORDEN DE COMPRA
+' Linares, Linares -
+v 0010 ¡ 102490030002 . 600,00| CU 1.386 415.800
+JABON DE TOCADOR - per /2
+Requisition %: 10210894
+_ USO : PERSONAL PERMANENTE Y TEMPORADA
+Cotización N*6083690 — 1
+Z412768 JABON TOCADOR LE SANCY 150GR X2 -
+| Valor $ 1.386.- pack de dos
+Despachar : A la brevedad.
+Cotizado por: Bernardita Quiroz.
+- bquirozOdimerc.cl -
+Contacto: Oscar Cea. -
 
-[Dirección] FECHA| 19-07-2020
+Valor neto total sin IVA enCLP 415.800,00
+| Antes de facturar deberá ingresar al portal de proveedores TANSA en https://portal.iansa.cl/ir]/portal y generar la
+- proforma que le dará un número de atención, solicitar clave de acceso a consultaproveedoresQiansa.cl - - Si
+Í genera factura manual incluir el número de orden de compra IANSA y número de atención portal en el cuerpo del
+| documento - - En el caso de emitir facturación electrónica, el XML en los campos de referencia debe contener en
+| el 801 (Número de Orden de Compra IANSA) y 802 (Número de Atención obtenido al generar la proforma en el
 
-[Ciudad, Estado CP] OC H [123456]
+portal), de no contar con estos datos el XML será rechazado de manera automática - - ayuda informativa en
 
-Teléfono: (000) 000-0000
+http://www .iansa.cl/portal-proveedores/: -
 
-Email: tuemailQgmail.com
+Toda entrega de material en bodegas y oficinas se deberá realizar con guía de q,e_spa/ch (no con factura).
 
-Sitio Web:
+Plazo para reclamar las facturas que se emitan en: base a esta orden de comprá, será“de 30 días corridos, según
 
-PROVEEDOR DIO
+el n92 del artículo 3 de la Ley N* 19.983. —
 
-[Empresa] [Nombre]
+El cumplimiento de la presente orden de compra, implica la aceptación,xd% todas las condiciones establecidas en la
 
-[Departamento] [Empresa]
-
-[Dirección] [Dirección]
-
-[Ciudad, Estado CP] [Ciudad, Estado CP]
-
-Teléfono: (000) 000-0000 Teléfono: (000) 000-0000
-
-Email: tuemailOgmail.com
-
-SOLICITANTE ENVIAR VÍA CONDICIONES DE ENVÍO
-CÓDIGO DESCRIPCIÓN CANT. PRECIO UNIT. IVA ey
-
-11230201227 Cilindro con pistón 9 42,5 mm 1 100,00 D 100,00
-
-11230209400 Válvula de descompresión 4 3,90 | x 15,600
-
-11230203034 Carcasa del motor 5 87,00 D 435,00
-
-3503500 Cabezal de aspiración 3 29,58 88,74
-SUBTOTAL 639,34
-
-Comentarios o instrucciones especiales IMPONIBLE 550,60
-% DE IMPUESTO 6,875%
-IMPUESTO 37,85
-ENVÍO -
-OTROS -
-TOTAL _
-
-Si tiene alguna pregunta sobre este pedido, póngase en contacto con
-[Nombre,* Teléfono, E-mail]
+misma., " / %/í — ¿/: Z2 E—
+—

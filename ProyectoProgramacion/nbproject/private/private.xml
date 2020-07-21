@@ -3,17 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/FXMLMostrarPDFController.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/FXMLOrdenController.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/build/built-jar.properties</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/AdapterRectangulo.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/LectorOCR.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/FXMLDibujarController.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDFController.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/manifest.mf</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/Rectangulo.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/src/proyectoprogramacion/ListaRectangulosSingleton.java</file>
-            <file>file:/C:/Users/dmatu/OneDrive/Escritorio/ProyectoDeProgramacion-Escarlet2/ProyectoProgramacion/build.xml</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/ListaRectangulosSingleton.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/LectorOCR.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/Rectangulo.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/FXMLMostrarPDFController.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/FXMLOrdenController.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/FXMLDibujarController.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/AdapterRectangulo.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/Herramientas.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/ProyectoProgramacion.java</file>
+            <file>file:/C:/Users/fuent/Desktop/Proyecto/ProyectoProgramacion/src/proyectoprogramacion/FXMLCargarPDFController.java</file>
         </group>
     </open-files>
 </project-private>

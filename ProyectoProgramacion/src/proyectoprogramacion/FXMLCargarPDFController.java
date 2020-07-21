@@ -61,24 +61,23 @@ public class FXMLCargarPDFController implements Initializable {
                 Parent root1 = (Parent) fxmlLoader.load();
                 PDFRenderer pr = new PDFRenderer(document);
                 BufferedImage img = pr.renderImage(0);
-                System.out.println("CArgar: "+img.getHeight());
-                   System.out.println("CArgar: "+ img.getWidth());
-                
+                System.out.println("CArgar: " + img.getHeight());
+                System.out.println("CArgar: " + img.getWidth());
+
                 File outputfile = new File("saved.png");
                 ImageIO.write(img, "png", outputfile);
                 document.close();
                 Image imge = SwingFXUtils.toFXImage(img, null);
-                
+
                 image.setImage(imge);
                 FXMLOrdenController controlador = (FXMLOrdenController) fxmlLoader.getController();
                 controlador.parametros(imge);
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root1));
                 stage.setResizable(false);
-                ((Stage)this.ap.getScene().getWindow()).close();    ///Para cerrar userform            
+                ((Stage) this.ap.getScene().getWindow()).close();    ///Para cerrar userform            
                 stage.show();
-                
-                
+
             } catch (IOException ex) {
                 Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }

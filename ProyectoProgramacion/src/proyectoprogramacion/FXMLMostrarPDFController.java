@@ -27,18 +27,17 @@ public class FXMLMostrarPDFController implements Initializable {
      */
     @FXML
     private ImageView PDFmodificado;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
             BufferedImage buffer = ImageIO.read(new File("image.png"));;
             Image imge = SwingFXUtils.toFXImage(buffer, null);
             this.PDFmodificado.setImage(imge);
-            
-            
+
         } catch (IOException ex) {
             Logger.getLogger(FXMLMostrarPDFController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }
