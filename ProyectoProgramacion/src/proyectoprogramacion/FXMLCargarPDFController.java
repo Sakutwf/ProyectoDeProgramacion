@@ -55,12 +55,14 @@ public class FXMLCargarPDFController implements Initializable {
             System.out.println("File: " + archivoPDF.getAbsolutePath());
             try {
                 System.out.println(archivoPDF.getAbsoluteFile());
-                lo.lectorPdf(archivoPDF.getAbsolutePath());
-                document = PDDocument.load(archivoPDF);
+                lo.lectorPdf(archivoPDF.getAbsolutePath()); // lee el pdf
+                document = PDDocument.load(archivoPDF); 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("FXMLOrden.fxml"));
                 Parent root1 = (Parent) fxmlLoader.load();
                 PDFRenderer pr = new PDFRenderer(document);
                 BufferedImage img = pr.renderImage(0);
+                
+                // tamaño imagen despues de cargar
                 System.out.println("CArgar: " + img.getHeight());
                 System.out.println("CArgar: " + img.getWidth());
 

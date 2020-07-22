@@ -22,7 +22,7 @@ public class LectorOCR {
 
     public void lectorPdf(String nombreArchivo) {
         try {
-            File imagen = new File(nombreArchivo);
+            File imagen = new File(nombreArchivo); //Ahí estoy creando el archivo de imagen o PDF, el cual se le pasa al Tesseract para que haga la transformación
             Tesseract inst = new Tesseract();
             // ruta forzada
             inst.setDatapath("tessdata");
@@ -35,7 +35,7 @@ public class LectorOCR {
         }
     }
 
-    // escribe el texto
+    // Esa función escribe el texto de resultado que entrega el tesseract, escribe el texto en archivo de text
     public void escribirTextoOCR(String nombreArchivo, String texto) {
         FileWriter fileWriter = null;
         try {
@@ -57,7 +57,7 @@ public class LectorOCR {
         }
     }
 
-    // para otra unidad, por solucionar la resolución de imagen 
+    // para otra unidad, lee rectangulos para sacar informacion de cada cosa, falta solucionar la resolucion de imagen para que este pueda funcionar bien 
     public void lectorPorRectangulos() {
         try {
             File imagen = new File("image.png");
