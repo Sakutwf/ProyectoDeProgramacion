@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ProyectoProgramacion.jar" size="1375535" download="eager" />
+    <jar href="ProyectoProgramacion.jar" size="1375528" download="eager" />
     <jar href="lib\commons-beanutils-1.9.2.jar" size="233859" download="eager" />
     <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
     <jar href="lib\commons-io-2.6.jar" size="214788" download="eager" />

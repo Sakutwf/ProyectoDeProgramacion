@@ -34,7 +34,6 @@ public class LectorOCR {
             Logger.getLogger(LectorOCR.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     // Esa función escribe el texto de resultado que entrega el tesseract, escribe el texto en archivo de text
     public void escribirTextoOCR(String nombreArchivo, String texto) {
         FileWriter fileWriter = null;
