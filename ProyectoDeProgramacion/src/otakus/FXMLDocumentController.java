@@ -1,6 +1,7 @@
 
 package otakus;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -34,6 +35,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button RemoveButton;
     @FXML
+    private Canvas canvas1;
+    @FXML
+    private Button Serializar;
+    @FXML
     
     private void handleButtonAction(ActionEvent event) {
         PDFImage = PDFCargador.cargarPDF();
@@ -55,7 +60,7 @@ public class FXMLDocumentController implements Initializable {
         else{
             fin = p;
             Rectangulo r = new Rectangulo(inicio, fin);
-            ListaRectangulosSingleton.getRectangulos().add(r);
+            agregarRectangulo(r);
             inicio = null;
             fin = null;
             refrescarCanvas();
@@ -97,6 +102,11 @@ public class FXMLDocumentController implements Initializable {
             refrescarCanvas();
         }
        
+    }
+
+    @FXML
+    private void SerializarRectangulos(ActionEvent event) throws IOException {
+        ListaRectangulosSingleton.serializarListaRectangulos();
     }
     
 }
