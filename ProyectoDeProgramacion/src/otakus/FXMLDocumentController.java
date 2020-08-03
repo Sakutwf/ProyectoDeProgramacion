@@ -62,6 +62,17 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
+    private void agregarRectangulo(Rectangulo r){
+        //Agrega un rectangulo a la lista si es valido
+        //Se considera valido si su punto de inicio esta a la izquierda dek fin
+        //De lo contrario son ignorados.
+        if(!(r.getAlto() <=0 )){
+            if(!(r.getAncho()<=0 )){
+                ListaRectangulosSingleton.getRectangulos().add(r);
+            }
+        }
+    }
+    
     private void refrescarCanvas(){
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(PDFImage, 0, 0, canvas.getWidth(), canvas.getHeight());

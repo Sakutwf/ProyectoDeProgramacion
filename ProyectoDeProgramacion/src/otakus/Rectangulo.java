@@ -52,4 +52,12 @@ public class Rectangulo {
         this.Fin = Fin;
     }    
     
+    public int getAncho() {
+        return Fin.getX() - Inicio.getX();
+    }
+    
+    public int getAlto() {
+        return Fin.getY() - Inicio.getY();
+    }
+    
 }
