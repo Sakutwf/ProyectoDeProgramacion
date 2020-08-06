@@ -2,6 +2,7 @@
 package otakus;
 
 import java.awt.HeadlessException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -55,26 +56,30 @@ public class FXMLDocumentController implements Initializable {
     }    
     
     @FXML
-    private void handleHandle(MouseEvent event){
+    private void handleHandle(MouseEvent event){ // el manejo del manejo de canvas XD
         Punto p = new Punto((int)event.getX(), (int)event.getY());
-        if(clickBorrar){
-            System.out.println("poto1");
+        if(clickBorrar){ //si la bandera esta activa el click es para borrar
             eliminarRectangulo(p);
         }
-        else{
-            System.out.println("poto2");
+        else{ // si no es para crear un nuevo rectangulo
+            while (estaDentroDeLista(p)){
+                System.out.println("");//poner mensaje de que esta ocupado el lugar xd
+            }
             handleCanvasClick(p);
+            
         }
-        clickBorrar=false;
+        clickBorrar=false;  //la bandera vuelve a ser falsa una vez que se utilizó el metodo de borrar
     }
     
     private void handleCanvasClick(Punto p){
-            if(inicio == null){
+        //reviso que mi inicio este nulo, asi mi punto seleccionado será el inicial
+            if(inicio == null){  
                 inicio = p;
             }
             else{
+                //si mi inicio no es nulo significa que ya saque el primer punto y ahora corresponde el segundo
                 fin = p;
-                // AQUI VERIFICAR LES PUNTES NEGATIVES UWU
+                // Para crear rectangulos con coordenadas negativas
                 if(inicio.getX()>fin.getX() && inicio.getY()>fin.getY()){
                     Punto aux = inicio;
                     inicio = fin;
@@ -132,6 +137,12 @@ public class FXMLDocumentController implements Initializable {
 //    }
     
     @FXML
+    private void handlerSalirRectangulo(){
+        inicio = null;
+        fin = null;
+    }
+    
+    @FXML
     private void handleRemove(ActionEvent event) { //onAction del boton borrar
         System.out.println("entra? handle remove");
 //        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
@@ -153,6 +164,16 @@ public class FXMLDocumentController implements Initializable {
         else{
             return false;
         }
+    }
+    
+    public boolean estaDentroDeLista(Punto p){
+        boolean estaDentro=false;
+        for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
+            if(estaDentro(p, r)){
+                estaDentro = true;
+            }
+        }
+        return estaDentro;
     }
     
     private void eliminarRectangulo(Punto p){
@@ -188,6 +209,5 @@ public class FXMLDocumentController implements Initializable {
         dialogo.setModal(true);
         dialogo.setAlwaysOnTop(true);
         dialogo.setVisible(true);            
-    }
-    
+    }           
 }
