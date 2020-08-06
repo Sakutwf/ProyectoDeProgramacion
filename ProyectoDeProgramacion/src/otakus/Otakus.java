@@ -15,11 +15,10 @@ public class Otakus extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
-        
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));        
         Scene scene = new Scene(root);
-        
         stage.setScene(scene);
+        stage.setTitle("Extract PDF by Las Otaku | Inicio");
         stage.show();
     }
 

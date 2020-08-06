@@ -40,13 +40,15 @@ public class PDFCargador {
             try{
                 document = PDDocument.load(archivoPDF); 
                 PDFRenderer pr = new PDFRenderer(document);
+                
                 img = pr.renderImage(0);
                 ImageIO.write(img, "png", new File("documento.png"));
                 File imageFile = new File("documento.png");
-                 LectorOCR.lectorSoloTexto(imageFile);
+                LectorOCR.lectorSoloTexto(imageFile);
                 fxImage = SwingFXUtils.toFXImage(img, null);
             }
-            catch (IOException ex) {
+            catch (IOException ex) {                
+                System.out.print(ex.getMessage());
                 //Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
