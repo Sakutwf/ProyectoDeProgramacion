@@ -1,7 +1,7 @@
 
 package otakus;
 
-import java.io.IOException;
+import java.awt.HeadlessException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -15,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +27,7 @@ public class FXMLDocumentController implements Initializable {
 //    private static ArrayList<Rectangulo> listadoRectangulos= new ArrayList<>();
     private Punto inicio;
     private Punto fin;
+    private boolean clickBorrar = false;
     
     @FXML
     private Label label;
@@ -50,32 +53,56 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
-
+    
     @FXML
-    private void handleCanvasClick(MouseEvent event){
+    private void handleHandle(MouseEvent event){
         Punto p = new Punto((int)event.getX(), (int)event.getY());
-        if(inicio == null){
-            inicio = p;
+        if(clickBorrar){
+            System.out.println("poto1");
+            eliminarRectangulo(p);
         }
         else{
-            fin = p;
-            Rectangulo r = new Rectangulo(inicio, fin);
-            agregarRectangulo(r);
-            inicio = null;
-            fin = null;
-            refrescarCanvas();
+            System.out.println("poto2");
+            handleCanvasClick(p);
         }
+        clickBorrar=false;
     }
     
-    private void agregarRectangulo(Rectangulo r){
-        //Agrega un rectangulo a la lista si es valido
-        //Se considera valido si su punto de inicio esta a la izquierda dek fin
-        //De lo contrario son ignorados.
-        if(!(r.getAlto() <=0 )){
-            if(!(r.getAncho()<=0 )){
-                ListaRectangulosSingleton.getRectangulos().add(r);
+    private void handleCanvasClick(Punto p){
+            if(inicio == null){
+                inicio = p;
             }
-        }
+            else{
+                fin = p;
+                // AQUI VERIFICAR LES PUNTES NEGATIVES UWU
+                if(inicio.getX()>fin.getX() && inicio.getY()>fin.getY()){
+                    Punto aux = inicio;
+                    inicio = fin;
+                    fin = aux;
+                }
+                if(inicio.getX()>fin.getX() && inicio.getY()<fin.getY()){
+                    Punto nuevoInicio = new Punto(fin.getX(), inicio.getY());
+                    Punto nuevoFin = new Punto(inicio.getX(), fin.getY());
+                    inicio = nuevoInicio;
+                    fin = nuevoFin;
+                }
+                if(inicio.getX()<fin.getX() && inicio.getY()>fin.getY()){
+                    Punto nuevoInicio = new Punto(inicio.getX(), fin.getY());
+                    Punto nuevoFin = new Punto(fin.getX(), inicio.getY());
+                    inicio = nuevoInicio;
+                    fin = nuevoFin;
+                }
+
+                Rectangulo r = new Rectangulo(inicio, fin);
+                inicio = null;
+                fin = null;            
+                String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
+                if(!seleccion.isEmpty()){                         
+                    r.setTipo(seleccion);                          
+                    ListaRectangulosSingleton.getRectangulos().add(r);          
+                    refrescarCanvas();       
+                }       
+            }   
     }
     
     private void refrescarCanvas(){
@@ -93,20 +120,74 @@ public class FXMLDocumentController implements Initializable {
         }    
     }
 
+//    @FXML
+//    private void handleRemove(ActionEvent event) {
+//        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
+//        if(lista.size()>0){
+//            Rectangulo ultimo = lista.get(lista.size()-1);
+//            ListaRectangulosSingleton.getRectangulos().remove(ultimo);
+//            refrescarCanvas();
+//        }
+//       
+//    }
+    
     @FXML
-    private void handleRemove(ActionEvent event) {
-            ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
-        if(lista.size()>0){
-            Rectangulo ultimo = lista.get(lista.size()-1);
-            ListaRectangulosSingleton.getRectangulos().remove(ultimo);
+    private void handleRemove(ActionEvent event) { //onAction del boton borrar
+        System.out.println("entra? handle remove");
+//        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
+//            if(lista.size()>0){
+//                Rectangulo ultimo = lista.get(lista.size()-1);
+//                ListaRectangulosSingleton.getRectangulos().remove(ultimo);
+//                refrescarCanvas();
+//        }
+
+        clickBorrar=true;
+    }
+
+    public boolean estaDentro(Punto p, Rectangulo r){
+        System.out.println("veamos si esta adentro");
+        if(r.getInicio().getX()<p.getX() && p.getX()<r.getFin().getX()){
+            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
+            return (r.getInicio().getY()<p.getY() && p.getY()<r.getFin().getY());
+        }
+        else{
+            return false;
+        }
+    }
+    
+    private void eliminarRectangulo(Punto p){
+        try {
+            for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
+                if(estaDentro(p, r)){
+                    System.out.println("esta adentro "+estaDentro(p, r));
+                    ListaRectangulosSingleton.getRectangulos().remove(r);
+                }
+            }
+            refrescarCanvas();
+        } catch (Exception e) {
+            for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
+                if(estaDentro(p, r)){
+                    System.out.println("esta adentro "+estaDentro(p, r));
+                    ListaRectangulosSingleton.getRectangulos().remove(r);
+                }
+            }
             refrescarCanvas();
         }
-       
     }
 
     @FXML
     private void SerializarRectangulos(ActionEvent event) throws IOException {
         ListaRectangulosSingleton.serializarListaRectangulos();
+    }
+    
+    public void ventanaEmergente(int tipo, String mensaje, String titulo){                    
+        JOptionPane aux = new JOptionPane();
+        aux.setMessage(mensaje);
+        aux.setMessageType(tipo);       
+        JDialog dialogo = aux.createDialog("Extract PDF by Las Otaku | "+titulo);  
+        dialogo.setModal(true);
+        dialogo.setAlwaysOnTop(true);
+        dialogo.setVisible(true);            
     }
     
 }

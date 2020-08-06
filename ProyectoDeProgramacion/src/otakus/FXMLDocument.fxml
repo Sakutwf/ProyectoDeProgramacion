@@ -26,8 +26,7 @@
             <Button layoutX="17.0" layoutY="49.0" maxWidth="0.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: red; -fx-background-radius: 10;" />
          </children>
       </AnchorPane>
-      <Canvas fx:id="canvas" height="727.0" layoutX="276.0" layoutY="25.0" onMouseClicked="#handleCanvasClick" width="515.0" />
-     <Canvas fx:id="canvas1" height="727.0" layoutX="816.0" layoutY="17.0" onMouseClicked="#handleCanvasClick" width="515.0" />
-      <Button fx:id="Serializar" layoutX="152.0" layoutY="732.0" mnemonicParsing="false" onAction="#SerializarRectangulos" text="Serializar" /> 
+      <Canvas fx:id="canvas" height="727.0" layoutX="276.0" layoutY="25.0" onMouseClicked="#handleHandle" width="515.0" />
+     <Canvas fx:id="canvas1" height="727.0" layoutX="816.0" layoutY="17.0" width="515.0" /> 
     </children>
 </AnchorPane>
