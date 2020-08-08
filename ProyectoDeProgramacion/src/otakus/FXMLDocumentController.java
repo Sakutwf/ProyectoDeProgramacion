@@ -65,7 +65,7 @@ public class FXMLDocumentController implements Initializable {
         }
         else{ // si no es para crear un nuevo rectangulo
             if(p==null) return;
-            System.out.println(p.toString());
+//            System.out.println(p.toString());
             handleCanvasClick(p);
             
         }
@@ -100,21 +100,23 @@ public class FXMLDocumentController implements Initializable {
                 }
                 Rectangulo r = new Rectangulo(inicio, fin);          
                 String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
-                if(!seleccion.isEmpty()){
-                    r.setTipo(seleccion);                          
-                    agregarRectangulo(inicio, fin, r);
-                    refrescarCanvas();       
-                }
+                while (esIdRepetida(seleccion) || seleccion.isEmpty()){
+                        ventanaEmergenteMensaje("ID ya existente o no válida");
+                        seleccion = JOptionPane.showInputDialog("Reingrese nombre para recuadro");
+                    }
+                r.setTipo(seleccion);  
+                agregarRectangulo(r);
+                refrescarCanvas();       
                 inicio = null;
                 fin = null; 
             }   
     }
     
-     private void agregarRectangulo(Punto pIni, Punto pFin, Rectangulo rParaAgregar){
+     private void agregarRectangulo(Rectangulo rParaAgregar){
         //Agrega un rectangulo a la lista si es valido
         //Se considera valido si su punto no esta dentro de otro rectangulo
         //De lo contrario son ignorados.
-        if (!estaDentroDeLista(pIni) && !estaDentroDeLista(pFin)){
+        if (!estaDentroDeLista(rParaAgregar.getInicio()) && !estaDentroDeLista(rParaAgregar.getFin())){
                 if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)){
                     ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
                 }
@@ -161,7 +163,7 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void handleRemove(ActionEvent event) { //onAction del boton borrar
-        System.out.println("entra? handle remove");
+//        System.out.println("entra? handle remove");
 //        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
 //            if(lista.size()>0){
 //                Rectangulo ultimo = lista.get(lista.size()-1);
@@ -173,9 +175,10 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public boolean estaDentro(Punto p, Rectangulo r){
-        System.out.println("veamos si esta adentro");
+//        System.out.println("veamos si esta adentro");
+//            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
         if(r.getInicio().getX()<p.getX() && p.getX()<r.getFin().getX()){
-            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
+//            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
             return (r.getInicio().getY()<p.getY() && p.getY()<r.getFin().getY());
         }
         else{
@@ -205,11 +208,21 @@ public class FXMLDocumentController implements Initializable {
         return validador;
     }
     
+    public boolean esIdRepetida (String ID){
+        boolean validador = false;
+        for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
+            if (ID.equals(r.getTipo())){
+                validador = true;
+            }
+        }
+        return validador;
+    }
+    
     private void eliminarRectangulo(Punto p){
         try {
             for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
                 if(estaDentro(p, r)){
-                    System.out.println("esta adentro "+estaDentro(p, r));
+//                    System.out.println("esta adentro "+estaDentro(p, r));
                     ListaRectangulosSingleton.getRectangulos().remove(r);
                 }
             }
@@ -217,7 +230,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
                 if(estaDentro(p, r)){
-                    System.out.println("esta adentro "+estaDentro(p, r));
+//                    System.out.println("esta adentro "+estaDentro(p, r));
                     ListaRectangulosSingleton.getRectangulos().remove(r);
                 }
             }
@@ -230,7 +243,7 @@ public class FXMLDocumentController implements Initializable {
         ListaRectangulosSingleton.serializarListaRectangulos();
     }
     
-    public void ventanaEmergenteID(int tipo, String mensaje, String titulo){    
+    public void ventanaEmergente(int tipo, String mensaje, String titulo){    
         //PARA AGREGAR ID A RECTANGULOS
         JOptionPane aux = new JOptionPane();
         aux.setMessage(mensaje);
@@ -250,4 +263,8 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
     }
  
+    public void ventanaEmergenteID(String mensaje){
+        
+    }
+    
 }
