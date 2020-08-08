@@ -240,7 +240,8 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void SerializarRectangulos(ActionEvent event) throws IOException {
-        ListaRectangulosSingleton.serializarListaRectangulos();
+        String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
+        ListaRectangulosSingleton.serializarListaRectangulos(nombreArchivo);
     }
     
     public void ventanaEmergente(int tipo, String mensaje, String titulo){    
@@ -263,8 +264,5 @@ public class FXMLDocumentController implements Initializable {
             alert.showAndWait();
     }
  
-    public void ventanaEmergenteID(String mensaje){
-        
-    }
     
 }

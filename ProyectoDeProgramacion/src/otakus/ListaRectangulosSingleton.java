@@ -32,11 +32,11 @@ public class ListaRectangulosSingleton {
         return ListaRectangulosSingleton.listaDeRectangulos;
     }
 
-    public static void serializarListaRectangulos() throws IOException {
+    public static void serializarListaRectangulos(String nombre) throws IOException {
             java.lang.reflect.Type tipo = new TypeToken<ArrayList<Rectangulo>>() {
             }.getType();
             String json = new GsonBuilder().setPrettyPrinting().create().toJson(ListaRectangulosSingleton.getRectangulos(), tipo);
-            FileWriter writer = new FileWriter("ListaRectangulosJson");
+            FileWriter writer = new FileWriter(nombre);
             BufferedWriter bw = new BufferedWriter(writer);
             bw.write(json);
             bw.flush();
