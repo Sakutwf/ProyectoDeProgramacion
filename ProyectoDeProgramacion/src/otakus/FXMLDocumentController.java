@@ -11,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -62,9 +64,8 @@ public class FXMLDocumentController implements Initializable {
             eliminarRectangulo(p);
         }
         else{ // si no es para crear un nuevo rectangulo
-            while (estaDentroDeLista(p)){
-                System.out.println("");//poner mensaje de que esta ocupado el lugar xd
-            }
+            if(p==null) return;
+            System.out.println(p.toString());
             handleCanvasClick(p);
             
         }
@@ -97,17 +98,33 @@ public class FXMLDocumentController implements Initializable {
                     inicio = nuevoInicio;
                     fin = nuevoFin;
                 }
-
-                Rectangulo r = new Rectangulo(inicio, fin);
-                inicio = null;
-                fin = null;            
+                Rectangulo r = new Rectangulo(inicio, fin);          
                 String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
-                if(!seleccion.isEmpty()){                         
+                if(!seleccion.isEmpty()){
                     r.setTipo(seleccion);                          
-                    ListaRectangulosSingleton.getRectangulos().add(r);          
+                    agregarRectangulo(inicio, fin, r);
                     refrescarCanvas();       
-                }       
+                }
+                inicio = null;
+                fin = null; 
             }   
+    }
+    
+     private void agregarRectangulo(Punto pIni, Punto pFin, Rectangulo rParaAgregar){
+        //Agrega un rectangulo a la lista si es valido
+        //Se considera valido si su punto no esta dentro de otro rectangulo
+        //De lo contrario son ignorados.
+        if (!estaDentroDeLista(pIni) && !estaDentroDeLista(pFin)){
+                if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)){
+                    ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
+                }
+                else{
+                    ventanaEmergenteMensaje("¡¡Ya existe un rectángulo dentro de esta posición!!");
+                }
+            }  
+        else{
+            ventanaEmergenteMensaje("¡¡Ya existe un rectángulo en esta posición!!");
+        }
     }
     
     private void refrescarCanvas(){
@@ -176,6 +193,18 @@ public class FXMLDocumentController implements Initializable {
         return estaDentro;
     }
     
+    public boolean nuevoRcontieneAlgunRectangulo(Rectangulo nuevoR){
+        //Verifica si el rectangulo nuevo esta sobre algun rectangulo existente
+        boolean validador = false;
+        for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
+            if (estaDentro(r.getInicio(), nuevoR) 
+                    || estaDentro(r.getFin(), nuevoR)) {
+                validador = true;
+            }
+        }
+        return validador;
+    }
+    
     private void eliminarRectangulo(Punto p){
         try {
             for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
@@ -201,7 +230,8 @@ public class FXMLDocumentController implements Initializable {
         ListaRectangulosSingleton.serializarListaRectangulos();
     }
     
-    public void ventanaEmergente(int tipo, String mensaje, String titulo){                    
+    public void ventanaEmergenteID(int tipo, String mensaje, String titulo){    
+        //PARA AGREGAR ID A RECTANGULOS
         JOptionPane aux = new JOptionPane();
         aux.setMessage(mensaje);
         aux.setMessageType(tipo);       
@@ -209,5 +239,15 @@ public class FXMLDocumentController implements Initializable {
         dialogo.setModal(true);
         dialogo.setAlwaysOnTop(true);
         dialogo.setVisible(true);            
-    }           
+    } 
+    
+    public void ventanaEmergenteMensaje(String mensaje){
+        //PARA NOTIFICAR ALGUN MENSAJE
+    Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("¡Alerta!");
+            alert.setHeaderText(null);
+            alert.setContentText(mensaje);
+            alert.showAndWait();
+    }
+ 
 }
