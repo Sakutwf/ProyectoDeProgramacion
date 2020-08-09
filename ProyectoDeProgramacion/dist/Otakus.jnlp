@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Otakus.jar" size="428986" download="eager" />
+    <jar href="Otakus.jar" size="432306" download="eager" />
     <jar href="lib\OpenViewerFX-6.6.14-sources.jar" size="3495783" download="eager" />
     <jar href="lib\OpenViewerFX-6.6.14.jar" size="2741406" download="eager" />
     <jar href="lib\commons-beanutils-1.9.2.jar" size="233859" download="eager" />

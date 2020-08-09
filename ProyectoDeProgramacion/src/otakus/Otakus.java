@@ -19,6 +19,8 @@ public class Otakus extends Application {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Extract PDF by Las Otaku | Inicio");
+        stage.setResizable(false);
+        stage.centerOnScreen();             
         stage.show();
     }
 

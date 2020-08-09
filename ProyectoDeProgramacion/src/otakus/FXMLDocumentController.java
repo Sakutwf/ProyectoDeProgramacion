@@ -1,11 +1,12 @@
 
 package otakus;
 
-import java.awt.HeadlessException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,11 +16,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -45,8 +51,12 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button Serializar;
     @FXML
+    private Button cargarJSON;
+    @FXML
+    private ListView lista;
     
-    private void handleButtonAction(ActionEvent event) {
+    @FXML
+    public void handleButtonAction(ActionEvent event) {
         PDFImage = PDFCargador.cargarPDF();
         ListaRectangulosSingleton.getRectangulos().clear();
         refrescarCanvas();
@@ -54,11 +64,33 @@ public class FXMLDocumentController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Lista Rectangulos     
+        lista.setCellFactory(param -> new ListCell<Rectangulo>() {
+            private final ImageView imageView = new ImageView(new Image(this.getClass().getResource("color.png").toString()));            
+            @Override
+            public void updateItem(Rectangulo auxiliar, boolean empty){
+                super.updateItem(auxiliar, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {                      
+                    imageView.setEffect(new InnerShadow(100, auxiliar.getColor()));                    
+                    setGraphic(imageView);                 
+                    setText(" : "+auxiliar.getTipo() + "\n");                                
+                }
+            }
+        });        
+        this.refrescarDos();
     }    
     
+    public void refrescarDos(){      
+        ObservableList<Rectangulo> listaObservable = FXCollections.observableArrayList(ListaRectangulosSingleton.getRectangulos());
+        lista.setItems(listaObservable);
+        lista.refresh();        
+    }
+    
     @FXML
-    private void handleHandle(MouseEvent event){ // el manejo del manejo de canvas XD
+    public void handleHandle(MouseEvent event){ // el manejo del manejo de canvas XD
         Punto p = new Punto((int)event.getX(), (int)event.getY());
         if(clickBorrar){ //si la bandera esta activa el click es para borrar
             eliminarRectangulo(p);
@@ -72,7 +104,7 @@ public class FXMLDocumentController implements Initializable {
         clickBorrar=false;  //la bandera vuelve a ser falsa una vez que se utilizó el metodo de borrar
     }
     
-    private void handleCanvasClick(Punto p){
+    public void handleCanvasClick(Punto p){
         //reviso que mi inicio este nulo, asi mi punto seleccionado será el inicial
             if(inicio == null){  
                 inicio = p;
@@ -104,7 +136,9 @@ public class FXMLDocumentController implements Initializable {
                         ventanaEmergenteMensaje("ID ya existente o no válida");
                         seleccion = JOptionPane.showInputDialog("Reingrese nombre para recuadro");
                     }
-                r.setTipo(seleccion);  
+                r.setTipo(seleccion);                 
+                Color aux = Color.rgb(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
+                r.setColor(aux);                
                 agregarRectangulo(r);
                 refrescarCanvas();       
                 inicio = null;
@@ -112,7 +146,7 @@ public class FXMLDocumentController implements Initializable {
             }   
     }
     
-     private void agregarRectangulo(Rectangulo rParaAgregar){
+    public void agregarRectangulo(Rectangulo rParaAgregar){
         //Agrega un rectangulo a la lista si es valido
         //Se considera valido si su punto no esta dentro de otro rectangulo
         //De lo contrario son ignorados.
@@ -129,7 +163,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    private void refrescarCanvas(){
+    public void refrescarCanvas(){
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.drawImage(PDFImage, 0, 0, canvas.getWidth(), canvas.getHeight());
     
@@ -138,10 +172,11 @@ public class FXMLDocumentController implements Initializable {
         for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
             int ancho = r.getFin().getX() - r.getInicio().getX();
             int alto = r.getFin().getY() - r.getInicio().getY();
-            gc.setStroke(Color.BLACK);
+            gc.setStroke(r.getColor());
             gc.setLineWidth(2);
             gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);
-        }    
+        } 
+        this.refrescarDos();
     }
 
 //    @FXML
@@ -156,13 +191,13 @@ public class FXMLDocumentController implements Initializable {
 //    }
     
     @FXML
-    private void handlerSalirRectangulo(){
+    public void handlerSalirRectangulo(){
         inicio = null;
         fin = null;
     }
     
     @FXML
-    private void handleRemove(ActionEvent event) { //onAction del boton borrar
+    public void handleRemove(ActionEvent event) { //onAction del boton borrar
 //        System.out.println("entra? handle remove");
 //        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
 //            if(lista.size()>0){
@@ -218,7 +253,7 @@ public class FXMLDocumentController implements Initializable {
         return validador;
     }
     
-    private void eliminarRectangulo(Punto p){
+    public void eliminarRectangulo(Punto p){
         try {
             for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
                 if(estaDentro(p, r)){
@@ -239,7 +274,7 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void SerializarRectangulos(ActionEvent event) throws IOException {
+    public void SerializarRectangulos(ActionEvent event) throws IOException {
         String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
         ListaRectangulosSingleton.serializarListaRectangulos(nombreArchivo);
     }
@@ -262,6 +297,13 @@ public class FXMLDocumentController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText(mensaje);
             alert.showAndWait();
+    }
+
+    @FXML
+    public void cargarPlantillaJSON(ActionEvent event) {
+        ListaRectangulosSingleton.getRectangulos().clear();
+        JSONCargador.cargarJSON();
+        refrescarCanvas();
     }
  
     
