@@ -3,6 +3,7 @@ package otakus;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -76,7 +77,7 @@ public class FXMLDocumentController implements Initializable {
                 } else {                      
                     imageView.setEffect(new InnerShadow(100, auxiliar.getColor()));                    
                     setGraphic(imageView);                 
-                    setText(" : "+auxiliar.getTipo() + "\n");                                
+                    setText(" : "+auxiliar.getId() + "\n");                                
                 }
             }
         });        
@@ -130,15 +131,16 @@ public class FXMLDocumentController implements Initializable {
                     inicio = nuevoInicio;
                     fin = nuevoFin;
                 }
-                Rectangulo r = new Rectangulo(inicio, fin);          
+                Rectangulo r = new Rectangulo(inicio, fin);
                 String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
                 while (esIdRepetida(seleccion) || seleccion.isEmpty()){
                         ventanaEmergenteMensaje("ID ya existente o no válida");
                         seleccion = JOptionPane.showInputDialog("Reingrese nombre para recuadro");
-                    }
-                r.setTipo(seleccion);                 
-                Color aux = Color.rgb(new Random().nextInt(255), new Random().nextInt(255), new Random().nextInt(255));
-                r.setColor(aux);                
+                    }                       
+                r.setColorR(new Random().nextInt(255));
+                r.setColorG(new Random().nextInt(255));
+                r.setColorB(new Random().nextInt(255));
+                r.setId(seleccion);
                 agregarRectangulo(r);
                 refrescarCanvas();       
                 inicio = null;
@@ -246,7 +248,7 @@ public class FXMLDocumentController implements Initializable {
     public boolean esIdRepetida (String ID){
         boolean validador = false;
         for(Rectangulo r : ListaRectangulosSingleton.getRectangulos()){
-            if (ID.equals(r.getTipo())){
+            if (ID.equals(r.getId())){
                 validador = true;
             }
         }
@@ -276,9 +278,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void SerializarRectangulos(ActionEvent event) throws IOException {
         String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
-        ListaRectangulosSingleton.serializarListaRectangulos(nombreArchivo);
+        new JSONManagement().serializarListaRectangulos(nombreArchivo, ListaRectangulosSingleton.getRectangulos());
     }
-    
+
     public void ventanaEmergente(int tipo, String mensaje, String titulo){    
         //PARA AGREGAR ID A RECTANGULOS
         JOptionPane aux = new JOptionPane();
@@ -300,9 +302,13 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    public void cargarPlantillaJSON(ActionEvent event) {
-        ListaRectangulosSingleton.getRectangulos().clear();
-        JSONCargador.cargarJSON();
+    public void cargarPlantillaJSON(ActionEvent event) throws IOException {
+        ListaRectangulosSingleton.setRectangulos(null);
+//        ListaRectangulosSingleton.getRectangulos().clear();
+        ListaRectangulosSingleton.getRectangulos().add(new JSONManagement().cargarJSON());
+//        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
+//        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
+//        System.out.println(a.get(0).getId());
         refrescarCanvas();
     }
  
