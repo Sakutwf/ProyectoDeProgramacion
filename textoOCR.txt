@@ -1,0 +1,42 @@
+Despacho vía Impresora
+Universidad Nacional Andrés Bello Orden de Compra Fecha Pg
+República N* 252 CHL01-0000114186 30/05/2016 1
+Santiago Condic Pago Cond Flete Mét Env
+R.U.T.: 71.540.100-2 Net 30 Origen COMUN
+Comprador Teléfono: Moneda
+Balbontin Simonetti,Bere CLP
+Entregar bienes en: — 0508
+Proveedor: — 96670840-9 Quillota 910
+DIMERC S.A Viña del Mar 05
+Dirección: ALBERTO PEPPER 1784 CHILE
+SANTIAGO STGO
+CHILE Entregar factura en: — Barcelona 2077 Piso 5 Providencia
+E-Mail: cbrionesQdimerc.cl Santiago STGO
+Teléfono: (02) 23858010 CHILE
+Contact: CINDY BRIONES
+ín-Env_Art/Descripción 1d Fabricante Cantidad — Precio U. Neto Total Neto
+enviar a calle quillota 980 torre C piso 6, escuela de Derecho, Srta Susana Morales
+1- 1 H310120 1.00 5,033.00 5,033.00
+H310120 PAPEL OPALINA LISA 250HJ CARTA BLANCO 140GR DIAZOL
+2- 1 Hao1391 20.00 1,922.00 38,440.00
+H401391 PAPEL FOTOCOPIA CARTA 500HJ DIMERC
+3- 1 H401393 10.00 2,265.00 22,650.00
+H401393 PAPEL FOTOCOPIA OFICIO 500HJ DIMERC
+4- 1 L300412 3.00 441.00 1,323.00
+1300412 DESTACADOR ESCRITORIO AMARILLO BOSS 70 STABILO
+5- 1 R107114 5.00 1,355.00 6,775.00
+R107114 VISORES PORTALEYENDA 50UNICJA. RHEIN
+6- 1 R385911 2.00 3,700.00 7,400.00
+R385911 FUNDA POLIPROPILENO OF AZUL DIMERC (100)
+7- 1 R509226 6.00 373.00 2,238.00
+R509226 CORCHETE ESTANDAR 26/06 5000UN TORRE
+Monto Neto 83,859.00)
+IVA 15,933.00)
+Monto Total 99,792.00)
+Estimado Proveedor, favor cumplir con las siguientes exigencias:
+1. La mercadería debe ser despachada a nombre y dirección del campo “Entregar bienes en:"
+2. Las facturas deberán ser entregadas en la dirección del campo “Entregar Facturas en:"
+3. La factura debe tener adjunta la Orden de Compra o hacer mención de ella, para agilizar el pago, de lo contrario no se procesara el pago.
+4. El detalle de la Orden de Compra está expresada en valores Netos. Y es válida por un máximo de 90 días calendario a partir de la fecha de emisión
+5. Consultas de Pago de Facturas, contactar a mesadeservicosaroQserviciosandinos.net o al fono 56-28191600
+
