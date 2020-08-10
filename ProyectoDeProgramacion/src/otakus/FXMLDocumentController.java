@@ -332,6 +332,7 @@ public class FXMLDocumentController implements Initializable {
     public void cargarPlantillaJSON(ActionEvent event) throws IOException {
         ListaRectangulosSingleton.getRectangulos().clear();
         ListaRectangulosSingleton.setRectangulos(new JSONManagement().cargarJSON());
+        ListaRectangulosSingleton.listaDeRectangulos = JSONManagement.aux;
         refrescarCanvas();
 //        ___________________________________________________________________
 //        ___________________________________________________________________
@@ -339,7 +340,7 @@ public class FXMLDocumentController implements Initializable {
 //        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
 //        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
 //        System.out.println(a.get(0).getId());
-        System.out.println(new JSONManagement().cargarJSON().toString());
+//        System.out.println(new JSONManagement().cargarJSON().toString());
 
     }
 

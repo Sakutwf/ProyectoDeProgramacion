@@ -28,7 +28,7 @@ import org.codehaus.jackson.type.TypeReference;
 public class JSONManagement {
 
     ObjectMapper objectMapper = new ObjectMapper();
-
+    static ArrayList<Rectangulo> aux;
     /**
      * carga un json con un fileChooser y lo retorna como lista
      *
@@ -39,6 +39,7 @@ public class JSONManagement {
         FileChooser escogerJSON = new FileChooser();
         escogerJSON.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo JSON", "*.json"));
         File archivoJSON = escogerJSON.showOpenDialog(null);
+        System.out.println("ejecute este cuadro de dialogo");
 
         if (archivoJSON.exists()) {
             try {
@@ -113,7 +114,7 @@ public class JSONManagement {
     }
 
     public ArrayList<Rectangulo> deserealizarListaRectangulos(File archivo) throws FileNotFoundException, JsonGenerationException, JsonMappingException, IOException {
-        ArrayList<Rectangulo> aux = new ArrayList<>();
+        aux = new ArrayList<>();
         //BufferedReader br = new BufferedReader(new FileReader(archivo));
         //String x = br.readLine();
         //br.close();
@@ -136,6 +137,7 @@ public class JSONManagement {
                 JsonNode elemento = jsonIt.next();
                 
                 String id = elemento.get("id").toString();
+                id = id.substring(1,id.length()-1);
                 int colorR = elemento.get("colorR").getIntValue();
                 int colorG = elemento.get("colorG").getIntValue();
                 int colorB = elemento.get("colorB").getIntValue();
