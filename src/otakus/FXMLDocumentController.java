@@ -340,7 +340,7 @@ public class FXMLDocumentController implements Initializable {
     public void cargarPlantillaJSON(ActionEvent event) throws IOException {
         ListaRectangulosSingleton.setRectangulos(null);
 //        ListaRectangulosSingleton.getRectangulos().clear();
-        ListaRectangulosSingleton.getRectangulos().add(new JSONManagement().cargarJSON());
+        ListaRectangulosSingleton.listaDeRectangulos = new JSONManagement().cargarJSON();
 //        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
 //        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
 //        System.out.println(a.get(0).getId());
