@@ -160,7 +160,7 @@ public class JSONManagement {
              
         }
       
-
+        objReader.close();
         return aux;
 
 //        String fichero = "";

@@ -219,19 +219,21 @@ public class FXMLDocumentController implements Initializable {
             inicio = null;
             fin = null;
             String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
-            while (esIdRepetida(seleccion) || seleccion.isEmpty()) {
-                ventanaEmergenteMensaje("ID ya existente o no válida");
-                seleccion = JOptionPane.showInputDialog("Reingrese nombre para recuadro");
+            if(seleccion != null){
+                while (esIdRepetida(seleccion) || seleccion.isEmpty()) {
+                    ventanaEmergenteMensaje("ID ya existente o no válida");
+                    seleccion = JOptionPane.showInputDialog("Reingrese nombre para recuadro");
+                }
+                r.setColorR(new Random().nextInt(255));
+                r.setColorG(new Random().nextInt(255));
+                r.setColorB(new Random().nextInt(255));
+                r.setId(seleccion);
+                agregarRectangulo(r);
+//              Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
+//              String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png"); //que pasa aqui?
+                refrescarCanvas();
+                UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
             }
-            r.setColorR(new Random().nextInt(255));
-            r.setColorG(new Random().nextInt(255));
-            r.setColorB(new Random().nextInt(255));
-            r.setId(seleccion);
-            agregarRectangulo(r);
-//            Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
-//            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png"); //que pasa aqui?
-            refrescarCanvas();
-            UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
         }
     }
 
@@ -371,7 +373,7 @@ public class FXMLDocumentController implements Initializable {
     public void SerializarRectangulos(ActionEvent event) throws IOException {
         guardarPlantilla.setVisible(false);
         eliminarPlantilla.setVisible(false);
-        if(actualJson.exists()){
+        if(actualJson != null){
             EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
         }
         else{
@@ -472,6 +474,8 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void eliminarPlantillaCargada(ActionEvent event) {
         EditorDePlantillas.eliminarPlantillaCargada();
+        ListaRectangulosSingleton.setRectangulos(null);
+        refrescarCanvas();
         guardarPlantilla.setVisible(false);
         eliminarPlantilla.setVisible(false);
     }
