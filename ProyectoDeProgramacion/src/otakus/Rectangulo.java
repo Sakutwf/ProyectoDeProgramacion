@@ -1,4 +1,3 @@
-
 package otakus;
 
 import javafx.scene.paint.Color;
@@ -10,6 +9,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
  * @author Serllet & Escarlet
  */
 public class Rectangulo {
+
     private String id;
     private int colorR;
     private int colorG;
@@ -17,18 +17,18 @@ public class Rectangulo {
     private Punto Inicio;
     private Punto Fin;
     private String contenido;
-    
+
     @JsonCreator
-    public Rectangulo(@JsonProperty ("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
+    public Rectangulo(@JsonProperty("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
         this.Inicio = Inicio;
         this.Fin = Fin;
     }
-    
+
     @JsonCreator
-    public Rectangulo(@JsonProperty ("tipo") String tipo, @JsonProperty ("colorR") int colorR,
-            @JsonProperty ("colorG") int colorG, @JsonProperty ("colorB") int colorB,
-            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin){
-        
+    public Rectangulo(@JsonProperty("tipo") String tipo, @JsonProperty("colorR") int colorR,
+            @JsonProperty("colorG") int colorG, @JsonProperty("colorB") int colorB,
+            @JsonProperty("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
+
         this.colorR = colorR;
         this.colorG = colorG;
         this.colorB = colorB;
@@ -37,8 +37,9 @@ public class Rectangulo {
         this.contenido = contenido;
     }
 
-    public Rectangulo() {}
-    
+    public Rectangulo() {
+    }
+
     public String getId() {
         return id;
     }
@@ -61,12 +62,12 @@ public class Rectangulo {
 
     public void setFin(Punto Fin) {
         this.Fin = Fin;
-    }    
-    
+    }
+
     public int getAncho() {
         return Fin.getX() - Inicio.getX();
     }
-    
+
     public int getAlto() {
         return Fin.getY() - Inicio.getY();
     }
@@ -102,10 +103,10 @@ public class Rectangulo {
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
-    
-    public Color getColor(){
+
+    public Color getColor() {
         Color color = Color.rgb(this.colorR, this.colorG, this.colorB);
         return color;
     }
-    
+
 }

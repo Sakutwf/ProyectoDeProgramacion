@@ -59,14 +59,14 @@ public class LectorOCR {
             }
         }
     }
-    
-    
+
     /**
      * Extrae información utilizando el motor OCR, utilizando un rectagulo
+     *
      * @param area rectangulo del area de interes.
      * @param fileName nombre de archivo de imagen.
      */
-    public static String lectorPorAreasRectangulares(Rectangle area,String fileName ) {
+    public static String lectorPorAreasRectangulares(Rectangle area, String fileName) {
 
         try {
             File file = new File(fileName);
@@ -74,7 +74,7 @@ public class LectorOCR {
             instancia.setLanguage("spa");
             instancia.setDatapath("tessdata");
             return instancia.doOCR(file, area);
-           
+
         } catch (TesseractException ex) {
             Logger.getLogger(LectorOCR.class.getName()).log(Level.SEVERE, null, ex);
         }
