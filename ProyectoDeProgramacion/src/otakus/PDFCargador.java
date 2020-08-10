@@ -13,7 +13,10 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;
-
+/**
+ *
+ * @author Serllet & Escarlet
+ */
 public class PDFCargador {
 
     /**

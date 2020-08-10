@@ -18,7 +18,7 @@ import net.sourceforge.tess4j.TesseractException;
 
 /**
  *
- * @author Serllet
+ * @author Serllet & Escarlet
  */
 public class LectorOCR {
 
@@ -26,7 +26,7 @@ public class LectorOCR {
         try {
             Tesseract instancia = new Tesseract();
             instancia.setLanguage("spa");
-            instancia.setDatapath("tessdata"); // path to tessdata directory
+            instancia.setDatapath("tessdata"); // lo que no permitia la traduccion era la resolucion y no la libreria
             String result = instancia.doOCR(file);
             System.out.println(result);
 
@@ -86,9 +86,9 @@ public class LectorOCR {
         try {
             File myObj = new File("textoOCR.txt");
             Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) {
+            while (myReader.hasNextLine()) { // escanea la linea generado por el OCR |el archivo txt
                 String data = myReader.nextLine();
-                texto += data + "\n";
+                texto += data + "\n"; // 
             }
             myReader.close();
         } catch (FileNotFoundException ex) {

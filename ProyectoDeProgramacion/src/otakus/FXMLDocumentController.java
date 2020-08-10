@@ -63,6 +63,10 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ListView lista;
 
+    private int contadorAreasInteres;
+
+    private ArrayList<AreaInteres> areasInteres;
+
     @FXML
     public void handleButtonAction(ActionEvent event) {
         PDFImage = PDFCargador.cargarPDF();
@@ -78,7 +82,7 @@ public class FXMLDocumentController implements Initializable {
                 texto,
                 Math.round(canvas1.getWidth() / 2),
                 Math.round(canvas1.getHeight() / 2),
-                500
+                800 // canvas
         );
 
         ListaRectangulosSingleton.getRectangulos().clear();
@@ -104,6 +108,9 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
         });
+
+        this.areasInteres = new ArrayList<AreaInteres>();
+        this.contadorAreasInteres = 0;
         this.refrescarDos();
     }
 
@@ -172,18 +179,50 @@ public class FXMLDocumentController implements Initializable {
             agregarRectangulo(r);
             Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
             String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-            GraphicsContext gc = canvas2.getGraphicsContext2D();
-            gc.fillText(
-                    seleccion,
-                    Math.round(10),
-                    Math.round(10),
-                    500
-            );
+
+            if (contadorAreasInteres == 0) { // no habia nada dibujado ningun area de interes y toma la pos 50, 50
+                this.areasInteres.add(new AreaInteres(seleccion, resultado, new Punto(50, 50), new Punto(50, 100)));
+                pintarAreaInteres(seleccion, 50, 50);
+                pintarAreaInteres(resultado, 50, 80);
+
+            } else {
+                if (contadorAreasInteres % 4 == 0) { // el tema de las columnas cuando ya se haacen 4 areas este corta la Y
+                    AreaInteres area = this.areasInteres.get(contadorAreasInteres - 1);
+                    this.areasInteres.add(new AreaInteres(seleccion, resultado,
+                            new Punto(50, area.getCoordenadasId().getY() + 120),
+                            new Punto(50, area.getCoordenadasDetalle().getY() + 120)));
+
+                    pintarAreaInteres(seleccion, 50, area.getCoordenadasId().getY() + 120);
+                    pintarAreaInteres(resultado, 50, area.getCoordenadasDetalle().getY() + 120);
+                } else {
+                    // corta la x, para queden las filas
+                    AreaInteres area = this.areasInteres.get(contadorAreasInteres - 1);
+                    this.areasInteres.add(new AreaInteres(seleccion, resultado,
+                            new Punto(area.getCoordenadasId().getX() + 120, area.getCoordenadasId().getY()),
+                            new Punto(area.getCoordenadasDetalle().getX() + 120, area.getCoordenadasDetalle().getY())));
+
+                    pintarAreaInteres(seleccion, area.getCoordenadasId().getX() + 120, area.getCoordenadasId().getY()); // pinta en el canvas el area de interes
+                    pintarAreaInteres(resultado, area.getCoordenadasDetalle().getX() + 120, area.getCoordenadasDetalle().getY());// pinta el resultado del OCR
+
+                }
+
+            }
+            contadorAreasInteres++; // cuenta las veces que se pinta en el canvas
 
             refrescarCanvas();
             inicio = null;
             fin = null;
         }
+    }
+
+    private void pintarAreaInteres(String texto, int x, int y) {
+        GraphicsContext gc = canvas2.getGraphicsContext2D();
+        gc.fillText(
+                texto,
+                Math.round(x), // redondea X
+                Math.round(y), // redondea Y
+                100 // le asigno tamaño a el area de interes
+        );
     }
 
     public void agregarRectangulo(Rectangulo rParaAgregar) {
