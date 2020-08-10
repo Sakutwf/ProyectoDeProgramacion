@@ -5,19 +5,31 @@
  */
 package otakus;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  *
- * @author Saaku
+ * @author Serllet & Escarlet
  */
 public class ListaRectangulosSingleton {
     public static ArrayList<Rectangulo> listaDeRectangulos = null;
     
     public static ArrayList<Rectangulo> getRectangulos(){
-        if(ListaRectangulosSingleton.listaDeRectangulos == null){
+        if(ListaRectangulosSingleton.listaDeRectangulos == null){            
             ListaRectangulosSingleton.listaDeRectangulos = new ArrayList<Rectangulo>();
+            System.out.println("revisando si es nula");
         }
         return ListaRectangulosSingleton.listaDeRectangulos;
     }
+
+    public static void setRectangulos(ArrayList<Rectangulo> listaParaSet){
+        ListaRectangulosSingleton.listaDeRectangulos = listaParaSet;
+        
+    }
+    
+
+
 }

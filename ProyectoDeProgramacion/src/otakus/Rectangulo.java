@@ -2,38 +2,52 @@
 package otakus;
 
 import javafx.scene.paint.Color;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.codehaus.jackson.annotate.JsonTypeInfo.As;
 
 /**
  *
  * @author Serllet & Escarlet
  */
 public class Rectangulo {
-    private String tipo;
-    private Color color;
+    private String id;
+    private int colorR;
+    private int colorG;
+    private int colorB;
     private Punto Inicio;
     private Punto Fin;
-
-    public Rectangulo() {}
+    private String contenido;
     
-    public Rectangulo(Punto Inicio, Punto Fin) {
+    @JsonCreator
+    public Rectangulo(@JsonProperty ("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
         this.Inicio = Inicio;
         this.Fin = Fin;
     }
-
-    public String getTipo() {
-        return tipo;
+    
+    @JsonCreator
+    public Rectangulo(@JsonProperty ("id") String id, @JsonProperty ("colorR") int colorR,
+            @JsonProperty ("colorG") int colorG, @JsonProperty ("colorB") int colorB,
+            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,@JsonProperty ("contenido") String contenido){
+        this.id = id;
+        this.colorR = colorR;
+        this.colorG = colorG;
+        this.colorB = colorB;
+        this.Inicio = Inicio;
+        this.Fin = Fin;
+        this.contenido = contenido;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public Rectangulo() {}
+    
+    public String getId() {
+        return id;
     }
 
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Punto getInicio() {
@@ -51,5 +65,51 @@ public class Rectangulo {
     public void setFin(Punto Fin) {
         this.Fin = Fin;
     }    
+    
+    public int getAncho() {
+        return Fin.getX() - Inicio.getX();
+    }
+    
+    public int getAlto() {
+        return Fin.getY() - Inicio.getY();
+    }
+
+    public int getColorR() {
+        return colorR;
+    }
+
+    public void setColorR(int colorR) {
+        this.colorR = colorR;
+    }
+
+    public int getColorG() {
+        return colorG;
+    }
+
+    public void setColorG(int colorG) {
+        this.colorG = colorG;
+    }
+
+    public int getColorB() {
+        return colorB;
+    }
+
+    public void setColorB(int colorB) {
+        this.colorB = colorB;
+    }
+
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+    
+   @JsonIgnore
+    public Color getColor(){
+        Color color = Color.rgb(this.colorR, this.colorG, this.colorB);
+        return color;
+    }
     
 }
