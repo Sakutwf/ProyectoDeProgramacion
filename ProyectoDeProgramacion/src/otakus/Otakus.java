@@ -1,4 +1,3 @@
-
 package otakus;
 
 import javafx.application.Application;
@@ -12,15 +11,15 @@ import javafx.stage.Stage;
  * @author Serllet & Escarlet
  */
 public class Otakus extends Application {
-    
+
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));        
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Extract PDF by Las Otaku | Inicio");
         stage.setResizable(false);
-        stage.centerOnScreen();             
+        stage.centerOnScreen();
         stage.show();
     }
 
@@ -30,5 +29,5 @@ public class Otakus extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }

@@ -1,4 +1,3 @@
-
 package otakus;
 
 /**
@@ -6,11 +5,13 @@ package otakus;
  * @author Serllet & Escarlet
  */
 public class Punto {
+
     private int x;
     private int y;
 
-    public Punto() {}
-    
+    public Punto() {
+    }
+
     public Punto(int x, int y) {
         this.x = x;
         this.y = y;
@@ -31,5 +32,5 @@ public class Punto {
     public void setY(int y) {
         this.y = y;
     }
-    
+
 }

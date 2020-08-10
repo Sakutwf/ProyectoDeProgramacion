@@ -1,9 +1,10 @@
 package otakus;
 
+import java.awt.Font;
+import java.awt.Rectangle;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -11,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.VPos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
@@ -24,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -46,9 +49,13 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private Button button;
     @FXML
-    private Button RemoveButton;
+    private ImageView RemoveButton;
     @FXML
     private Canvas canvas1;
+
+    @FXML
+    private Canvas canvas2;
+
     @FXML
     private Button Serializar;
     @FXML
@@ -59,9 +66,23 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     public void handleButtonAction(ActionEvent event) {
         PDFImage = PDFCargador.cargarPDF();
+
+        String texto = LectorOCR.leerTextoOCR();
+        System.out.println("Texto: " + texto);
+        GraphicsContext gc = canvas1.getGraphicsContext2D();
+        gc.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
+        gc.setTextAlign(TextAlignment.CENTER);
+
+        gc.setTextBaseline(VPos.CENTER);
+        gc.fillText(
+                texto,
+                Math.round(canvas1.getWidth() / 2),
+                Math.round(canvas1.getHeight() / 2),
+                500
+        );
+
         ListaRectangulosSingleton.getRectangulos().clear();
         refrescarCanvas();
-        refrescarDos();
     }
 
     @Override
@@ -87,7 +108,6 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void refrescarDos() {
-        System.out.println("Singleton " + ListaRectangulosSingleton.getRectangulos());
         ObservableList<Rectangulo> listaObservable = FXCollections.observableArrayList(ListaRectangulosSingleton.getRectangulos());
         lista.setItems(listaObservable);
         lista.refresh();
@@ -135,6 +155,11 @@ public class FXMLDocumentController implements Initializable {
                 fin = nuevoFin;
             }
             Rectangulo r = new Rectangulo(inicio, fin);
+            System.out.println("X1" + inicio.getX());
+            System.out.println("Y1" + inicio.getX());
+            System.out.println("X2" + fin.getX());
+            System.out.println("Y2" + fin.getY());
+
             String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
             while (esIdRepetida(seleccion) || seleccion.isEmpty()) {
                 ventanaEmergenteMensaje("ID ya existente o no válida");
@@ -145,8 +170,17 @@ public class FXMLDocumentController implements Initializable {
             r.setColorB(new Random().nextInt(255));
             r.setId(seleccion);
             agregarRectangulo(r);
+            Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
+            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
+            GraphicsContext gc = canvas2.getGraphicsContext2D();
+            gc.fillText(
+                    seleccion,
+                    Math.round(10),
+                    Math.round(10),
+                    500
+            );
+
             refrescarCanvas();
-            refrescarDos();
             inicio = null;
             fin = null;
         }
@@ -169,44 +203,19 @@ public class FXMLDocumentController implements Initializable {
 
     public void refrescarCanvas() {
         GraphicsContext gc = canvas.getGraphicsContext2D();
+        canvas.setHeight(PDFImage.getHeight());
+        canvas.setWidth(PDFImage.getWidth());
         gc.drawImage(PDFImage, 0, 0, canvas.getWidth(), canvas.getHeight());
-        System.out.println("Canveas W:" + canvas.getWidth() + " _ H:" + canvas.getHeight());
+
 //    Dibujar rectangulos
-        System.out.println("Lista rectangulo: " + ListaRectangulosSingleton.getRectangulos().size());
-        if (ListaRectangulosSingleton.getRectangulos().size() > 0) {
-
-            ListaRectangulosSingleton.getRectangulos().forEach(r -> {
-            
-            System.out.println(r.getFin().getX());
-                System.out.println(r.getInicio().getX());
-                System.out.println(r.getFin().getY());
-                System.out.println(r.getInicio().getY());
-                int ancho = r.getFin().getX() - r.getInicio().getX();
-                int alto = r.getFin().getY() - r.getInicio().getY();
-                gc.setStroke(r.getColor());
-                gc.setLineWidth(2);
-                gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);
-            
-            
-            });
-            this.refrescarDos();
-            //for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
-                //System.out.println("Inicio: "+ (r.getInicio()==null));
-                /*System.out.println(r.getFin().getX());
-                System.out.println(r.getInicio().getX());
-                System.out.println(r.getFin().getY());
-                System.out.println(r.getInicio().getY());
-                int ancho = r.getFin().getX() - r.getInicio().getX();
-                int alto = r.getFin().getY() - r.getInicio().getY();
-                gc.setStroke(r.getColor());
-                gc.setLineWidth(2);
-                gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);*/
-            //}
-//            System.out.println("refrescarDos");
-
-            //this.refrescarDos();
+        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
+            int ancho = r.getFin().getX() - r.getInicio().getX();
+            int alto = r.getFin().getY() - r.getInicio().getY();
+            gc.setStroke(r.getColor());
+            gc.setLineWidth(2);
+            gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);
         }
-
+        this.refrescarDos();
     }
 
 //    @FXML
@@ -298,7 +307,6 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             refrescarCanvas();
-            refrescarDos();
         }
     }
 
@@ -330,18 +338,13 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void cargarPlantillaJSON(ActionEvent event) throws IOException {
-        ListaRectangulosSingleton.getRectangulos().clear();
-        ListaRectangulosSingleton.setRectangulos(new JSONManagement().cargarJSON());
-        ListaRectangulosSingleton.listaDeRectangulos = JSONManagement.aux;
-        refrescarCanvas();
-//        ___________________________________________________________________
-//        ___________________________________________________________________
-        //ListaRectangulosSingleton.setRectangulos(null);
+        ListaRectangulosSingleton.setRectangulos(null);
+//        ListaRectangulosSingleton.getRectangulos().clear();
+        ListaRectangulosSingleton.getRectangulos().add(new JSONManagement().cargarJSON());
 //        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
 //        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
 //        System.out.println(a.get(0).getId());
-//        System.out.println(new JSONManagement().cargarJSON().toString());
-
+        refrescarCanvas();
     }
 
 }
