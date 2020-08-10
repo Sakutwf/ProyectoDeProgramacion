@@ -29,6 +29,7 @@ public class JSONManagement {
 
     ObjectMapper objectMapper = new ObjectMapper();
     static ArrayList<Rectangulo> aux;
+    public static File archivoJSON;
     /**
      * carga un json con un fileChooser y lo retorna como lista
      *
@@ -38,7 +39,7 @@ public class JSONManagement {
     public ArrayList<Rectangulo> cargarJSON() { //CAMBIAR A LISTA EN VEZ DE VOID Y VER COMO DIANTRES RECONOCEEL TIPO :(
         FileChooser escogerJSON = new FileChooser();
         escogerJSON.getExtensionFilters().add(new FileChooser.ExtensionFilter("Archivo JSON", "*.json"));
-        File archivoJSON = escogerJSON.showOpenDialog(null);
+        archivoJSON = escogerJSON.showOpenDialog(null);
         System.out.println("ejecute este cuadro de dialogo");
 
         if (archivoJSON.exists()) {
@@ -50,10 +51,14 @@ public class JSONManagement {
                 System.out.println("Error IOException" + io);
 
             }
+            Valor.path = archivoJSON.getAbsolutePath();
 
         }
+        
+        
         System.out.println("Archivo no compatible");
         return new ArrayList<Rectangulo>();
+        
 
 //        ArrayList<Rectangulo> listaCargadaJSON = new ArrayList<Rectangulo>();
 //        Rectangulo rect = new ObjectMapper().readValue(archivoJSON.getAbsolutePath(), Rectangulo.class);
@@ -67,8 +72,8 @@ public class JSONManagement {
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             Rectangulo rect = new Rectangulo();
             rect.setColorR(r.getColorR());
-            rect.setColorR(r.getColorG());
-            rect.setColorR(r.getColorB());
+            rect.setColorG(r.getColorG());
+            rect.setColorB(r.getColorB());
             rect.setContenido(r.getContenido());
             rect.setId(r.getId());
             rect.setInicio(r.getInicio());
@@ -79,7 +84,7 @@ public class JSONManagement {
         try {
             //String aux = objectMapper.writeValueAsString(listaRectangulos);
             //    System.out.println(aux);
-            File y = new File(nombre + ".json");
+            File y = new File(nombre);
             if (!y.exists()) {
                 y.createNewFile();
             }
@@ -94,6 +99,7 @@ public class JSONManagement {
             bw.write(objectAsString);
             bw.flush();
             bw.close();
+            Valor.path = y.getAbsolutePath();
 
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
@@ -180,5 +186,31 @@ public class JSONManagement {
 //        }
 //        return null;
     }
+    
+    public void serializarPlantillaCargada(){
+        serializarListaRectangulos(this.archivoJSON.getName(), ListaRectangulosSingleton.getRectangulos());
+    }
 
+    public void eliminarPlantillaCargada(){
+        try{
+            File archivo = this.archivoJSON;
+            boolean estatus = archivo.delete();;
+            if (!estatus) {
+                System.out.println("Error no se ha podido eliminar el  archivo");
+           }else{
+                System.out.println("Se ha eliminado el archivo exitosamente");
+           }
+        }catch(Exception e){
+           System.out.println(e);
+        }
+    }
+     public void serializarPlantillaCargada2(){
+        if (Valor.path.equals("")){
+            return;
+        }
+         serializarListaRectangulos(Valor.path, ListaRectangulosSingleton.getRectangulos());
+    }
+     
+    
+    
 }

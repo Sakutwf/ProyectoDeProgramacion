@@ -2,6 +2,7 @@ package otakus;
 
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,11 +43,11 @@ public class FXMLDocumentController implements Initializable {
     private Punto inicio;
     private Punto fin;
     private boolean clickBorrar = false;
+    String texto;
+    JSONManagement EditorDePlantillas = new JSONManagement();
 
     @FXML
     private Label label;
-    @FXML
-    private Canvas canvas;
     @FXML
     private Button button;
     @FXML
@@ -62,24 +64,54 @@ public class FXMLDocumentController implements Initializable {
     private Button cargarJSON;
     @FXML
     private ListView lista;
+    @FXML
+    private ScrollPane scrollPane;
+    @FXML
+    private ListView listaElementosExtraidos;
+    @FXML
+    private Button mostrarDocumentoTexto;
+    @FXML
+    private Button mostrarInformacion;
+    @FXML
+    private ImageView botonDeshacer;
+    @FXML
+    private ImageView botonRehacer;
+    @FXML
+    private Button guardarPlantilla;
+    @FXML
+    private Button eliminarPlantilla;
 
+
+    private File actualJson;
+    
     @FXML
     public void handleButtonAction(ActionEvent event) {
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
         PDFImage = PDFCargador.cargarPDF();
 
-        String texto = LectorOCR.leerTextoOCR();
+        texto = LectorOCR.leerTextoOCR();
         System.out.println("Texto: " + texto);
         GraphicsContext gc = canvas1.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
         gc.setTextAlign(TextAlignment.CENTER);
 
-        gc.setTextBaseline(VPos.CENTER);
-        gc.fillText(
-                texto,
-                Math.round(canvas1.getWidth() / 2),
-                Math.round(canvas1.getHeight() / 2),
-                500
-        );
+        canvas2.setVisible(true);
+            listaElementosExtraidos.setVisible(false);
+            GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+            gc2.fillText(
+                    texto,
+                    Math.round(10),
+                    Math.round(10),
+                    500
+            );
+//        gc.setTextBaseline(VPos.CENTER);
+//        gc.fillText(
+//                texto,
+//                Math.round(canvas1.getWidth() / 2),
+//                Math.round(canvas1.getHeight() / 2),
+//                500
+//        );
 
         ListaRectangulosSingleton.getRectangulos().clear();
         refrescarCanvas();
@@ -87,6 +119,10 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
+        canvas2.setVisible(true);
+        listaElementosExtraidos.setVisible(false);
         // Lista Rectangulos     
         lista.setCellFactory(param -> new ListCell<Rectangulo>() {
             private final ImageView imageView = new ImageView(new Image(this.getClass().getResource("color.png").toString()));
@@ -105,12 +141,33 @@ public class FXMLDocumentController implements Initializable {
             }
         });
         this.refrescarDos();
+        this.refrescarTres();
+        
+        //Lista Informacion Extraida
+        listaElementosExtraidos.setCellFactory(param -> new ListCell<Rectangulo>() {
+            @Override
+            public void updateItem(Rectangulo auxiliar, boolean empty) {
+                super.updateItem(auxiliar, empty);
+                if (empty) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(auxiliar.getId() + " : " + auxiliar.getContenido() + "\n");
+                }
+            }
+        });
+        this.refrescarTres();
     }
 
     public void refrescarDos() {
         ObservableList<Rectangulo> listaObservable = FXCollections.observableArrayList(ListaRectangulosSingleton.getRectangulos());
         lista.setItems(listaObservable);
         lista.refresh();
+    }
+    public void refrescarTres() {
+        ObservableList<Rectangulo> listaObservable = FXCollections.observableArrayList(ListaRectangulosSingleton.getRectangulos());
+        listaElementosExtraidos.setItems(listaObservable);
+        listaElementosExtraidos.refresh();
     }
 
     @FXML
@@ -129,7 +186,7 @@ public class FXMLDocumentController implements Initializable {
         clickBorrar = false;  //la bandera vuelve a ser falsa una vez que se utilizó el metodo de borrar
     }
 
-    public void handleCanvasClick(Punto p) {
+    public void handleCanvasClick(Punto p) { //Agregar un nuevo rectangulo
         //reviso que mi inicio este nulo, asi mi punto seleccionado será el inicial
         if (inicio == null) {
             inicio = p;
@@ -159,7 +216,8 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Y1" + inicio.getX());
             System.out.println("X2" + fin.getX());
             System.out.println("Y2" + fin.getY());
-
+            inicio = null;
+            fin = null;
             String seleccion = JOptionPane.showInputDialog("Ingrese nombre para recuadro");
             while (esIdRepetida(seleccion) || seleccion.isEmpty()) {
                 ventanaEmergenteMensaje("ID ya existente o no válida");
@@ -170,19 +228,10 @@ public class FXMLDocumentController implements Initializable {
             r.setColorB(new Random().nextInt(255));
             r.setId(seleccion);
             agregarRectangulo(r);
-            Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
-            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-            GraphicsContext gc = canvas2.getGraphicsContext2D();
-            gc.fillText(
-                    seleccion,
-                    Math.round(10),
-                    Math.round(10),
-                    500
-            );
-
+//            Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
+//            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png"); //que pasa aqui?
             refrescarCanvas();
-            inicio = null;
-            fin = null;
+            UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
         }
     }
 
@@ -202,11 +251,19 @@ public class FXMLDocumentController implements Initializable {
     }
 
     public void refrescarCanvas() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        canvas.setHeight(PDFImage.getHeight());
-        canvas.setWidth(PDFImage.getWidth());
-        gc.drawImage(PDFImage, 0, 0, canvas.getWidth(), canvas.getHeight());
-
+        GraphicsContext gc = canvas1.getGraphicsContext2D();
+        canvas1.setHeight(PDFImage.getHeight());
+        canvas1.setWidth(PDFImage.getWidth());
+        gc.drawImage(PDFImage, 0, 0, canvas1.getWidth(), canvas1.getHeight());
+        GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+        gc2.fillText(
+                texto,
+                Math.round(10),
+                Math.round(10),
+                500
+        );
+        this.refrescarDos();
+        this.refrescarTres();
 //    Dibujar rectangulos
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             int ancho = r.getFin().getX() - r.getInicio().getX();
@@ -215,7 +272,7 @@ public class FXMLDocumentController implements Initializable {
             gc.setLineWidth(2);
             gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);
         }
-        this.refrescarDos();
+        
     }
 
 //    @FXML
@@ -228,14 +285,12 @@ public class FXMLDocumentController implements Initializable {
 //        }
 //       
 //    }
-    @FXML
     public void handlerSalirRectangulo() {
         inicio = null;
         fin = null;
     }
 
-    @FXML
-    public void handleRemove(ActionEvent event) { //onAction del boton borrar
+//    public void handleRemove(ActionEvent event) { //onAction del boton borrar
 //        System.out.println("entra? handle remove");
 //        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
 //            if(lista.size()>0){
@@ -244,8 +299,8 @@ public class FXMLDocumentController implements Initializable {
 //                refrescarCanvas();
 //        }
 
-        clickBorrar = true;
-    }
+//        clickBorrar = true;
+//    }
 
     public boolean estaDentro(Punto p, Rectangulo r) {
 //        System.out.println("veamos si esta adentro");
@@ -282,6 +337,7 @@ public class FXMLDocumentController implements Initializable {
 
     public boolean esIdRepetida(String ID) {
         boolean validador = false;
+        
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             if (ID.equals(r.getId())) {
                 validador = true;
@@ -307,13 +363,21 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             refrescarCanvas();
+            UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
         }
     }
 
     @FXML
     public void SerializarRectangulos(ActionEvent event) throws IOException {
-        String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
+        if(actualJson.exists()){
+            EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
+        }
+        else{
+            String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
         new JSONManagement().serializarListaRectangulos(nombreArchivo, ListaRectangulosSingleton.getRectangulos());
+        }
     }
 
     public void ventanaEmergente(int tipo, String mensaje, String titulo) {
@@ -338,13 +402,78 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void cargarPlantillaJSON(ActionEvent event) throws IOException {
+        guardarPlantilla.setVisible(true);
+        eliminarPlantilla.setVisible(true);
         ListaRectangulosSingleton.setRectangulos(null);
 //        ListaRectangulosSingleton.getRectangulos().clear();
         ListaRectangulosSingleton.listaDeRectangulos = new JSONManagement().cargarJSON();
+        actualJson = JSONManagement.archivoJSON;
 //        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
 //        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
 //        System.out.println(a.get(0).getId());
+        //UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
         refrescarCanvas();
+    }
+
+    @FXML
+    private void handleRemove(MouseEvent event) {
+    }
+
+    @FXML
+    private void mostrarContenidoEscritoCompleto(ActionEvent event) {
+        canvas2.setVisible(true);
+        listaElementosExtraidos.setVisible(false);
+    }
+
+    @FXML
+    private void mostrarContenidoInformacionEspecifica(ActionEvent event) {
+        canvas2.setVisible(false);
+        listaElementosExtraidos.setVisible(true);
+    }
+
+    @FXML
+    private void deshacer(MouseEvent event) { //FALTA ALMACERNAR EL HISTORIAL
+        System.out.println("esta deshaciendo");
+//        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
+//        if(lista.size()>0){
+//            Rectangulo ultimo = lista.get(lista.size()-1);
+//            ListaRectangulosSingleton.getRectangulos().remove(ultimo);
+//            refrescarCanvas();
+//        }
+        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionDeshacer();
+        if (UndoRedo.getListaDeshacer().size() == 0){
+            ventanaEmergenteMensaje("No quedan más acciones para deshacer...");
+        }
+        refrescarCanvas();
+    }
+
+    @FXML
+    private void rehacer(MouseEvent event) {
+        System.out.println("esta rehaciendo");
+        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionRehacer();
+        if (UndoRedo.getListaRehacer().size() == 0){
+            ventanaEmergenteMensaje("No quedan más acciones para rehacer...");
+        }
+        refrescarCanvas();
+    }
+
+    @FXML
+    private void eliminarRectangulo(MouseEvent event) {
+        clickBorrar = true;
+    }
+
+    @FXML
+    private void guardarCambiosEnPlantilla(ActionEvent event) {
+        EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
+    }
+
+    @FXML
+    private void eliminarPlantillaCargada(ActionEvent event) {
+        EditorDePlantillas.eliminarPlantillaCargada();
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
     }
 
 }

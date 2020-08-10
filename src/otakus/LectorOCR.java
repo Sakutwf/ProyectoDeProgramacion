@@ -78,7 +78,7 @@ public class LectorOCR {
         } catch (TesseractException ex) {
             Logger.getLogger(LectorOCR.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return null;   //porque retorna null si sesupone que aca extrae el string?
     }
 
     public static String leerTextoOCR() {

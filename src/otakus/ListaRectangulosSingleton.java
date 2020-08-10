@@ -16,11 +16,10 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 public class ListaRectangulosSingleton {
     public static ArrayList<Rectangulo> listaDeRectangulos = null;
-    
+     
     public static ArrayList<Rectangulo> getRectangulos(){
         if(ListaRectangulosSingleton.listaDeRectangulos == null){            
             ListaRectangulosSingleton.listaDeRectangulos = new ArrayList<Rectangulo>();
-            System.out.println("revisando si es nula");
         }
         return ListaRectangulosSingleton.listaDeRectangulos;
     }
@@ -30,6 +29,4 @@ public class ListaRectangulosSingleton {
         
     }
     
-
-
 }

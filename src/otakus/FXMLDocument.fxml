@@ -5,17 +5,15 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="800.0" minWidth="1800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otakus.FXMLDocumentController">
+<AnchorPane id="AnchorPane" minHeight="724.0" minWidth="1262.0" prefHeight="724.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otakus.FXMLDocumentController">
     <children>
        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
-      <ImageView fitHeight="800.0" fitWidth="1239.0" layoutX="2.0">
+      <ImageView fitHeight="724.0" fitWidth="1340.0" layoutX="-5.0">
          <image>
             <Image url="@imagenes/backgroud.jpg" />
          </image>
@@ -31,47 +29,47 @@
       </AnchorPane>
       <Button fx:id="Serializar" layoutX="74.0" layoutY="2.0" mnemonicParsing="false" onAction="#SerializarRectangulos" style="-fx-background-radius: 30; -fx-background-color: #ea899a;" text="Serializar" textFill="WHITE" />
       <Button fx:id="cargarJSON" layoutX="67.0" layoutY="43.0" mnemonicParsing="false" onAction="#cargarPlantillaJSON" style="-fx-background-radius: 30; -fx-background-color: #2b2a29;" text="Cargar json" textFill="WHITE" />
-      <ImageView fitHeight="50.0" fitWidth="53.0" layoutX="632.0" layoutY="739.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="botonDeshacer" fitHeight="50.0" fitWidth="53.0" layoutX="812.0" layoutY="652.0" onMouseClicked="#deshacer" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/undo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="53.0" layoutX="772.0" layoutY="739.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="botonRehacer" fitHeight="50.0" fitWidth="53.0" layoutX="949.0" layoutY="652.0" onMouseClicked="#rehacer" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/redo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="RemoveButton" fitHeight="50.0" fitWidth="53.0" layoutX="702.0" layoutY="739.0" onDragDetected="#handleRemove" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="RemoveButton" fitHeight="50.0" fitWidth="53.0" layoutX="881.0" layoutY="652.0" onDragDetected="#handleRemove" onMouseClicked="#eliminarRectangulo" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/remove.png" />
          </image>
       </ImageView>
-      <ScrollPane fx:id="scrollPane" layoutX="236.0" layoutY="12.0" minHeight="727.0" minWidth="1000.0" prefHeight="200.0" prefWidth="200.0">
+      <ScrollPane fx:id="scrollPane" layoutX="236.0" layoutY="12.0" minHeight="206.0" minWidth="467.0" prefHeight="603.0" prefWidth="645.0">
          <content>
-            <Canvas fx:id="canvas" height="727.0" onMouseClicked="#handleHandle" width="1000.0" />
+            <Canvas fx:id="canvas1" height="586.0" onMouseClicked="#handleHandle" width="632.0" />
          </content>
       </ScrollPane>
-      <TabPane layoutX="1238.0" layoutY="-1.0" prefHeight="799.0" prefWidth="562.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab style="-fx-background-color: #ea899a; -fx-color: #7d5d9e;" text="Documento">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Canvas fx:id="canvas1" height="727.0" layoutX="10.0" layoutY="20.0" width="545.0" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-          <Tab style="-fx-background-color: #7d5d9e; -fx-color: #7d5d9e;" text="Áreas de interés">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <Canvas fx:id="canvas2" height="780.0" width="558.0" />
-                     </children>
-                  </AnchorPane>
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane> 
+      <ScrollPane layoutX="919.0" layoutY="64.0" prefHeight="546.0" prefWidth="372.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="532.0" prefWidth="359.0">
+               <children>
+                  <Canvas fx:id="canvas2" height="531.0" width="360.0" />
+                  <ListView fx:id="listaElementosExtraidos" prefHeight="531.0" prefWidth="359.0" />
+               </children>
+            </AnchorPane>
+        </content>
+      </ScrollPane>
+      <Button fx:id="mostrarDocumentoTexto" layoutX="919.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoEscritoCompleto" prefHeight="25.0" prefWidth="90.0" text="Documento" />
+      <Button fx:id="mostrarInformacion" layoutX="1009.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoInformacionEspecifica" prefHeight="25.0" prefWidth="133.0" text="Informacion extraida" />
+      <Button fx:id="guardarPlantilla" alignment="CENTER" layoutX="251.0" layoutY="636.0" onAction="#guardarCambiosEnPlantilla" prefHeight="50.0" prefWidth="191.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Guardar Cambios" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="eliminarPlantilla" alignment="CENTER" layoutX="571.0" layoutY="636.0" onAction="#eliminarPlantillaCargada" prefHeight="50.0" prefWidth="205.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Eliminar Plantilla" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button> 
     </children>
 </AnchorPane>
