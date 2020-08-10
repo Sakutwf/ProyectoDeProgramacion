@@ -61,6 +61,7 @@ public class FXMLDocumentController implements Initializable {
         PDFImage = PDFCargador.cargarPDF();
         ListaRectangulosSingleton.getRectangulos().clear();
         refrescarCanvas();
+        refrescarDos();
     }
 
     @Override
@@ -145,6 +146,7 @@ public class FXMLDocumentController implements Initializable {
             r.setId(seleccion);
             agregarRectangulo(r);
             refrescarCanvas();
+            refrescarDos();
             inicio = null;
             fin = null;
         }
@@ -200,7 +202,7 @@ public class FXMLDocumentController implements Initializable {
                 gc.setLineWidth(2);
                 gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);*/
             //}
-            System.out.println("refrescarDos");
+//            System.out.println("refrescarDos");
 
             //this.refrescarDos();
         }
@@ -296,6 +298,7 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             refrescarCanvas();
+            refrescarDos();
         }
     }
 
