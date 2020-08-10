@@ -3,7 +3,10 @@ package otakus;
 
 import javafx.scene.paint.Color;
 import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonTypeInfo;
+import org.codehaus.jackson.annotate.JsonTypeInfo.As;
 
 /**
  *
@@ -25,10 +28,10 @@ public class Rectangulo {
     }
     
     @JsonCreator
-    public Rectangulo(@JsonProperty ("tipo") String tipo, @JsonProperty ("colorR") int colorR,
+    public Rectangulo(@JsonProperty ("id") String id, @JsonProperty ("colorR") int colorR,
             @JsonProperty ("colorG") int colorG, @JsonProperty ("colorB") int colorB,
-            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin){
-        
+            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,@JsonProperty ("contenido") String contenido){
+        this.id = id;
         this.colorR = colorR;
         this.colorG = colorG;
         this.colorB = colorB;
@@ -103,6 +106,7 @@ public class Rectangulo {
         this.contenido = contenido;
     }
     
+   @JsonIgnore
     public Color getColor(){
         Color color = Color.rgb(this.colorR, this.colorG, this.colorB);
         return color;
