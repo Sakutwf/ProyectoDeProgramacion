@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Otakus.jnlp">
+  <information>
+    <title>Otakus</title>
+    <vendor>Saaku</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Otakus.jar" size="3451645" download="eager" />
+    <jar href="lib\commons-beanutils-1.9.2.jar" size="233859" download="eager" />
+    <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
+    <jar href="lib\commons-io-2.6.jar" size="214788" download="eager" />
+    <jar href="lib\commons-logging-1.2.jar" size="61829" download="eager" />
+    <jar href="lib\fontbox-2.0.12.jar" size="1557183" download="eager" />
+    <jar href="lib\ghost4j-1.0.1.jar" size="180370" download="eager" />
+    <jar href="lib\itext-2.1.7.jar" size="1130070" download="eager" />
+    <jar href="lib\jackson-core-asl-1.6.4.jar" size="201024" download="eager" />
+    <jar href="lib\jackson-jaxrs-1.6.4.jar" size="17647" download="eager" />
+    <jar href="lib\jackson-mapper-asl-1.6.4.jar" size="544019" download="eager" />
+    <jar href="lib\jai-imageio-core-1.4.0.jar" size="628053" download="eager" />
+    <jar href="lib\jbig2-imageio-3.0.2.jar" size="151812" download="eager" />
+    <jar href="lib\jboss-logging-3.1.4.GA.jar" size="57193" download="eager" />
+    <jar href="lib\jboss-vfs-3.2.14.Final.jar" size="144281" download="eager" />
+    <jar href="lib\jcl-over-slf4j-1.7.25.jar" size="16515" download="eager" />
+    <jar href="lib\jna-4.1.0.jar" size="914597" download="eager" />
+    <jar href="lib\jul-to-slf4j-1.7.25.jar" size="4596" download="eager" />
+    <jar href="lib\lept4j-1.10.0.jar" size="3298017" download="eager" />
+    <jar href="lib\log4j-1.2.17.jar" size="489884" download="eager" />
+    <jar href="lib\log4j-over-slf4j-1.7.25.jar" size="23645" download="eager" />
+    <jar href="lib\logback-classic-1.2.3.jar" size="290339" download="eager" />
+    <jar href="lib\logback-core-1.2.3.jar" size="471901" download="eager" />
+    <jar href="lib\pdfbox-2.0.12.jar" size="2541248" download="eager" />
+    <jar href="lib\pdfbox-debugger-2.0.12.jar" size="244000" download="eager" />
+    <jar href="lib\pdfbox-tools-2.0.12.jar" size="72937" download="eager" />
+    <jar href="lib\slf4j-api-1.7.25.jar" size="41203" download="eager" />
+    <jar href="lib\tess4j-4.3.0.jar" size="19366122" download="eager" />
+    <jar href="lib\xmlgraphics-commons-1.4.jar" size="569113" download="eager" />
+  </resources>
+  <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="Otakus" >
+    <param name="requiredFXVersion" value="8.0+"/>
+  </applet-desc>
+  <jfx:javafx-desc  width="800" height="600" main-class="otakus.Otakus"  name="Otakus" />
+  <update check="always"/>
+</jnlp>
