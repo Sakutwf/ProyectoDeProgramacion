@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" minHeight="724.0" minWidth="1262.0" prefHeight="724.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otakus.FXMLDocumentController">
+<AnchorPane id="AnchorPane" minHeight="724.0" minWidth="1262.0" prefHeight="724.0" prefWidth="1333.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="otakus.FXMLDocumentController">
     <children>
        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <ImageView fitHeight="724.0" fitWidth="1340.0" layoutX="-5.0">
@@ -59,8 +59,8 @@
             </AnchorPane>
         </content>
       </ScrollPane>
-      <Button fx:id="mostrarDocumentoTexto" layoutX="919.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoEscritoCompleto" prefHeight="25.0" prefWidth="90.0" text="Documento" />
-      <Button fx:id="mostrarInformacion" layoutX="1009.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoInformacionEspecifica" prefHeight="25.0" prefWidth="133.0" text="Informacion extraida" />
+      <Button fx:id="mostrarDocumentoTexto" layoutX="919.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoEscritoCompleto" prefHeight="25.0" prefWidth="90.0" style="-fx-background-color: #7d5d9e; -fx-color: #7d5d9e;" text="Documento" />
+      <Button fx:id="mostrarInformacion" layoutX="1009.0" layoutY="43.0" mnemonicParsing="false" onAction="#mostrarContenidoInformacionEspecifica" prefHeight="25.0" prefWidth="133.0" style="-fx-background-color: #ea899a; -fx-color: #ea899a;" text="Informacion extraida" />
       <Button fx:id="guardarPlantilla" alignment="CENTER" layoutX="251.0" layoutY="636.0" onAction="#guardarCambiosEnPlantilla" prefHeight="50.0" prefWidth="191.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Guardar Cambios" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
