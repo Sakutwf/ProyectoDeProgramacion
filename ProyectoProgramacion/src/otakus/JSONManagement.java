@@ -92,24 +92,35 @@ public class JSONManagement {
         style.setFont(font);
 
         // Generar los datos para el documento
-        for (int i = 0; i < informacion.size(); i++) {
+        int k = 0;
+        for (int i = 0; i <= informacion.size() - 1; i++) {
             XSSFRow row = hoja1.createRow(i); // Se crea la fila
             for (int j = 0; j < header.length; j++) {
-                if (i == 0) { // Para la cabecera
+                if (k == 0) { // Para la cabecera
                     XSSFCell cell = row.createCell(j); // Se crean las celdas pra la cabecera
                     cell.setCellValue(header[j]); // Se añade el contenido
                 } else {
                     if (j == 0) {
                         XSSFCell cell = row.createCell(j); // Se crean las celdas para el contenido
-                        cell.setCellValue(informacion.get(i).getId().getValue());
+                        cell.setCellValue(informacion.get(i - 1).getId().getValue());
                     } else {
-                        XSSFCell cell = row.createCell(j);
-
-                        cell.setCellValue(informacion.get(i).getTextoExtraido().getValue());
+                        XSSFCell cell = row.createCell(j); // Se crean las celdas para el contenido
+                        cell.setCellValue(informacion.get(i - 1).getTextoExtraido().getValue());
                     }
-
-                    // Se añade el contenido
                 }
+
+                // Se añade el contenido
+            }
+            k++;
+        }
+        XSSFRow row = hoja1.createRow(k);
+        for (int l = 0; l < header.length; l++) {
+            if (l == 0) {
+                XSSFCell cell = row.createCell(l); // Se crean las celdas para el contenido
+                cell.setCellValue(informacion.get(k - 1).getId().getValue());
+            } else {
+                XSSFCell cell = row.createCell(l); // Se crean las celdas para el contenido
+                cell.setCellValue(informacion.get(k - 1).getTextoExtraido().getValue());
             }
         }
 
