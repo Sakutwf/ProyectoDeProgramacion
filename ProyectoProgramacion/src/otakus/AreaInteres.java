@@ -7,16 +7,16 @@ package otakus;
 
 import javafx.beans.property.SimpleStringProperty;
 
-
 /**
  *
  * @author Serllet
  */
 public class AreaInteres {
+
     private SimpleStringProperty id;
     private SimpleStringProperty textoExtraido;
 
-    public AreaInteres(String id , String textoExtraido) {
+    public AreaInteres(String id, String textoExtraido) {
         this.id = new SimpleStringProperty(id);
         this.textoExtraido = new SimpleStringProperty(textoExtraido);
     }
@@ -37,6 +37,3 @@ public class AreaInteres {
         this.textoExtraido = new SimpleStringProperty(textoExtraido);
     }
 }
-    
-    
-    

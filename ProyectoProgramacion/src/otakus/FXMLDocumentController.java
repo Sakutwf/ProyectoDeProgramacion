@@ -168,11 +168,10 @@ public class FXMLDocumentController implements Initializable {
 
         ObservableList<AreaInteres> areas = this.tableDatosExtraidos.getItems();
         for (AreaInteres area : areas) {
-             System.out.println("Entre al evento: "  + area.getId().getValue() + "  "+  area.getTextoExtraido().getValue());
+            System.out.println("Entre al evento: " + area.getId().getValue() + "  " + area.getTextoExtraido().getValue());
         }
-       
+
         if (!this.nombreDocumento.getText().isEmpty()) {
-            System.out.println("aaaaaaaaaaaaaaaaaaaaaajkjdajdadkjdkjakdjakd");
             JSONManagement.generarArchivoJsonInformacionExtraida(areas, this.nombreDocumento.getText().toString());
             this.nombreDocumento.setDisable(true);
         } else {
