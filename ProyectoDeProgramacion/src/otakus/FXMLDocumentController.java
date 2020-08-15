@@ -18,9 +18,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -62,17 +69,37 @@ public class FXMLDocumentController implements Initializable {
     private Button cargarJSON;
     @FXML
     private ListView lista;
+      @FXML
+    private TableView<AreaInteres> tableDatosExtraidos;
+    
+    @FXML
+    private TableColumn<AreaInteres, String> columnaIdentificador;
 
-    private int contadorAreasInteres;
+    @FXML
+    private TableColumn<AreaInteres,String> columnaTextoExtraido;
 
-    private ArrayList<AreaInteres> areasInteres;
+    @FXML
+    private Button guardarDocumento;
+
+    private ObservableList<AreaInteres> areasInteres;
+    
+    @FXML
+    private TextField nombreDocumento;
+    
+    
+    private int contadorPDF = 0;
+  
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
         PDFImage = PDFCargador.cargarPDF();
-
+        if (contadorPDF > 0)
+        {
+            this.areasInteres.clear();
+            this.tableDatosExtraidos.getItems().setAll(areasInteres);
+            this.nombreDocumento.setDisable(false);
+        }
         String texto = LectorOCR.leerTextoOCR();
-        System.out.println("Texto: " + texto);
         GraphicsContext gc = canvas1.getGraphicsContext2D();
         gc.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
         gc.setTextAlign(TextAlignment.CENTER);
@@ -82,9 +109,10 @@ public class FXMLDocumentController implements Initializable {
                 texto,
                 Math.round(canvas1.getWidth() / 2),
                 Math.round(canvas1.getHeight() / 2),
-                800 // canvas
+                500
         );
-
+        
+         this.contadorPDF++;
         ListaRectangulosSingleton.getRectangulos().clear();
         refrescarCanvas();
     }
@@ -109,8 +137,14 @@ public class FXMLDocumentController implements Initializable {
             }
         });
 
-        this.areasInteres = new ArrayList<AreaInteres>();
-        this.contadorAreasInteres = 0;
+        this.areasInteres = FXCollections.observableArrayList();
+        // Initialize the person table with the two columns.
+        
+        this.tableDatosExtraidos.setEditable(true);
+        
+        columnaIdentificador.setCellValueFactory(cellData -> cellData.getValue().getId());
+        columnaTextoExtraido.setCellValueFactory(cellData -> cellData.getValue().getTextoExtraido());
+        columnaTextoExtraido.setCellFactory(TextFieldTableCell.forTableColumn());
         this.refrescarDos();
     }
 
@@ -135,6 +169,39 @@ public class FXMLDocumentController implements Initializable {
         }
         clickBorrar = false;  //la bandera vuelve a ser falsa una vez que se utilizó el metodo de borrar
     }
+    
+     @FXML
+    void editarIdentificador(TableColumn.CellEditEvent event) {
+            AreaInteres identificadorSeleccionado = this.tableDatosExtraidos.getSelectionModel().getSelectedItem();
+            identificadorSeleccionado.setId(event.getNewValue().toString());
+    }
+
+    @FXML
+    void editarTextoExtraido(TableColumn.CellEditEvent event) {
+        
+         AreaInteres textoExtraidoSeleccionado = this.tableDatosExtraidos.getSelectionModel().getSelectedItem();
+         textoExtraidoSeleccionado.setTextoExtraido(event.getNewValue().toString());
+
+    }
+    
+      @FXML
+    void guardarDatos(ActionEvent event) {
+        
+        ObservableList<AreaInteres> areas = this.tableDatosExtraidos.getItems();
+          System.out.println("Entre al evento");
+          if ( !this.nombreDocumento.getText().isEmpty())
+          {
+              JSONManagement.generarArchivoJsonInformacionExtraida(areas, this.nombreDocumento.getText().toString());
+              this.nombreDocumento.setDisable(true);
+          }else
+          {
+              Dialog dialog = new Alert(AlertType.ERROR,"Debe ingresar un nombre al documento", ButtonType.OK);
+          }
+              
+          
+
+    }
+
 
     public void handleCanvasClick(Punto p) {
         //reviso que mi inicio este nulo, asi mi punto seleccionado será el inicial
@@ -179,51 +246,27 @@ public class FXMLDocumentController implements Initializable {
             agregarRectangulo(r);
             Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
             String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-
-            if (contadorAreasInteres == 0) { // no habia nada dibujado ningun area de interes y toma la pos 50, 50
-                this.areasInteres.add(new AreaInteres(seleccion, resultado, new Punto(50, 50), new Punto(50, 100)));
-                pintarAreaInteres(seleccion, 50, 50);
-                pintarAreaInteres(resultado, 50, 80);
-
-            } else {
-                if (contadorAreasInteres % 4 == 0) { // el tema de las columnas cuando ya se haacen 4 areas este corta la Y
-                    AreaInteres area = this.areasInteres.get(contadorAreasInteres - 1);
-                    this.areasInteres.add(new AreaInteres(seleccion, resultado,
-                            new Punto(50, area.getCoordenadasId().getY() + 120),
-                            new Punto(50, area.getCoordenadasDetalle().getY() + 120)));
-
-                    pintarAreaInteres(seleccion, 50, area.getCoordenadasId().getY() + 120);
-                    pintarAreaInteres(resultado, 50, area.getCoordenadasDetalle().getY() + 120);
-                } else {
-                    // corta la x, para queden las filas
-                    AreaInteres area = this.areasInteres.get(contadorAreasInteres - 1);
-                    this.areasInteres.add(new AreaInteres(seleccion, resultado,
-                            new Punto(area.getCoordenadasId().getX() + 120, area.getCoordenadasId().getY()),
-                            new Punto(area.getCoordenadasDetalle().getX() + 120, area.getCoordenadasDetalle().getY())));
-
-                    pintarAreaInteres(seleccion, area.getCoordenadasId().getX() + 120, area.getCoordenadasId().getY()); // pinta en el canvas el area de interes
-                    pintarAreaInteres(resultado, area.getCoordenadasDetalle().getX() + 120, area.getCoordenadasDetalle().getY());// pinta el resultado del OCR
-
-                }
-
-            }
-            contadorAreasInteres++; // cuenta las veces que se pinta en el canvas
-
+            this.areasInteres.add(new AreaInteres(seleccion, resultado));
+            this.tableDatosExtraidos.getItems().setAll(areasInteres);
             refrescarCanvas();
             inicio = null;
             fin = null;
         }
     }
-
-    private void pintarAreaInteres(String texto, int x, int y) {
+    
+   
+    
+    private void pintarAreaInteres(String texto, int x , int y)
+    {
         GraphicsContext gc = canvas2.getGraphicsContext2D();
-        gc.fillText(
-                texto,
-                Math.round(x), // redondea X
-                Math.round(y), // redondea Y
-                100 // le asigno tamaño a el area de interes
-        );
+                gc.fillText(
+                        texto,
+                        Math.round(x),
+                        Math.round(y),
+                        100
+                );
     }
+   
 
     public void agregarRectangulo(Rectangulo rParaAgregar) {
         //Agrega un rectangulo a la lista si es valido

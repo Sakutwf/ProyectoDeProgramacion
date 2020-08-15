@@ -5,64 +5,52 @@
  */
 package otakus;
 
+import javafx.beans.property.SimpleStringProperty;
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  *
  * @author Serllet
  */
 public class AreaInteres {
+    private SimpleStringProperty id;
+    private SimpleStringProperty textoExtraido;
 
-    private String id;
-    private String detalle;
-    private Punto coordenadasId;
-    private Punto coordenadasDetalle;
-
-    public AreaInteres(String id, String detalle, Punto coordenadasId, Punto coordenadasDetalle) {
-
-        this.id = id; //  nombre que se le asigna al rectangulo
-        this.detalle = detalle; // resultado del area de interes
-        this.coordenadasId = coordenadasId; // coordenadas del canvas donde se dibujara
-        this.coordenadasDetalle = coordenadasDetalle; // coordenadas del resultado OCR
-
+     @JsonCreator
+    public AreaInteres(@JsonProperty ("id")String id, @JsonProperty ("textoExtraido")String textoExtraido) {
+        this.id = new SimpleStringProperty(id);
+        this.textoExtraido = new SimpleStringProperty(textoExtraido);
     }
 
-    public Punto getCoordenadasId() {
-        return coordenadasId;
-    }
-
-    public void setCoordenadasId(Punto coordenadasId) {
-        this.coordenadasId = coordenadasId;
-    }
-
-    public Punto getCoordenadasDetalle() {
-        return coordenadasDetalle;
-    }
-
-    public void setCoordenadasDetalle(Punto coordenadasDetalle) {
-        this.coordenadasDetalle = coordenadasDetalle;
-    }
-
-    public Punto getCoordenadas() {
-        return coordenadasId;
-    }
-
-    public void setCoordenadas(Punto coordenadas) {
-        this.coordenadasId = coordenadas;
-    }
-
-    public String getId() {
+    public SimpleStringProperty getId() {
         return id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.id = new SimpleStringProperty(id);
     }
 
-    public String getDetalle() {
-        return detalle;
+    public SimpleStringProperty getTextoExtraido() {
+        return textoExtraido;
     }
 
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
+    public void setTextoExtraido(String textoExtraido) {
+        this.textoExtraido = new SimpleStringProperty(textoExtraido);
     }
+    
+    
+    
+    
+    
+ 
 
+  
+
+    
+    
+    
+    
+    
+    
 }

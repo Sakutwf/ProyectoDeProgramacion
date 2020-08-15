@@ -5,13 +5,26 @@
  */
 package otakus;
 
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
@@ -59,6 +72,58 @@ public class JSONManagement {
 //          String json = gs.toJson(ListaRectangulosSingleton.listaDeRectangulos, tipo);
 //            System.out.println(json);
     }
+
+    public static void generarArchivoJsonInformacionExtraida(ObservableList<AreaInteres> informacion, String nombre) {
+       String nombreArchivo = nombre+".xlsx";
+        
+        String hoja = "Grilla";
+        
+        XSSFWorkbook libro = new XSSFWorkbook();
+        XSSFSheet hoja1 = libro.createSheet(hoja);
+        
+        // Cabecera de la hoja de excel
+        String[] header = new String[] {"ID", "INFORMACION EXTRAIDA"};
+        
+        // Contenido de la hoja de excel
+      
+        
+        // Poner en negrita la cabecera
+        CellStyle style = libro.createCellStyle();
+        XSSFFont font = libro.createFont();
+        font.setBold(true);
+        style.setFont(font);
+        
+        // Generar los datos para el documento
+        for(int i = 0 ; i <= informacion.size()-1 ; i++) {
+            XSSFRow row = hoja1.createRow(i); // Se crea la fila
+            for(int j = 0 ; j < header.length ; j++) {
+                if(i == 0) { // Para la cabecera
+                    XSSFCell cell = row.createCell(j); // Se crean las celdas pra la cabecera
+                    cell.setCellValue(header[j]); // Se añade el contenido
+                } else {
+                    if (j == 0)
+                    {
+                        XSSFCell cell = row.createCell(j); // Se crean las celdas para el contenido
+                    cell.setCellValue(informacion.get(i).getId().getValue());
+                    }else
+                    {
+                           XSSFCell cell = row.createCell(j); // Se crean las celdas para el contenido
+                            cell.setCellValue(informacion.get(i).getTextoExtraido().getValue());
+                    }
+                     // Se añade el contenido
+                }
+            }
+        }
+        
+        // Crear el archivo
+        try (OutputStream fileOut = new FileOutputStream(nombreArchivo)){
+            System.out.println("SE CREO EL EXCEL");
+            libro.write(fileOut);
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     public Rectangulo deserealizarListaRectangulos(File archivo) throws FileNotFoundException, IOException {
         ArrayList<Rectangulo> aux = new ArrayList<>();

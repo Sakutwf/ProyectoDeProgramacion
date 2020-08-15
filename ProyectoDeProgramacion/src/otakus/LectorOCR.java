@@ -18,7 +18,7 @@ import net.sourceforge.tess4j.TesseractException;
 
 /**
  *
- * @author Serllet & Escarlet
+ * @author Serllet
  */
 public class LectorOCR {
 
@@ -26,7 +26,7 @@ public class LectorOCR {
         try {
             Tesseract instancia = new Tesseract();
             instancia.setLanguage("spa");
-            instancia.setDatapath("tessdata"); // lo que no permitia la traduccion era la resolucion y no la libreria
+            instancia.setDatapath("tessdata"); // path to tessdata directory
             String result = instancia.doOCR(file);
             System.out.println(result);
 
@@ -59,14 +59,14 @@ public class LectorOCR {
             }
         }
     }
-
+    
+    
     /**
      * Extrae información utilizando el motor OCR, utilizando un rectagulo
-     *
      * @param area rectangulo del area de interes.
      * @param fileName nombre de archivo de imagen.
      */
-    public static String lectorPorAreasRectangulares(Rectangle area, String fileName) {
+    public static String lectorPorAreasRectangulares(Rectangle area,String fileName ) {
 
         try {
             File file = new File(fileName);
@@ -74,7 +74,7 @@ public class LectorOCR {
             instancia.setLanguage("spa");
             instancia.setDatapath("tessdata");
             return instancia.doOCR(file, area);
-
+           
         } catch (TesseractException ex) {
             Logger.getLogger(LectorOCR.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,9 +86,9 @@ public class LectorOCR {
         try {
             File myObj = new File("textoOCR.txt");
             Scanner myReader = new Scanner(myObj);
-            while (myReader.hasNextLine()) { // escanea la linea generado por el OCR |el archivo txt
+            while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                texto += data + "\n"; // 
+                texto += data + "\n";
             }
             myReader.close();
         } catch (FileNotFoundException ex) {

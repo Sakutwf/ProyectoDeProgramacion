@@ -7,6 +7,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -20,7 +23,7 @@
             <Image url="@imagenes/backgroud.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="button" alignment="CENTER" layoutX="36.0" layoutY="81.0" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Abrir PDF" textFill="WHITE">
+      <Button fx:id="button" alignment="CENTER" layoutX="70.0" layoutY="79.0" onAction="#handleButtonAction" prefHeight="50.0" prefWidth="150.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Abrir PDF" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font></Button>
@@ -29,19 +32,19 @@
             <ListView fx:id="lista" layoutX="6.0" layoutY="4.0" opacity="0.9" prefHeight="524.0" prefWidth="191.0" />
          </children>
       </AnchorPane>
-      <Button fx:id="Serializar" layoutX="74.0" layoutY="2.0" mnemonicParsing="false" onAction="#SerializarRectangulos" style="-fx-background-radius: 30; -fx-background-color: #ea899a;" text="Serializar" textFill="WHITE" />
-      <Button fx:id="cargarJSON" layoutX="67.0" layoutY="43.0" mnemonicParsing="false" onAction="#cargarPlantillaJSON" style="-fx-background-radius: 30; -fx-background-color: #2b2a29;" text="Cargar json" textFill="WHITE" />
-      <ImageView fitHeight="50.0" fitWidth="53.0" layoutX="632.0" layoutY="739.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="Serializar" layoutX="26.0" layoutY="7.0" mnemonicParsing="false" onAction="#SerializarRectangulos" text="Serializar" />
+      <Button fx:id="cargarJSON" layoutX="20.0" layoutY="36.0" mnemonicParsing="false" onAction="#cargarPlantillaJSON" text="Cargar json" />
+      <ImageView fitHeight="34.0" fitWidth="32.0" layoutX="102.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/undo.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="53.0" layoutX="772.0" layoutY="739.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="189.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/redo.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="RemoveButton" fitHeight="50.0" fitWidth="53.0" layoutX="702.0" layoutY="739.0" onDragDetected="#handleRemove" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="RemoveButton" fitHeight="32.0" fitWidth="32.0" layoutX="145.0" layoutY="21.0" onDragDetected="#handleRemove" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@imagenes/remove.png" />
          </image>
@@ -53,24 +56,28 @@
       </ScrollPane>
       <TabPane layoutX="1238.0" layoutY="-1.0" prefHeight="799.0" prefWidth="562.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab style="-fx-background-color: #ea899a; -fx-color: #7d5d9e;" text="Documento">
+          <Tab text="Documento">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane prefHeight="762.0" prefWidth="562.0">
-                           <content>
-                              <Canvas fx:id="canvas1" height="1000.0" width="1000.0" />
-                           </content>
-                        </ScrollPane>
+                        <Canvas fx:id="canvas1" height="727.0" layoutX="10.0" layoutY="20.0" width="545.0" />
                      </children>
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab style="-fx-background-color: #7d5d9e; -fx-color: #7d5d9e;" text="Áreas de interés">
+          <Tab text="Areas de interes">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Canvas fx:id="canvas2" height="780.0" width="558.0" />
+                        <TableView fx:id="tableDatosExtraidos" layoutX="7.0" prefHeight="662.0" prefWidth="551.0">
+                          <columns>
+                            <TableColumn fx:id="columnaIdentificador" maxWidth="150.0" onEditCommit="#editarIdentificador" prefWidth="150.0" text="Idenificador" />
+                            <TableColumn fx:id="columnaTextoExtraido" maxWidth="400.0" minWidth="0.0" onEditCommit="#editarTextoExtraido" prefWidth="397.0" text="Texto Extraido" />
+                          </columns>
+                        </TableView>
+                        <Button fx:id="guardarDocumento" layoutX="419.0" layoutY="695.0" mnemonicParsing="false" onAction="#guardarDatos" prefHeight="50.0" prefWidth="130.0" text="Guardar" />
+                        <TextField fx:id="nombreDocumento" layoutX="102.0" layoutY="700.0" prefHeight="41.0" prefWidth="283.0" promptText="Ingrese un nombre al documento" />
+                        <Label layoutX="103.0" layoutY="674.0" text="Nombre del documento" />
                      </children>
                   </AnchorPane>
             </content>
