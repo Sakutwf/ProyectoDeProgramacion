@@ -2,6 +2,7 @@ package otakus;
 
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class FXMLDocumentController implements Initializable {
     private Punto inicio;
     private Punto fin;
     private boolean clickBorrar = false;
+    JSONManagement EditorDePlantillas = new JSONManagement();
 
     @FXML
     private Label label;
@@ -80,6 +82,10 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private Button guardarDocumento;
+    @FXML
+    private Button guardarPlantilla;
+    @FXML
+    private Button eliminarPlantilla;
 
     private ObservableList<AreaInteres> areasInteres;
 
@@ -87,9 +93,12 @@ public class FXMLDocumentController implements Initializable {
     private TextField nombreDocumento;
 
     private int contadorPDF = 1;
+    private File actualJson;
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
         PDFImage = PDFCargador.cargarPDF();
 
         String texto = LectorOCR.leerTextoOCR();
@@ -114,6 +123,8 @@ public class FXMLDocumentController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
         // Lista Rectangulos     
         lista.setCellFactory(param -> new ListCell<Rectangulo>() {
             private final ImageView imageView = new ImageView(new Image(this.getClass().getResource("color.png").toString()));
@@ -279,38 +290,13 @@ public class FXMLDocumentController implements Initializable {
         this.refrescarDos();
     }
 
-//    @FXML
-//    private void handleRemove(ActionEvent event) {
-//        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
-//        if(lista.size()>0){
-//            Rectangulo ultimo = lista.get(lista.size()-1);
-//            ListaRectangulosSingleton.getRectangulos().remove(ultimo);
-//            refrescarCanvas();
-//        }
-//       
-//    }
     public void handlerSalirRectangulo() {
         inicio = null;
         fin = null;
     }
 
-    public void handleRemove(ActionEvent event) { //onAction del boton borrar
-//        System.out.println("entra? handle remove");
-//        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
-//            if(lista.size()>0){
-//                Rectangulo ultimo = lista.get(lista.size()-1);
-//                ListaRectangulosSingleton.getRectangulos().remove(ultimo);
-//                refrescarCanvas();
-//        }
-
-        clickBorrar = true;
-    }
-
     public boolean estaDentro(Punto p, Rectangulo r) {
-//        System.out.println("veamos si esta adentro");
-//            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
         if (r.getInicio().getX() < p.getX() && p.getX() < r.getFin().getX()) {
-//            System.out.println(p.getX()+", "+p.getY()+ "son los puntos");
             return (r.getInicio().getY() < p.getY() && p.getY() < r.getFin().getY());
         } else {
             return false;
@@ -341,6 +327,7 @@ public class FXMLDocumentController implements Initializable {
 
     public boolean esIdRepetida(String ID) {
         boolean validador = false;
+
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             if (ID.equals(r.getId())) {
                 validador = true;
@@ -353,15 +340,20 @@ public class FXMLDocumentController implements Initializable {
         try {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-//                    System.out.println("esta adentro "+estaDentro(p, r));
+                    int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                    this.areasInteres.remove(indice);
+                    this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
+
                 }
             }
             refrescarCanvas();
         } catch (Exception e) {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-//                    System.out.println("esta adentro "+estaDentro(p, r));
+                    int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                    this.areasInteres.remove(indice);
+                    this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
                 }
             }
@@ -371,8 +363,14 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void SerializarRectangulos(ActionEvent event) throws IOException {
-        String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
-        new JSONManagement().serializarListaRectangulos(nombreArchivo, ListaRectangulosSingleton.getRectangulos());
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
+        if (actualJson != null) {
+            EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
+        } else {
+            String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
+            new JSONManagement().serializarListaRectangulos(nombreArchivo, ListaRectangulosSingleton.getRectangulos());
+        }
     }
 
     public void ventanaEmergente(int tipo, String mensaje, String titulo) {
@@ -397,13 +395,17 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     public void cargarPlantillaJSON(ActionEvent event) throws IOException {
+        guardarPlantilla.setVisible(true);
+        eliminarPlantilla.setVisible(true);
         ListaRectangulosSingleton.setRectangulos(null);
-//        ListaRectangulosSingleton.getRectangulos().clear();
-        ListaRectangulosSingleton.getRectangulos().add(new JSONManagement().cargarJSON());
-//        System.out.println(ListaRectangulosSingleton.getRectangulos().isEmpty());
-//        ArrayList<Rectangulo> a = ListaRectangulosSingleton.getRectangulos();
-//        System.out.println(a.get(0).getId());
+        ListaRectangulosSingleton.listaDeRectangulos = new JSONManagement().cargarJSON();
+        actualJson = JSONManagement.archivoJSON;
         refrescarCanvas();
+    }
+
+    @FXML
+    private void eliminarRectangulo(MouseEvent event) {
+        clickBorrar = true;
     }
 
     @FXML
@@ -411,11 +413,18 @@ public class FXMLDocumentController implements Initializable {
     }
 
     @FXML
-    private void eliminarPlantillaCargada(ActionEvent event) {
+    private void guardarCambiosEnPlantilla(ActionEvent event) {
+        EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
     }
 
     @FXML
-    private void guardarPlantillaCargada(ActionEvent event) {
+    private void eliminarPlantillaCargada(ActionEvent event) {
+        EditorDePlantillas.eliminarPlantillaCargada();
+        ListaRectangulosSingleton.setRectangulos(null);
+        refrescarCanvas();
+        guardarPlantilla.setVisible(false);
+        eliminarPlantilla.setVisible(false);
     }
-
 }

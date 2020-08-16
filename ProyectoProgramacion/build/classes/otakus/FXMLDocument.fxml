@@ -81,39 +81,21 @@
           </Tab>
         </tabs>
       </TabPane>
-      <AnchorPane layoutX="145.0" layoutY="607.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: black; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-color: rgb(240,240,240,0.3); -fx-background-radius: 12px;">
-         <children>
-            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true">
-               <image>
-                  <Image url="@imagenes/redo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
       <AnchorPane layoutX="82.0" layoutY="607.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: black; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-color: rgb(240,240,240,0.3); -fx-background-radius: 12px;">
          <children>
-            <ImageView fx:id="RemoveButton" fitHeight="40.0" fitWidth="40.0" layoutX="8.0" layoutY="8.0" onDragDetected="#handleRemove" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="RemoveButton" fitHeight="40.0" fitWidth="40.0" layoutX="8.0" layoutY="8.0" onDragDetected="#handleRemove" onMouseClicked="#eliminarRectangulo" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@imagenes/remove.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="21.0" layoutY="607.0" prefHeight="53.0" prefWidth="53.0" style="-fx-border-color: black; -fx-border-width: 3px; -fx-border-radius: 10px; -fx-background-color: rgb(240,240,240,0.3); -fx-background-radius: 12px;">
-         <children>
-            <ImageView fitHeight="40.0" fitWidth="40.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@imagenes/undo.png" />
-               </image>
-            </ImageView>
-         </children>
-      </AnchorPane>
-      <Button fx:id="botonEliminarPlantilla" alignment="CENTER" layoutX="554.0" layoutY="10.0" onAction="#eliminarPlantillaCargada" prefHeight="39.0" prefWidth="196.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Eliminar Plantilla" textFill="WHITE">
+      <Button fx:id="eliminarPlantilla" alignment="CENTER" layoutX="554.0" layoutY="10.0" onAction="#eliminarPlantillaCargada" prefHeight="39.0" prefWidth="196.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Eliminar Plantilla" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Button fx:id="botonGuardarPlantilla" alignment="CENTER" layoutX="322.0" layoutY="10.0" onAction="#guardarPlantillaCargada" prefHeight="39.0" prefWidth="189.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Guardar Plantilla" textFill="WHITE">
+      <Button fx:id="guardarPlantilla" alignment="CENTER" layoutX="322.0" layoutY="10.0" onAction="#guardarCambiosEnPlantilla" prefHeight="39.0" prefWidth="189.0" style="-fx-background-radius: 30; -fx-background-color: #7d5d9e;" text="Guardar Plantilla" textFill="WHITE">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

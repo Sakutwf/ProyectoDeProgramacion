@@ -50,7 +50,6 @@ public class PDFCargador {
                 fxImage = SwingFXUtils.toFXImage(img, null);
             } catch (IOException ex) {
                 System.out.print(ex.getMessage());
-                //Logger.getLogger(ProyectoProgramacion.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         return fxImage;

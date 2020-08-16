@@ -17,18 +17,18 @@ public class Rectangulo {
     private Punto Inicio;
     private Punto Fin;
     private String contenido;
-
+    
     @JsonCreator
-    public Rectangulo(@JsonProperty("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
+    public Rectangulo(@JsonProperty ("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
         this.Inicio = Inicio;
         this.Fin = Fin;
     }
-
+    
     @JsonCreator
-    public Rectangulo(@JsonProperty("tipo") String tipo, @JsonProperty("colorR") int colorR,
-            @JsonProperty("colorG") int colorG, @JsonProperty("colorB") int colorB,
-            @JsonProperty("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
-
+    public Rectangulo(@JsonProperty ("id") String id, @JsonProperty ("colorR") int colorR,
+            @JsonProperty ("colorG") int colorG, @JsonProperty ("colorB") int colorB,
+            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,@JsonProperty ("contenido") String contenido){
+        this.id = id;
         this.colorR = colorR;
         this.colorG = colorG;
         this.colorB = colorB;
@@ -37,8 +37,7 @@ public class Rectangulo {
         this.contenido = contenido;
     }
 
-    public Rectangulo() {
-    }
+    public Rectangulo() {}
 
     public String getId() {
         return id;
