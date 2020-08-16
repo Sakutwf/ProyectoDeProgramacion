@@ -232,7 +232,7 @@ public class FXMLDocumentController implements Initializable {
 //              Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
 //              String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png"); //que pasa aqui?
                 refrescarCanvas();
-                UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
+//                UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
             }
         }
     }
@@ -365,7 +365,7 @@ public class FXMLDocumentController implements Initializable {
                 }
             }
             refrescarCanvas();
-            UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
+//            UndoRedo.guardarHistorial(ListaRectangulosSingleton.getRectangulos());
         }
     }
 
@@ -435,28 +435,32 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void deshacer(MouseEvent event) { //FALTA ALMACERNAR EL HISTORIAL
-        System.out.println("esta deshaciendo");
+//        System.out.println("esta deshaciendo");
 //        ArrayList<Rectangulo> lista = ListaRectangulosSingleton.getRectangulos();
 //        if(lista.size()>0){
 //            Rectangulo ultimo = lista.get(lista.size()-1);
 //            ListaRectangulosSingleton.getRectangulos().remove(ultimo);
 //            refrescarCanvas();
 //        }
-        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionDeshacer();
-        if (UndoRedo.getListaDeshacer().size() == 0){
-            ventanaEmergenteMensaje("No quedan más acciones para deshacer...");
-        }
-        refrescarCanvas();
-    }
 
+
+
+/////////EN pruebaaaaaaaaaaa
+//        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionDeshacer();
+//        if (UndoRedo.getListaDeshacer().size() == 0){
+//            ventanaEmergenteMensaje("No quedan más acciones para deshacer...");
+//        }
+//        refrescarCanvas();
+    }
+//
     @FXML
     private void rehacer(MouseEvent event) {
-        System.out.println("esta rehaciendo");
-        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionRehacer();
-        if (UndoRedo.getListaRehacer().size() == 0){
-            ventanaEmergenteMensaje("No quedan más acciones para rehacer...");
-        }
-        refrescarCanvas();
+//        System.out.println("esta rehaciendo");
+//        ListaRectangulosSingleton.listaDeRectangulos = UndoRedo.accionRehacer();
+//        if (UndoRedo.getListaRehacer().size() == 0){
+//            ventanaEmergenteMensaje("No quedan más acciones para rehacer...");
+//        }
+//        refrescarCanvas();
     }
 
     @FXML
