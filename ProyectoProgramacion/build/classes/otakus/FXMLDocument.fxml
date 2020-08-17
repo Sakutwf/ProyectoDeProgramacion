@@ -47,7 +47,7 @@
                      <children>
                         <ScrollPane prefHeight="612.0" prefWidth="401.0">
                            <content>
-                              <Canvas fx:id="canvas1" height="601.0" width="402.0" />
+                              <Canvas fx:id="canvas1" height="1000.0" width="1000.0" />
                            </content>
                         </ScrollPane>
                      </children>

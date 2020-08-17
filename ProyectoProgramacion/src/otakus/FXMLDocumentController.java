@@ -147,7 +147,6 @@ public class FXMLDocumentController implements Initializable {
         // Initialize the person table with the two columns.
 
         this.tableDatosExtraidos.setEditable(true);
-
         columnaIdentificador.setCellValueFactory(cellData -> cellData.getValue().getId());
         columnaTextoExtraido.setCellValueFactory(cellData -> cellData.getValue().getTextoExtraido());
         columnaTextoExtraido.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -180,7 +179,7 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<AreaInteres> areas = this.tableDatosExtraidos.getItems();
         for (AreaInteres area : areas) {
             System.out.println("Entre al evento: " + area.getId().getValue() + "  " + area.getTextoExtraido().getValue());
-            actualizarContenido(area.getId().getValue(), area.getTextoExtraido().getValue());
+            //actualizarContenido(area.getId().getValue(), area.getTextoExtraido().getValue());
         }
 
         if (!this.nombreDocumento.getText().isEmpty()) {
@@ -201,7 +200,6 @@ public class FXMLDocumentController implements Initializable {
             if (p == null) {
                 return;
             }
-//            System.out.println(p.toString());
             handleCanvasClick(p);
 
         }
@@ -249,15 +247,9 @@ public class FXMLDocumentController implements Initializable {
             r.setColorG(new Random().nextInt(255));
             r.setColorB(new Random().nextInt(255));
             r.setId(seleccion);
-
             Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
-
-//            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-//            this.areasInteres.add(new AreaInteres(seleccion, resultado));
-//            this.tableDatosExtraidos.getItems().setAll(areasInteres);
-            //ACA VA SETEANDO ID Y RESULTADO
             String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-            r.setContenido(resultado);
+            r.setContenido(resultado); //contenido que va en el json
             agregarRectangulo(r, rectangulo);
             inicio = null;
             fin = null;
@@ -272,6 +264,7 @@ public class FXMLDocumentController implements Initializable {
         //De lo contrario son ignorados.
         if (!estaDentroDeLista(rParaAgregar.getInicio()) && !estaDentroDeLista(rParaAgregar.getFin())) {
             if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)) {
+                //SETEANDO ID Y RESULTADO
                 ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
                 this.areasInteres.add(new AreaInteres(rParaAgregar.getId(), rParaAgregar.getContenido()));
                 this.tableDatosExtraidos.getItems().setAll(areasInteres);
@@ -411,6 +404,11 @@ public class FXMLDocumentController implements Initializable {
         ListaRectangulosSingleton.setRectangulos(null);
         ListaRectangulosSingleton.listaDeRectangulos = new JSONManagement().cargarJSON();
         actualJson = JSONManagement.archivoJSON;
+        this.areasInteres.clear();
+        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
+            this.areasInteres.add(new AreaInteres(r.getId(), r.getContenido().substring(1, r.getContenido().length() - 3)));
+            this.tableDatosExtraidos.getItems().setAll(areasInteres);
+        }
         refrescarCanvas();
     }
 
@@ -437,14 +435,16 @@ public class FXMLDocumentController implements Initializable {
         refrescarCanvas();
         guardarPlantilla.setVisible(false);
         eliminarPlantilla.setVisible(false);
-    }
-
-    public void actualizarContenido(String id, String contenidoActualizado) {
-        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
-            if (r.getId().equals(id)) {
-                r.setContenido(contenidoActualizado);
-            }
-        }
+        this.areasInteres.clear();
+        this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
 
     }
+
+    /**
+     * public void actualizarContenido(String id, String contenidoActualizado) {
+     * for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) { if
+     * (r.getId().equals(id)) { r.setContenido(contenidoActualizado); } }
+     *
+     * }
+     */
 }

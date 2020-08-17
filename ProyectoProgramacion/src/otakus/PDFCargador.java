@@ -10,7 +10,6 @@ import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
 import org.apache.pdfbox.pdmodel.PDDocument;
-
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.rendering.PDFRenderer;
 import org.apache.pdfbox.tools.imageio.ImageIOUtil;

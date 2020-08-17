@@ -39,12 +39,6 @@ import org.codehaus.jackson.map.ObjectMapper;
  */
 public class JSONManagement {
 
-    /**
-     * carga un json con un fileChooser y lo retorna como lista
-     *
-     * @return
-     * @throws java.io.IOException
-     */
     ObjectMapper objectMapper = new ObjectMapper();
     static ArrayList<Rectangulo> aux;
     public static File archivoJSON;
@@ -100,8 +94,6 @@ public class JSONManagement {
             if (!y.exists()) {
                 y.createNewFile();
             }
-
-            //objectMapper.writeValue(y, listaAux);
             String objectAsString = objectMapper.writeValueAsString(listaAux);
             FileWriter writer = new FileWriter(y.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(writer);
@@ -148,7 +140,6 @@ public class JSONManagement {
 
                 aux.add(r);
             }
-
         }
 
         objReader.close();
