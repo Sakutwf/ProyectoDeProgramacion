@@ -180,6 +180,7 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<AreaInteres> areas = this.tableDatosExtraidos.getItems();
         for (AreaInteres area : areas) {
             System.out.println("Entre al evento: " + area.getId().getValue() + "  " + area.getTextoExtraido().getValue());
+            actualizarContenido(area.getId().getValue(), area.getTextoExtraido().getValue());
         }
 
         if (!this.nombreDocumento.getText().isEmpty()) {
@@ -264,11 +265,6 @@ public class FXMLDocumentController implements Initializable {
 
         }
     }
-//    public void refrescarTablaTextoExtraido(){
-//        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
-//            int ancho = r.getFin().getX() - r.getInicio().getX();
-//            int alto = r.getFin().getY() - r.getInicio().getY();
-//    }
 
     public void agregarRectangulo(Rectangulo rParaAgregar, Rectangle r) {
         //Agrega un rectangulo a la lista si es valido
@@ -441,5 +437,14 @@ public class FXMLDocumentController implements Initializable {
         refrescarCanvas();
         guardarPlantilla.setVisible(false);
         eliminarPlantilla.setVisible(false);
+    }
+
+    public void actualizarContenido(String id, String contenidoActualizado) {
+        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
+            if (r.getId().equals(id)) {
+                r.setContenido(contenidoActualizado);
+            }
+        }
+
     }
 }
