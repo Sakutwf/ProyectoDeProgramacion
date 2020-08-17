@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Otakus.jar" size="3039681" download="eager" />
+    <jar href="Otakus.jar" size="3039585" download="eager" />
     <jar href="lib\commons-beanutils-1.9.2.jar" size="233859" download="eager" />
     <jar href="lib\commons-collections-3.2.1.jar" size="575389" download="eager" />
     <jar href="lib\commons-collections4-4.4.jar" size="751914" download="eager" />
@@ -31,6 +31,8 @@
     <jar href="lib\lept4j-1.10.0.jar" size="3298017" download="eager" />
     <jar href="lib\log4j-1.2.17.jar" size="489884" download="eager" />
     <jar href="lib\log4j-over-slf4j-1.7.25.jar" size="23645" download="eager" />
+    <jar href="lib\logback-classic-1.2.3.jar" size="290339" download="eager" />
+    <jar href="lib\logback-core-1.2.3.jar" size="471901" download="eager" />
     <jar href="lib\pdfbox-2.0.12.jar" size="2541248" download="eager" />
     <jar href="lib\pdfbox-app-2.0.19.jar" size="9893221" download="eager" />
     <jar href="lib\pdfbox-debugger-2.0.12.jar" size="244000" download="eager" />

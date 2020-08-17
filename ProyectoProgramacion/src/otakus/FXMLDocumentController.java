@@ -233,7 +233,7 @@ public class FXMLDocumentController implements Initializable {
                 fin = nuevoFin;
             }
             Rectangulo r = new Rectangulo(inicio, fin);
-            
+
             System.out.println("X1" + inicio.getX());
             System.out.println("Y1" + inicio.getX());
             System.out.println("X2" + fin.getX());
@@ -248,26 +248,20 @@ public class FXMLDocumentController implements Initializable {
             r.setColorG(new Random().nextInt(255));
             r.setColorB(new Random().nextInt(255));
             r.setId(seleccion);
-            
+
             Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
-            
+
 //            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
 //            this.areasInteres.add(new AreaInteres(seleccion, resultado));
 //            this.tableDatosExtraidos.getItems().setAll(areasInteres);
-
-
-
-//ACA VA SETEANDO ID Y RESULTADO
+            //ACA VA SETEANDO ID Y RESULTADO
             String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
-            
-            this.areasInteres.add(new AreaInteres(seleccion, resultado));
-            this.tableDatosExtraidos.getItems().setAll(areasInteres);
             r.setContenido(resultado);
             agregarRectangulo(r, rectangulo);
             inicio = null;
             fin = null;
             refrescarCanvas();
-            
+
         }
     }
 //    public void refrescarTablaTextoExtraido(){
@@ -283,19 +277,14 @@ public class FXMLDocumentController implements Initializable {
         if (!estaDentroDeLista(rParaAgregar.getInicio()) && !estaDentroDeLista(rParaAgregar.getFin())) {
             if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)) {
                 ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
+                this.areasInteres.add(new AreaInteres(rParaAgregar.getId(), rParaAgregar.getContenido()));
+                this.tableDatosExtraidos.getItems().setAll(areasInteres);
             } else {
-                System.out.println("entro aqui el primer validador");
-                int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                this.areasInteres.remove(indice);
-                this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                 ventanaEmergenteMensaje("¡¡Ya existe un rectángulo dentro de esta posición!!");
             }
         } else {
-            System.out.println("entro aca el 2do validador");
-            int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                this.areasInteres.remove(indice);
-                this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
-                ventanaEmergenteMensaje("¡¡Ya existe un rectángulo en esta posición!!");
+
+            ventanaEmergenteMensaje("¡¡Ya existe un rectángulo en esta posición!!");
         }
     }
 
