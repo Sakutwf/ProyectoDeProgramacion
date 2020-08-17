@@ -94,6 +94,7 @@ public class FXMLDocumentController implements Initializable {
 
     private int contadorPDF = 1;
     private File actualJson;
+    private int cambioContenido = 0;
 
     @FXML
     public void handleButtonAction(ActionEvent event) {
@@ -170,6 +171,7 @@ public class FXMLDocumentController implements Initializable {
 
         AreaInteres textoExtraidoSeleccionado = this.tableDatosExtraidos.getSelectionModel().getSelectedItem();
         textoExtraidoSeleccionado.setTextoExtraido(event.getNewValue().toString());
+        cambioContenido++;
 
     }
 
@@ -179,7 +181,7 @@ public class FXMLDocumentController implements Initializable {
         ObservableList<AreaInteres> areas = this.tableDatosExtraidos.getItems();
         for (AreaInteres area : areas) {
             System.out.println("Entre al evento: " + area.getId().getValue() + "  " + area.getTextoExtraido().getValue());
-            //actualizarContenido(area.getId().getValue(), area.getTextoExtraido().getValue());
+            actualizarContenido(area.getId().getValue(), area.getTextoExtraido().getValue());
         }
 
         if (!this.nombreDocumento.getText().isEmpty()) {
@@ -266,8 +268,9 @@ public class FXMLDocumentController implements Initializable {
             if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)) {
                 //SETEANDO ID Y RESULTADO
                 ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
-                this.areasInteres.add(new AreaInteres(rParaAgregar.getId(), rParaAgregar.getContenido()));
-                this.tableDatosExtraidos.getItems().setAll(areasInteres);
+                //this.areasInteres.add(new AreaInteres(rParaAgregar.getId(), rParaAgregar.getContenido()));
+                //this.tableDatosExtraidos.getItems().setAll(areasInteres);
+
             } else {
                 ventanaEmergenteMensaje("¡¡Ya existe un rectángulo dentro de esta posición!!");
             }
@@ -282,7 +285,8 @@ public class FXMLDocumentController implements Initializable {
         canvas.setHeight(PDFImage.getHeight());
         canvas.setWidth(PDFImage.getWidth());
         gc.drawImage(PDFImage, 0, 0, canvas.getWidth(), canvas.getHeight());
-
+        this.areasInteres.clear();
+        this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
 //    Dibujar rectangulos
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             int ancho = r.getFin().getX() - r.getInicio().getX();
@@ -290,7 +294,11 @@ public class FXMLDocumentController implements Initializable {
             gc.setStroke(r.getColor());
             gc.setLineWidth(2);
             gc.strokeRect(r.getInicio().getX(), r.getInicio().getY(), ancho, alto);
+
+            this.areasInteres.add(new AreaInteres(r.getId(), r.getContenido().substring(1, r.getContenido().length() - 3)));
+            this.tableDatosExtraidos.getItems().setAll(areasInteres);
         }
+
         this.refrescarDos();
     }
 
@@ -344,9 +352,9 @@ public class FXMLDocumentController implements Initializable {
         try {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-                    int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                    this.areasInteres.remove(indice);
-                    this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
+                    //int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                    //this.areasInteres.remove(indice);
+                    //this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
 
                 }
@@ -355,9 +363,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-                    int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                    this.areasInteres.remove(indice);
-                    this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
+                    //int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                    // this.areasInteres.remove(indice);
+                    //this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
                 }
             }
@@ -440,11 +448,13 @@ public class FXMLDocumentController implements Initializable {
 
     }
 
-    /**
-     * public void actualizarContenido(String id, String contenidoActualizado) {
-     * for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) { if
-     * (r.getId().equals(id)) { r.setContenido(contenidoActualizado); } }
-     *
-     * }
-     */
+    public void actualizarContenido(String id, String contenidoActualizado) {
+        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
+            if (r.getId().equals(id)) {
+                //System.out.println(contenidoActualizado);
+                r.setContenido(contenidoActualizado);
+            }
+        }
+    }
+
 }

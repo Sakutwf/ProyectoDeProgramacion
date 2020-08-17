@@ -87,6 +87,7 @@ public class JSONManagement {
             rect.setInicio(r.getInicio());
             rect.setFin(r.getFin());
             System.out.println("Guardando id: " + r.getId());
+            System.out.println("Guardando texto: "+ r.getContenido());
             listaAux.add(rect);
         }
         try {
@@ -149,7 +150,7 @@ public class JSONManagement {
     public void serializarPlantillaCargada() {
         serializarListaRectangulos(this.archivoJSON.getName(), ListaRectangulosSingleton.getRectangulos());
     }
-
+    
     public void eliminarPlantillaCargada() {
         try {
             File archivo = this.archivoJSON;
