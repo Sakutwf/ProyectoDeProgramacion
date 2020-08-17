@@ -233,6 +233,7 @@ public class FXMLDocumentController implements Initializable {
                 fin = nuevoFin;
             }
             Rectangulo r = new Rectangulo(inicio, fin);
+            
             System.out.println("X1" + inicio.getX());
             System.out.println("Y1" + inicio.getX());
             System.out.println("X2" + fin.getX());
@@ -247,18 +248,35 @@ public class FXMLDocumentController implements Initializable {
             r.setColorG(new Random().nextInt(255));
             r.setColorB(new Random().nextInt(255));
             r.setId(seleccion);
-            agregarRectangulo(r);
+            
             Rectangle rectangulo = new Rectangle(inicio.getX(), inicio.getY(), (fin.getX() - inicio.getX()), (fin.getY() - inicio.getY()));
+            
+//            String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
+//            this.areasInteres.add(new AreaInteres(seleccion, resultado));
+//            this.tableDatosExtraidos.getItems().setAll(areasInteres);
+
+
+
+//ACA VA SETEANDO ID Y RESULTADO
             String resultado = LectorOCR.lectorPorAreasRectangulares(rectangulo, "documento.png");
+            
             this.areasInteres.add(new AreaInteres(seleccion, resultado));
             this.tableDatosExtraidos.getItems().setAll(areasInteres);
-            refrescarCanvas();
+            r.setContenido(resultado);
+            agregarRectangulo(r, rectangulo);
             inicio = null;
             fin = null;
+            refrescarCanvas();
+            
         }
     }
+//    public void refrescarTablaTextoExtraido(){
+//        for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
+//            int ancho = r.getFin().getX() - r.getInicio().getX();
+//            int alto = r.getFin().getY() - r.getInicio().getY();
+//    }
 
-    public void agregarRectangulo(Rectangulo rParaAgregar) {
+    public void agregarRectangulo(Rectangulo rParaAgregar, Rectangle r) {
         //Agrega un rectangulo a la lista si es valido
         //Se considera valido si su punto no esta dentro de otro rectangulo
         //De lo contrario son ignorados.
@@ -266,10 +284,18 @@ public class FXMLDocumentController implements Initializable {
             if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)) {
                 ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
             } else {
+                System.out.println("entro aqui el primer validador");
+                int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                this.areasInteres.remove(indice);
+                this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                 ventanaEmergenteMensaje("¡¡Ya existe un rectángulo dentro de esta posición!!");
             }
         } else {
-            ventanaEmergenteMensaje("¡¡Ya existe un rectángulo en esta posición!!");
+            System.out.println("entro aca el 2do validador");
+            int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
+                this.areasInteres.remove(indice);
+                this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
+                ventanaEmergenteMensaje("¡¡Ya existe un rectángulo en esta posición!!");
         }
     }
 

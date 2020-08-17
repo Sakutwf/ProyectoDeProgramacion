@@ -17,6 +17,8 @@ public class Rectangulo {
     private Punto Inicio;
     private Punto Fin;
     private String contenido;
+    private int ancho;
+    private int alto;
     
     @JsonCreator
     public Rectangulo(@JsonProperty ("Inicio") Punto Inicio, @JsonProperty("Fin") Punto Fin) {
@@ -25,9 +27,19 @@ public class Rectangulo {
     }
     
     @JsonCreator
+    public Rectangulo(@JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,
+            @JsonProperty ("ancho") int ancho, @JsonProperty ("alto") int alto){
+        this.Inicio = Inicio;
+        this.Fin = Fin;
+        this.ancho = ancho;
+        this.alto = alto;
+    }
+    
+    @JsonCreator
     public Rectangulo(@JsonProperty ("id") String id, @JsonProperty ("colorR") int colorR,
             @JsonProperty ("colorG") int colorG, @JsonProperty ("colorB") int colorB,
-            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,@JsonProperty ("contenido") String contenido){
+            @JsonProperty ("Inicio") Punto Inicio, @JsonProperty ("Fin") Punto Fin,
+            @JsonProperty ("contenido") String contenido){
         this.id = id;
         this.colorR = colorR;
         this.colorG = colorG;
@@ -35,6 +47,8 @@ public class Rectangulo {
         this.Inicio = Inicio;
         this.Fin = Fin;
         this.contenido = contenido;
+        this.ancho = ancho;
+        this.alto = alto;
     }
 
     public Rectangulo() {}

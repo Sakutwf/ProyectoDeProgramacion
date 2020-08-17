@@ -38,8 +38,6 @@ import org.codehaus.jackson.map.ObjectMapper;
  * @author Saaku
  */
 public class JSONManagement {
-
-
     /**
      * carga un json con un fileChooser y lo retorna como lista
      *
