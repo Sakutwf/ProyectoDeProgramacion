@@ -45,7 +45,6 @@ import javax.swing.JOptionPane;
 public class FXMLDocumentController implements Initializable {
 
     private Image PDFImage;
-//    private static ArrayList<Rectangulo> listadoRectangulos= new ArrayList<>();
     private Punto inicio;
     private Punto fin;
     private boolean clickBorrar = false;
@@ -268,9 +267,6 @@ public class FXMLDocumentController implements Initializable {
             if (!nuevoRcontieneAlgunRectangulo(rParaAgregar)) {
                 //SETEANDO ID Y RESULTADO
                 ListaRectangulosSingleton.getRectangulos().add(rParaAgregar);
-                //this.areasInteres.add(new AreaInteres(rParaAgregar.getId(), rParaAgregar.getContenido()));
-                //this.tableDatosExtraidos.getItems().setAll(areasInteres);
-
             } else {
                 ventanaEmergenteMensaje("¡¡Ya existe un rectángulo dentro de esta posición!!");
             }
@@ -352,9 +348,6 @@ public class FXMLDocumentController implements Initializable {
         try {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-                    //int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                    //this.areasInteres.remove(indice);
-                    //this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
 
                 }
@@ -363,9 +356,6 @@ public class FXMLDocumentController implements Initializable {
         } catch (Exception e) {
             for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
                 if (estaDentro(p, r)) {
-                    //int indice = ListaRectangulosSingleton.getRectangulos().indexOf(r);
-                    // this.areasInteres.remove(indice);
-                    //this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
                     ListaRectangulosSingleton.getRectangulos().remove(r);
                 }
             }
@@ -380,7 +370,7 @@ public class FXMLDocumentController implements Initializable {
         if (actualJson != null) {
             EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
         } else {
-            String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json");
+            String nombreArchivo = JOptionPane.showInputDialog("Ingrese nombre para almacenar json, agregue extensión .json");
             new JSONManagement().serializarListaRectangulos(nombreArchivo, ListaRectangulosSingleton.getRectangulos());
         }
     }
@@ -434,6 +424,7 @@ public class FXMLDocumentController implements Initializable {
         EditorDePlantillas.serializarListaRectangulos(actualJson.getName(), ListaRectangulosSingleton.getRectangulos());
         guardarPlantilla.setVisible(false);
         eliminarPlantilla.setVisible(false);
+        actualJson = null;
     }
 
     @FXML
@@ -445,13 +436,13 @@ public class FXMLDocumentController implements Initializable {
         eliminarPlantilla.setVisible(false);
         this.areasInteres.clear();
         this.tableDatosExtraidos.getItems().setAll(this.areasInteres);
+        actualJson = null;
 
     }
 
     public void actualizarContenido(String id, String contenidoActualizado) {
         for (Rectangulo r : ListaRectangulosSingleton.getRectangulos()) {
             if (r.getId().equals(id)) {
-                //System.out.println(contenidoActualizado);
                 r.setContenido(contenidoActualizado);
             }
         }
